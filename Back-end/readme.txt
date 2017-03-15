@@ -1,2 +1,2 @@
-Для сборки REST-API back-end необходимо использовать Maven (mvc clean install). Запускаться собранное приложение на Apache Tomcat, который является встроенным по умолчанию контейнером сервлетов в Spring Boot. В результате сборки проекта с помощью Maven будет получен jar файл, который необходимо запустить. Собранное приложение необходимо развернуть. Для доступа к сервисам необходимо использовать IP – адрес сервера с развернутым приложением.
+Use Maven for build solution (mvn clean install). Application uses built-in Apache Tomcat Spring Boot. For using deployed application have to install MySQL and change connection with DB in application.properties.
  
