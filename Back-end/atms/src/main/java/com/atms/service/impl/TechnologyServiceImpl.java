@@ -1,0 +1,42 @@
+package com.atms.service.impl;
+
+import com.atms.model.Technology;
+import com.atms.repository.TechnologyRepository;
+import com.atms.service.TechnologyService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+/**
+ * Created by alex on 3/15/2017.
+ */
+public class TechnologyServiceImpl implements TechnologyService {
+
+    @Autowired
+    private TechnologyRepository technologyRepository;
+
+    @Override
+    public Technology save(Technology technology) {
+        return technologyRepository.saveAndFlush(technology);
+    }
+
+    @Override
+    public Technology update(Technology technology) {
+        return technologyRepository.save(technology);
+    }
+
+    @Override
+    public Technology findOne(Integer id) {
+        return technologyRepository.findOne(id);
+    }
+
+    @Override
+    public List<Technology> findAll() {
+        return technologyRepository.findAll();
+    }
+
+    @Override
+    public void delete(Technology technology) {
+        technologyRepository.delete(technology);
+    }
+}
