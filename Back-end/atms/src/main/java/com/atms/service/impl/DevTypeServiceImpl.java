@@ -4,13 +4,19 @@ import com.atms.model.DevType;
 import com.atms.repository.DevTypeRepository;
 import com.atms.service.DevTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class DevTypeServiceImpl implements DevTypeService {
 
+    private final DevTypeRepository devTypeRepository;
+
     @Autowired
-    private DevTypeRepository devTypeRepository;
+    public DevTypeServiceImpl(DevTypeRepository devTypeRepository) {
+        this.devTypeRepository = devTypeRepository;
+    }
 
     @Override
     public DevType save(DevType devType) {

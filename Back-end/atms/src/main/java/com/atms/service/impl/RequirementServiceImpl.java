@@ -4,16 +4,23 @@ import com.atms.model.Requirement;
 import com.atms.repository.RequirementsRepository;
 import com.atms.service.RequirementService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by alex on 3/15/2017.
  */
+
+@Service
 public class RequirementServiceImpl implements RequirementService {
 
+    private final RequirementsRepository requirementsRepository;
+
     @Autowired
-    private RequirementsRepository requirementsRepository;
+    public RequirementServiceImpl(RequirementsRepository requirementsRepository) {
+        this.requirementsRepository = requirementsRepository;
+    }
 
     @Override
     public Requirement save(Requirement requirement) {

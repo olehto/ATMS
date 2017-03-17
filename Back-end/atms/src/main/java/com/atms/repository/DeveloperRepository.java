@@ -1,10 +1,14 @@
 package com.atms.repository;
 
 import com.atms.model.Developer;
+import com.atms.model.Project;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-/**
- * Created by alex on 3/15/2017.
- */
+import java.util.List;
+
+@Repository
 public interface DeveloperRepository extends JpaRepository<Developer, Integer> {
+
+    List<Developer> findByTasksSprintProject(Project project);
 }

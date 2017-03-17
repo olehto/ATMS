@@ -1,12 +1,16 @@
 package com.atms.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Set;
 
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "developerId")
 public class Developer {
-    private int developerId;
+    private Integer developerId;
     private String name;
     private String lastName;
     private String email;
@@ -19,12 +23,13 @@ public class Developer {
     private Set<Technology> technologies;
 
     @Id
+    @GeneratedValue
     @Column(name = "developer_id")
-    public int getDeveloperId() {
+    public Integer getDeveloperId() {
         return developerId;
     }
 
-    public void setDeveloperId(int developerId) {
+    public void setDeveloperId(Integer developerId) {
         this.developerId = developerId;
     }
 
@@ -100,7 +105,7 @@ public class Developer {
 
 
     @ManyToOne
-    @JoinColumn(name = "dev_type_id", referencedColumnName = "dev_type_id")
+    @JoinColumn(name = "dev_type_id", referencedColumnName = "dev_type_id", insertable = false, nullable = false, updatable = false)
     public DevType getDevType() {
         return devType;
     }
@@ -109,8 +114,7 @@ public class Developer {
         this.devType = devType;
     }
 
-    @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "developer_id"))
+    @OneToMany(mappedBy = "developer")//, targetEntity = Task.class)
     public Set<Task> getTasks() {
         return tasks;
     }

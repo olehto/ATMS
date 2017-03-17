@@ -1,11 +1,15 @@
 package com.atms.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.sql.Date;
 import java.util.Set;
 
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "sprintId")
 public class Sprint {
     private int sprintId;
     private Date dateStart;
@@ -15,6 +19,7 @@ public class Sprint {
     private Set<Task> tasks;
 
     @Id
+    @GeneratedValue
     @Column(name = "sprint_id")
     public int getSprintId() {
         return sprintId;
@@ -52,7 +57,7 @@ public class Sprint {
     }
 
     @ManyToOne
-    @JoinColumn(name = "project_id", referencedColumnName = "project_id")
+    @JoinColumn(name = "project_id", referencedColumnName = "project_id", updatable = false, insertable = false)
     public Project getProject() {
         return project;
     }
@@ -61,7 +66,7 @@ public class Sprint {
         this.project = project;
     }
 
-    @OneToMany(mappedBy = "task")
+    @OneToMany(mappedBy = "sprint")
     public Set<Task> getTasks(){return tasks;}
 
     public void setTasks(Set<Task> tasks){

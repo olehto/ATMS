@@ -1,5 +1,8 @@
 package com.atms.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -7,12 +10,14 @@ import java.util.Set;
  * Created by alex on 3/15/2017.
  */
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "keywordId")
 public class Keyword {
     private int keywordId;
     private String value;
     private Set<Task> tasks;
 
     @Id
+    @GeneratedValue
     @Column(name = "keyword_id")
     public int getKeywordId() {
         return keywordId;

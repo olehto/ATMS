@@ -1,10 +1,15 @@
 package com.atms.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Set;
 
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "taskId")
 public class Task {
     private int taskId;
     private String title;
@@ -19,8 +24,11 @@ public class Task {
     private Status status;
     private Sprint sprint;
     private Developer developer;
+    private Set<Document> documents;
+    private Set<Keyword> keywords;
 
     @Id
+    @GeneratedValue
     @Column(name = "task_id")
     public int getTaskId() {
         return taskId;
@@ -132,7 +140,7 @@ public class Task {
     }
 
     @ManyToOne
-    @JoinColumn(name = "sprint_id", referencedColumnName = "sprint_id")
+    @JoinColumn(name = "sprint_id", referencedColumnName = "sprint_id", updatable = false, insertable = false)
     public Sprint getSprint() {
         return sprint;
     }
@@ -142,7 +150,7 @@ public class Task {
     }
 
     @ManyToOne
-    @JoinColumn(name = "developer_id", referencedColumnName = "developer_id")
+    @JoinColumn(name = "developer_id")//, referencedColumnName = "developer_id")
     public Developer getDeveloper() {
         return developer;
     }
@@ -150,4 +158,25 @@ public class Task {
     public void setDeveloper(Developer developer) {
         this.developer = developer;
     }
+
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "keyword_id"))
+    public Set<Keyword> getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(Set<Keyword> keywords) {
+        this.keywords = keywords;
+    }
+
+    @OneToMany(mappedBy = "task")
+    //@JoinTable(joinColumns = @JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "document_id"))
+    public Set<Document> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(Set<Document> documents) {
+        this.documents = documents;
+    }
+
 }

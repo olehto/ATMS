@@ -1,17 +1,21 @@
 package com.atms.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Set;
 
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "devTypeId")
 public class DevType {
     private int devTypeId;
     private String value;
     private Set<Developer> developers;
 
     @Id
+    @GeneratedValue
     @Column(name = "dev_type_id")
     public int getDevTypeId() {
         return devTypeId;
@@ -32,7 +36,7 @@ public class DevType {
     }
 
 
-    @OneToMany(mappedBy = "developers")
+    @OneToMany(mappedBy = "devType")
     public Set<Developer> getDevelopers() {
         return developers;
     }

@@ -1,12 +1,15 @@
 package com.atms.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Collection;
 import java.util.Set;
 
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "projectId")
 public class Project {
     private int projectId;
     private String title;
@@ -16,6 +19,7 @@ public class Project {
     private Set<Sprint> sprints;
 
     @Id
+    @GeneratedValue
     @Column(name = "project_id")
     public int getProjectId() {
         return projectId;

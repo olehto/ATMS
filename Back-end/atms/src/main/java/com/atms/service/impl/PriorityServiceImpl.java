@@ -4,16 +4,23 @@ import com.atms.model.Priority;
 import com.atms.repository.PriorityRepository;
 import com.atms.service.PriorityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by alex on 3/15/2017.
  */
+
+@Service
 public class PriorityServiceImpl implements PriorityService {
 
+    private final PriorityRepository priorityRepository;
+
     @Autowired
-    private PriorityRepository priorityRepository;
+    public PriorityServiceImpl(PriorityRepository priorityRepository) {
+        this.priorityRepository = priorityRepository;
+    }
 
     @Override
     public Priority save(Priority priority) {

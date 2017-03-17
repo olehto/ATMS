@@ -1,6 +1,5 @@
 package com.atms.service;
 
-import com.atms.model.Keyword;
 import com.atms.model.Priority;
 
 import java.util.List;

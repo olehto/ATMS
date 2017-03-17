@@ -1,16 +1,20 @@
 package com.atms.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
-import java.util.Set;
 
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "documentId")
 public class Document {
     private int documentId;
     private String link;
-    private Set<Task> tasks;
+    private Task task;
 
     @Id
+    @GeneratedValue
     @Column(name = "document_id")
     public int getDocumentId() {
         return documentId;
@@ -30,13 +34,14 @@ public class Document {
         this.link = link;
     }
 
-    @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "document_id"), inverseJoinColumns = @JoinColumn(name = "task_id"))
-    public Set<Task> getTasks() {
-        return tasks;
+    @ManyToOne
+    @JoinColumn(name = "task_id")
+    //@JoinTable(joinColumns = @JoinColumn(name = "document_id"), inverseJoinColumns = @JoinColumn(name = "task_id"))
+    public Task getTask() {
+        return task;
     }
 
-    public void setTasks(Set<Task> tasks) {
-        this.tasks = tasks;
+    public void setTask(Task task) {
+        this.task = task;
     }
 }

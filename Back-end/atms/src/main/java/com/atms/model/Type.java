@@ -1,25 +1,29 @@
 package com.atms.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Set;
 
 /**
  * Created by alex on 3/15/2017.
  */
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "typeId")
 public class Type {
-    private String typeId;
+    private Integer typeId;
     private String typeValue;
     private Set<Task> tasks;
 
     @Id
+    @GeneratedValue
     @Column(name = "type_id")
-    public String getTypeId() {
+    public Integer getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(String typeId) {
+    public void setTypeId(Integer typeId) {
         this.typeId = typeId;
     }
 

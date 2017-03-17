@@ -1,18 +1,23 @@
 package com.atms.service.impl;
 
-import com.atms.model.DevType;
 import com.atms.model.Developer;
+import com.atms.model.Project;
 import com.atms.repository.DeveloperRepository;
 import com.atms.service.DeveloperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
+@Service
 public class DeveloperServiceImpl implements DeveloperService {
 
+    private final DeveloperRepository developerRepository;
+
     @Autowired
-    private DeveloperRepository developerRepository;
+    public DeveloperServiceImpl(DeveloperRepository developerRepository) {
+        this.developerRepository = developerRepository;
+    }
 
 
     @Override
@@ -38,5 +43,10 @@ public class DeveloperServiceImpl implements DeveloperService {
     @Override
     public void delete(Developer developer) {
         developerRepository.delete(developer);
+    }
+
+    @Override
+    public List<Developer> findByProject(Project project) {
+        return developerRepository.findByTasksSprintProject(project);
     }
 }

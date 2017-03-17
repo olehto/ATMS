@@ -1,5 +1,8 @@
 package com.atms.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -7,6 +10,7 @@ import java.util.Set;
  * Created by alex on 3/15/2017.
  */
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "requirementId")
 @Table(name = "functional_requirements", schema = "atms", catalog = "")
 public class Requirement {
     private int requirementId;
@@ -15,6 +19,7 @@ public class Requirement {
     private Set<Task> tasks;
 
     @Id
+    @GeneratedValue
     @Column(name = "requirement_id")
     public int getRequirementId() {
         return requirementId;

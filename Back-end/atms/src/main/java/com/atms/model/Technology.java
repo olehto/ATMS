@@ -1,20 +1,22 @@
 package com.atms.model;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-/**
- * Created by alex on 3/15/2017.
- */
+import javax.persistence.*;
+import java.util.Set;
+
+
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "technologyId")
 public class Technology {
     private int technologyId;
     private String title;
     private String description;
+    private Set<Developer> developers;
 
     @Id
+    @GeneratedValue
     @Column(name = "technology_id")
     public int getTechnologyId() {
         return technologyId;
@@ -24,7 +26,7 @@ public class Technology {
         this.technologyId = technologyId;
     }
 
-    @Basic
+
     @Column(name = "title")
     public String getTitle() {
         return title;
@@ -34,7 +36,7 @@ public class Technology {
         this.title = title;
     }
 
-    @Basic
+
     @Column(name = "description")
     public String getDescription() {
         return description;
@@ -44,25 +46,13 @@ public class Technology {
         this.description = description;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Technology that = (Technology) o;
-
-        if (technologyId != that.technologyId) return false;
-        if (title != null ? !title.equals(that.title) : that.title != null) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-
-        return true;
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn(name = "technology_id"), inverseJoinColumns = @JoinColumn(name = "developer_id"))
+    public Set<Developer> getDevelopers() {
+        return developers;
     }
 
-    @Override
-    public int hashCode() {
-        int result = technologyId;
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        return result;
+    public void setDevelopers(Set<Developer> developers) {
+        this.developers = developers;
     }
 }

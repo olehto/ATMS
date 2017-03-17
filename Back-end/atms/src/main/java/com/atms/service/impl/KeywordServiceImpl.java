@@ -4,16 +4,23 @@ import com.atms.model.Keyword;
 import com.atms.repository.KeywordRepository;
 import com.atms.service.KeywordService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by alex on 3/15/2017.
  */
+
+@Service
 public class KeywordServiceImpl implements KeywordService {
 
+    private final KeywordRepository keywordRepository;
+
     @Autowired
-    private KeywordRepository keywordRepository;
+    public KeywordServiceImpl(KeywordRepository keywordRepository) {
+        this.keywordRepository = keywordRepository;
+    }
 
     @Override
     public Keyword save(Keyword keyword) {

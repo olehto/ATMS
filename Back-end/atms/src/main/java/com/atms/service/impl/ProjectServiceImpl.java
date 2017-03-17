@@ -1,19 +1,27 @@
 package com.atms.service.impl;
 
+import com.atms.model.Developer;
 import com.atms.model.Project;
 import com.atms.repository.ProjectRepository;
 import com.atms.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by alex on 3/15/2017.
  */
+
+@Service
 public class ProjectServiceImpl implements ProjectService {
 
+    private final ProjectRepository projectRepository;
+
     @Autowired
-    private ProjectRepository projectRepository;
+    public ProjectServiceImpl(ProjectRepository projectRepository) {
+        this.projectRepository = projectRepository;
+    }
 
     @Override
     public Project save(Project project) {
@@ -33,6 +41,11 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<Project> findAll() {
         return projectRepository.findAll();
+    }
+
+    @Override
+    public List<Project> findByDeveloper(Developer developer) {
+        return projectRepository.findBySprintsTasksDeveloper(developer);
     }
 
     @Override

@@ -4,16 +4,23 @@ import com.atms.model.Type;
 import com.atms.repository.TypeRepository;
 import com.atms.service.TypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by alex on 3/15/2017.
  */
+
+@Service
 public class TypeServiceImpl implements TypeService {
 
+    private final TypeRepository typeRepository;
+
     @Autowired
-    private TypeRepository typeRepository;
+    public TypeServiceImpl(TypeRepository typeRepository) {
+        this.typeRepository = typeRepository;
+    }
 
     @Override
     public Type save(Type type) {
