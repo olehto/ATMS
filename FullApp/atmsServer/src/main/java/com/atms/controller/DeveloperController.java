@@ -5,11 +5,9 @@ import com.atms.model.Technology;
 import com.atms.service.DeveloperService;
 import com.atms.service.ProjectService;
 import com.atms.service.TechnologyService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -51,21 +49,43 @@ public class DeveloperController {
         }
     }
 
-    @RequestMapping(value = "/developer/authorize", method = RequestMethod.POST)
+    /*@RequestMapping(value = "/developer/authorize", method = RequestMethod.POST)
     public Developer authorize(Developer developer) {
         return developerService.getAuth(developer);
-    }
+    }*/
+    @RequestMapping(value = "/developer/authorize", method = RequestMethod.POST)
+    public Developer checkAccount (/*@RequestParam(value="username", defaultValue="") String name,
+                                                               @RequestParam(value="password", defaultValue="") String pass*/
+                                              @RequestBody String body) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            Developer account = (Developer) mapper.readValue(body, Developer.class);
+            Developer temp=developerService.getAuth(account);
+            if(temp.getEmail()==null)return null;
+            return temp;
+        }
+        catch (Exception ex){
+            return null;
+        }
 
+    }
     @RequestMapping(value = "/developer", method = RequestMethod.PUT)
     public Developer update(Developer developer) {
         return developerService.update(developer);
     }
 
     @RequestMapping(value = "/developer", method = RequestMethod.POST)
-    public Developer add(Developer developer) {
-        return developerService.save(developer);
-    }
+    public Developer addAccount (@RequestBody String body) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            Developer account = (Developer) mapper.readValue(body, Developer.class);
+            return developerService.save(account);
+        }
+        catch (Exception ex){
+            return null;
+        }
 
+    }
     @RequestMapping(value = "/developer", method = RequestMethod.DELETE)
     public void delete(Developer developer) {
         developerService.delete(developer);

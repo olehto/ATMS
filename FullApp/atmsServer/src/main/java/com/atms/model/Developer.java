@@ -11,7 +11,7 @@ import java.util.Set;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "developerId")
 public class Developer {
     private Integer developerId;
-    private String name;
+    private String firstName;
     private String lastName;
     private String email;
     private String telephone;
@@ -34,13 +34,13 @@ public class Developer {
     }
 
 
-    @Column(name = "name")
-    public String getName() {
-        return name;
+    @Column(name = "firstName")
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String name) {
+        this.firstName = name;
     }
 
 

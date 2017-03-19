@@ -54,7 +54,7 @@ public class DeveloperServiceImpl implements DeveloperService {
     @Override
     public Developer getAuth(Developer developer){
         List<Developer> list = developerRepository.findByEmail(developer.getEmail());
-        if(list!=null&&list.get(0).getPassword().equals(developer.getPassword())){
+        if(list.size()!=0&&list.get(0).getPassword().equals(developer.getPassword())){
             return list.get(0);
         }
         else{
