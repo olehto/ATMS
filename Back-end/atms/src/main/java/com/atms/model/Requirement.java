@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 /**
@@ -14,6 +15,7 @@ import java.util.Set;
 @Table(name = "functional_requirements", schema = "atms", catalog = "")
 public class Requirement {
     private int requirementId;
+    @NotNull
     private String title;
     private String description;
     private Set<Task> tasks;

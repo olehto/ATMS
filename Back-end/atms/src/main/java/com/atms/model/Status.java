@@ -1,9 +1,11 @@
 package com.atms.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 /**
@@ -13,8 +15,17 @@ import java.util.Set;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "statusId")
 public class Status {
     private int statusId;
+    @NotNull
     private String value;
+    @JsonIgnore
     private Set<Task> tasks;
+
+    public Status() {
+    }
+
+    public Status(String value) {
+        this.value = value;
+    }
 
     @Id
     @GeneratedValue

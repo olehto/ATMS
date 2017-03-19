@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 /**
@@ -13,8 +14,16 @@ import java.util.Set;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "priorityId")
 public class Priority {
     private int priorityId;
+    @NotNull
     private String priorityValue;
     private Set<Task> tasks;
+
+    public Priority() {
+    }
+
+    public Priority(String priorityValue) {
+        this.priorityValue = priorityValue;
+    }
 
     @Id
     @GeneratedValue

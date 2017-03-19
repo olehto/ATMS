@@ -11,4 +11,6 @@ import java.util.List;
 public interface DeveloperRepository extends JpaRepository<Developer, Integer> {
 
     List<Developer> findByTasksSprintProject(Project project);
+
+
 }

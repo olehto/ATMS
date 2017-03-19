@@ -43,7 +43,11 @@ public class SprintServiceImpl implements SprintService {
     }
 
     @Override
-    public void delete(Sprint sprint) {
-        sprintRepository.delete(sprint);
+    public boolean delete(Integer id) {
+        if (sprintRepository.exists(id)) {
+            sprintRepository.delete(id);
+            return true;
+        }
+        return false;
     }
 }

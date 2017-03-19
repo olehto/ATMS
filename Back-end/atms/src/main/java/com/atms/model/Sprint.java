@@ -14,7 +14,6 @@ public class Sprint {
     private int sprintId;
     private Date dateStart;
     private Date dateEnd;
-    private Integer projectId;
     private Project project;
     private Set<Task> tasks;
 
@@ -45,15 +44,6 @@ public class Sprint {
 
     public void setDateEnd(Date dateEnd) {
         this.dateEnd = dateEnd;
-    }
-
-    @Column(name = "project_id")
-    public Integer getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(Integer projectId) {
-        this.projectId = projectId;
     }
 
     @ManyToOne

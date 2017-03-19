@@ -9,6 +9,7 @@ import java.util.List;
  * Created by alex on 3/15/2017.
  */
 public interface ProjectService {
+
     Project save(Project project);
 
     Project update(Project project);
@@ -19,5 +20,5 @@ public interface ProjectService {
 
     List<Project> findByDeveloper(Developer developer);
 
-    void delete(Project project);
+    boolean delete(Integer id);
 }

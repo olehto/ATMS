@@ -16,7 +16,7 @@ public interface DeveloperService {
 
     List<Developer> findAll();
 
-    void delete(Developer developer);
+    boolean delete(Developer developer);
 
     List<Developer> findByProject(Project project);
 

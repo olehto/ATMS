@@ -43,7 +43,11 @@ public class StatusServiceImpl implements StatusService {
     }
 
     @Override
-    public void delete(Status status) {
-        statusRepository.delete(status);
+    public boolean delete(Integer id) {
+        if (statusRepository.exists(id)) {
+            statusRepository.delete(id);
+            return true;
+        }
+        return false;
     }
 }

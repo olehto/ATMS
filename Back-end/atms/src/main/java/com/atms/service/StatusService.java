@@ -1,6 +1,5 @@
 package com.atms.service;
 
-import com.atms.model.Sprint;
 import com.atms.model.Status;
 
 import java.util.List;
@@ -17,5 +16,5 @@ public interface StatusService {
 
     List<Status> findAll();
 
-    void delete(Status status);
+    boolean delete(Integer id);
 }

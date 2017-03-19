@@ -1,6 +1,5 @@
 package com.atms.service;
 
-import com.atms.model.Technology;
 import com.atms.model.Type;
 
 import java.util.List;
@@ -17,5 +16,5 @@ public interface TypeService {
 
     List<Type> findAll();
 
-    void delete(Type type);
+    boolean delete(Integer id);
 }
