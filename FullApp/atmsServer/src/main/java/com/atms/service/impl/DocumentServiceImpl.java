@@ -1,7 +1,6 @@
 package com.atms.service.impl;
 
 import com.atms.model.Document;
-import com.atms.model.Task;
 import com.atms.repository.DocumentRepository;
 import com.atms.service.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,12 +42,11 @@ public class DocumentServiceImpl implements DocumentService {
     }
 
     @Override
-    public List<Document> findByTask(Task task) {
-        return documentRepository.findByTask(task);
-    }
-
-    @Override
-    public void delete(Document document) {
-        documentRepository.delete(document);
+    public boolean delete(Integer id) {
+        if (documentRepository.exists(id)) {
+            documentRepository.delete(id);
+            return true;
+        }
+        return false;
     }
 }

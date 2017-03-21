@@ -1,9 +1,11 @@
 package com.atms.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 
@@ -11,15 +13,20 @@ import java.util.Set;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "developerId")
 public class Developer {
     private Integer developerId;
-    private String firstName;
+    @NotNull
+    private String name;
+    @NotNull
     private String lastName;
     private String email;
     private String telephone;
+    @NotNull
     private String nickname;
+    @NotNull
     private String password;
-    private Integer devTypeId;
     private DevType devType;
+    @JsonIgnore
     private Set<Task> tasks;
+    @JsonIgnore
     private Set<Technology> technologies;
 
     @Id
@@ -34,13 +41,13 @@ public class Developer {
     }
 
 
-    @Column(name = "firstName")
-    public String getFirstName() {
-        return firstName;
+    @Column(name = "name")
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String name) {
-        this.firstName = name;
+    public void setName(String name) {
+        this.name = name;
     }
 
 
@@ -54,7 +61,7 @@ public class Developer {
     }
 
 
-    @Column(name = "email",unique = true)
+    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -92,17 +99,6 @@ public class Developer {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
-    @Column(name = "dev_type_id")
-    public Integer getDevTypeId() {
-        return devTypeId;
-    }
-
-    public void setDevTypeId(Integer devTypeId) {
-        this.devTypeId = devTypeId;
-    }
-
 
     @ManyToOne
     @JoinColumn(name = "dev_type_id", referencedColumnName = "dev_type_id", insertable = false, nullable = false, updatable = false)

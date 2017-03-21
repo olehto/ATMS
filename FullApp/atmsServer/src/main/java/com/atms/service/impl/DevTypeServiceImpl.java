@@ -39,7 +39,11 @@ public class DevTypeServiceImpl implements DevTypeService {
     }
 
     @Override
-    public void delete(DevType devType) {
-        devTypeRepository.delete(devType);
+    public boolean delete(Integer id) {
+        if (devTypeRepository.exists(id)) {
+            devTypeRepository.delete(id);
+            return true;
+        }
+        return false;
     }
 }

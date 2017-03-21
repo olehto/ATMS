@@ -19,6 +19,8 @@ public class Task {
     private String version;
     private Timestamp startTime;
     private Timestamp endTime;
+    private Task parent;
+    private Set<Task> subtasks;
     private Priority priority;
     private Type type;
     private Status status;
@@ -179,4 +181,21 @@ public class Task {
         this.documents = documents;
     }
 
+    @ManyToOne
+    public Task getParent() {
+        return parent;
+    }
+
+    public void setParent(Task parent) {
+        this.parent = parent;
+    }
+
+    @OneToMany(mappedBy = "parent")
+    public Set<Task> getSubtasks() {
+        return subtasks;
+    }
+
+    public void setSubtasks(Set<Task> subtasks) {
+        this.subtasks = subtasks;
+    }
 }

@@ -8,8 +8,11 @@ import com.atms.service.TechnologyService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import javax.validation.Valid;
 
 @RestController
 public class DeveloperController {
@@ -27,73 +30,90 @@ public class DeveloperController {
         this.technologyService = technologyService;
     }
 
-    @RequestMapping(value = "/developer", method = RequestMethod.GET)
-    public List<Developer> getAll() {
-        return developerService.findAll();
+    @RequestMapping(value = "/api/developer", method = RequestMethod.GET)
+    public ResponseEntity<List<Developer>> getAll() {
+        List<Developer> developers = developerService.findAll();
+        if (developers == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(developers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/developer/{developerId}", method = RequestMethod.GET)
-    public Developer getDeveloper(@PathVariable("developerId") String developerId) {
-        return developerService.findOne(Integer.parseInt(developerId));
+    @RequestMapping(value = "/api/developer/{developerId}", method = RequestMethod.GET)
+    public ResponseEntity<Developer> getDeveloper(@PathVariable("developerId") String developerId) {
+        Developer developer = developerService.findOne(Integer.parseInt(developerId));
+        if (developer == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(developer, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/developer/{email}", method = RequestMethod.GET)
     public Developer remind(@PathVariable("email") String email) {
         Developer dev = developerService.findByEmail(email);
-        if(!dev.getEmail().equals("")){
+        if (!dev.getEmail().equals("")) {
             dev.setPassword("default");
             return developerService.update(dev);
-        }
-        else{
+        } else {
             return new Developer();
         }
     }
 
-    /*@RequestMapping(value = "/developer/authorize", method = RequestMethod.POST)
-    public Developer authorize(Developer developer) {
-        return developerService.getAuth(developer);
-    }*/
     @RequestMapping(value = "/developer/authorize", method = RequestMethod.POST)
-    public Developer checkAccount (/*@RequestParam(value="username", defaultValue="") String name,
+    public Developer checkAccount(/*@RequestParam(value="username", defaultValue="") String name,
                                                                @RequestParam(value="password", defaultValue="") String pass*/
-                                              @RequestBody String body) {
+                                  @RequestBody String body) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             Developer account = (Developer) mapper.readValue(body, Developer.class);
-            Developer temp=developerService.getAuth(account);
-            if(temp.getEmail()==null)return null;
+            Developer temp = developerService.getAuth(account);
+            if (temp.getEmail() == null) return null;
             return temp;
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             return null;
         }
 
     }
-    @RequestMapping(value = "/developer", method = RequestMethod.PUT)
-    public Developer update(Developer developer) {
-        return developerService.update(developer);
+
+    @RequestMapping(value = "/api/developer", method = RequestMethod.PUT)
+    public ResponseEntity<Developer> update(@Valid Developer developer) {
+        if (developerService.update(developer) == null)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(developer, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/developer", method = RequestMethod.POST)
-    public Developer addAccount (@RequestBody String body) {
+    @RequestMapping(value = "/api/developer", method = RequestMethod.POST)
+    public ResponseEntity<Developer> addAccount(@RequestBody String body) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             Developer account = (Developer) mapper.readValue(body, Developer.class);
-            return developerService.save(account);
-        }
-        catch (Exception ex){
+            if (developerService.findOne(account.getDeveloperId()) != null) {
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+            account = developerService.save(account);
+            return new ResponseEntity<>(account, HttpStatus.OK);
+        } catch (Exception ex) {
             return null;
         }
 
     }
-    @RequestMapping(value = "/developer", method = RequestMethod.DELETE)
-    public void delete(Developer developer) {
-        developerService.delete(developer);
+
+    @RequestMapping(value = "/api/developer", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> delete(Developer developer) {
+
+        if (developerService.delete(developer)) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/developer/project/{projectId}", method = RequestMethod.GET)
-    public List<Developer> getByProject(@PathVariable("projectId") String projectId) {
-        return developerService.findByProject(projectService.findOne(Integer.parseInt(projectId)));
+    @RequestMapping(value = "/api/developer/project/{projectId}", method = RequestMethod.GET)
+    public ResponseEntity<List<Developer>> getByProject(@PathVariable("projectId") String projectId) {
+        List<Developer> developers = developerService.findByProject(projectService.findOne(Integer.parseInt(projectId)));
+        if (developers == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(developers, HttpStatus.OK);
     }
 
     /*@RequestMapping(value = "/developer/technology/{technologyId}", method = RequestMethod.GET)

@@ -43,7 +43,11 @@ public class TechnologyServiceImpl implements TechnologyService {
     }
 
     @Override
-    public void delete(Technology technology) {
-        technologyRepository.delete(technology);
+    public boolean delete(Integer id) {
+        if (technologyRepository.exists(id)) {
+            technologyRepository.delete(id);
+            return true;
+        }
+        return false;
     }
 }

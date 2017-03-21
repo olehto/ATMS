@@ -43,7 +43,12 @@ public class KeywordServiceImpl implements KeywordService {
     }
 
     @Override
-    public void delete(Keyword keyword) {
-        keywordRepository.delete(keyword);
+    public boolean delete(Integer id) {
+
+        if (keywordRepository.exists(id)) {
+            keywordRepository.delete(id);
+            return true;
+        }
+        return false;
     }
 }
