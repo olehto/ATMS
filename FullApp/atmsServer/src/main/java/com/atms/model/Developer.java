@@ -14,7 +14,7 @@ import java.util.Set;
 public class Developer {
     private Integer developerId;
     @NotNull
-    private String name;
+    private String firstName;
     @NotNull
     private String lastName;
     private String email;
@@ -41,13 +41,13 @@ public class Developer {
     }
 
 
-    @Column(name = "name")
-    public String getName() {
-        return name;
+    @Column(name = "first_name")
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String name) {
+        this.firstName = name;
     }
 
 

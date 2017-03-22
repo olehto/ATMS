@@ -9,35 +9,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * Created by EvSpirit on 22.03.2017.
+ */
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
-var UserService = (function () {
-    function UserService(http) {
+var ProjectService = (function () {
+    function ProjectService(http) {
         this.http = http;
     }
-    UserService.prototype.getAll = function () {
-        return this.http.get('/api/developer/').map(function (response) { return response.json(); });
+    ProjectService.prototype.getAll = function () {
+        return this.http.get('/api/project/').map(function (response) { return response.json(); });
     };
-    UserService.prototype.getById = function (id) {
-        return this.http.get('/api/developer/' + id).map(function (response) { return response.json(); });
+    ProjectService.prototype.getById = function (id) {
+        return this.http.get('/api/project/' + id).map(function (response) { return response.json(); });
     };
-    UserService.prototype.remind = function (email) {
-        return this.http.get('/api/developer/' + email).map(function (response) { return response.json(); });
-    };
-    UserService.prototype.create = function (user) {
-        var body = JSON.stringify(user);
+    ProjectService.prototype.create = function (project) {
+        var body = JSON.stringify(project);
         console.log(body);
         var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-        return this.http.post('/api/developer/', body, { headers: headers }).map(function (response) { return response.json(); });
+        return this.http.post('/api/project/', body, { headers: headers }).map(function (response) { return response.json(); });
     };
-    UserService.prototype.update = function (user) {
-        return this.http.put('/api/developer/' + user, user).map(function (response) { return response.json(); });
+    ProjectService.prototype.getByDeveloper = function (id) {
+        return this.http.get('/api/project/developer/' + id).map(function (response) { return response.json(); });
     };
-    UserService.prototype.delete = function (id) {
-        return this.http.delete('/api/developer/' + id).map(function (response) { return response.json(); });
+    ProjectService.prototype.update = function (project) {
+        return this.http.put('/api/project/' + project, project).map(function (response) { return response.json(); });
+    };
+    ProjectService.prototype.delete = function (id) {
+        return this.http.delete('/api/project/' + id).map(function (response) { return response.json(); });
     };
     // private helper methods
-    UserService.prototype.jwt = function () {
+    ProjectService.prototype.jwt = function () {
         // create authorization header with jwt token
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         if (currentUser && currentUser.token) {
@@ -45,11 +48,11 @@ var UserService = (function () {
             return new http_1.RequestOptions({ headers: headers });
         }
     };
-    return UserService;
+    return ProjectService;
 }());
-UserService = __decorate([
+ProjectService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])
-], UserService);
-exports.UserService = UserService;
-//# sourceMappingURL=user.service.js.map
+], ProjectService);
+exports.ProjectService = ProjectService;
+//# sourceMappingURL=project.service.js.map

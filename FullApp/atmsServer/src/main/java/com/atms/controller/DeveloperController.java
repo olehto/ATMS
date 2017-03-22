@@ -48,29 +48,29 @@ public class DeveloperController {
         return new ResponseEntity<>(developer, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/developer/{email}", method = RequestMethod.GET)
-    public Developer remind(@PathVariable("email") String email) {
+    @RequestMapping(value = "/api/developer/{email}", method = RequestMethod.GET)
+    public ResponseEntity<Developer> remind(@PathVariable("email") String email) {
         Developer dev = developerService.findByEmail(email);
-        if (!dev.getEmail().equals("")) {
+        if (dev!=null) {
             dev.setPassword("default");
-            return developerService.update(dev);
+            return new ResponseEntity<>(developerService.update(dev), HttpStatus.OK);
         } else {
-            return new Developer();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @RequestMapping(value = "/developer/authorize", method = RequestMethod.POST)
-    public Developer checkAccount(/*@RequestParam(value="username", defaultValue="") String name,
+    @RequestMapping(value = "/api/developer/authorize", method = RequestMethod.POST)
+    public ResponseEntity<Developer> checkAccount(/*@RequestParam(value="username", defaultValue="") String name,
                                                                @RequestParam(value="password", defaultValue="") String pass*/
                                   @RequestBody String body) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             Developer account = (Developer) mapper.readValue(body, Developer.class);
             Developer temp = developerService.getAuth(account);
-            if (temp.getEmail() == null) return null;
-            return temp;
+            if (temp.getEmail() == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(temp, HttpStatus.OK);
         } catch (Exception ex) {
-            return null;
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
     }
@@ -87,13 +87,13 @@ public class DeveloperController {
         try {
             ObjectMapper mapper = new ObjectMapper();
             Developer account = (Developer) mapper.readValue(body, Developer.class);
-            if (developerService.findOne(account.getDeveloperId()) != null) {
+            if (developerService.findByEmail(account.getEmail()) != null) {
                 return new ResponseEntity<>(HttpStatus.CONFLICT);
             }
             account = developerService.save(account);
             return new ResponseEntity<>(account, HttpStatus.OK);
         } catch (Exception ex) {
-            return null;
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
     }

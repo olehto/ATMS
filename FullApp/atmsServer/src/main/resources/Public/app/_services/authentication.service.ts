@@ -9,7 +9,7 @@ export class AuthenticationService {
 
     login(email: string, password: string) {
         //console.log(JSON.stringify({ email: email, password: password }));
-        return this.http.post('http://localhost:8080/developer/authorize', JSON.stringify({ email: email, password: password }))
+        return this.http.post('/api/developer/authorize', JSON.stringify({ email: email, password: password }))
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let user = response.json();

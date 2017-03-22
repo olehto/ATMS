@@ -18,7 +18,7 @@ var AuthenticationService = (function () {
     }
     AuthenticationService.prototype.login = function (email, password) {
         //console.log(JSON.stringify({ email: email, password: password }));
-        return this.http.post('http://localhost:8080/developer/authorize', JSON.stringify({ email: email, password: password }))
+        return this.http.post('/api/developer/authorize', JSON.stringify({ email: email, password: password }))
             .map(function (response) {
             // login successful if there's a jwt token in the response
             var user = response.json();

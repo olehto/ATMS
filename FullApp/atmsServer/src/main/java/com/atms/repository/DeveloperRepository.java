@@ -13,7 +13,7 @@ public interface DeveloperRepository extends JpaRepository<Developer, Integer> {
 
     List<Developer> findByTasksSprintProject(Project project);
 
-    List<Developer> findByEmail(String mail);
+    Developer findByEmail(String mail);
 
    // List<Developer> findByTechnology(Technology technology);
 }
