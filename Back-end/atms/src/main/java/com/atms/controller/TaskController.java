@@ -135,16 +135,9 @@ public class TaskController {
         oldTask.setSprint(task.getSprint());
         oldTask.setDeveloper(task.getDeveloper());
         oldTask.setDocuments(task.getDocuments());
-        oldTask.setKeywords(task.getKeywords());
+        // oldTask.setKeywords(task.getKeywords());
         return new ResponseEntity<>(taskService.update(oldTask), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/api/task/{taskId}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> delete(@PathVariable("taskId") String taskId) {
-        if (taskService.delete(Integer.parseInt(taskId))) {
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
 
 }

@@ -8,9 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
-/**
- * Created by alex on 3/15/2017.
- */
+
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "statusId")
 public class Status {
@@ -38,7 +36,6 @@ public class Status {
         this.statusId = statusId;
     }
 
-
     @Column(name = "value")
     public String getValue() {
         return value;
@@ -47,7 +44,6 @@ public class Status {
     public void setValue(String value) {
         this.value = value;
     }
-
 
     @OneToMany(mappedBy = "status")
     public Set<Task> getTasks() {

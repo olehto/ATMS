@@ -7,16 +7,13 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
-/**
- * Created by alex on 3/15/2017.
- */
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "keywordId")
 public class Keyword {
     private int keywordId;
     @NotNull
     private String value;
-    private Set<Task> tasks;
+    private Set<Requirement> requirements;
 
     @Id
     @GeneratedValue
@@ -39,12 +36,12 @@ public class Keyword {
     }
 
     @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "keyword_id"), inverseJoinColumns = @JoinColumn(name = "task_id"))
-    public Set<Task> getTasks() {
-        return tasks;
+    @JoinTable(joinColumns = @JoinColumn(name = "keyword_id"), inverseJoinColumns = @JoinColumn(name = "requirement_id"))
+    public Set<Requirement> getRequirements() {
+        return requirements;
     }
 
-    public void setTasks(Set<Task> tasks) {
-        this.tasks = tasks;
+    public void setRequirements(Set<Requirement> requirements) {
+        this.requirements = requirements;
     }
 }

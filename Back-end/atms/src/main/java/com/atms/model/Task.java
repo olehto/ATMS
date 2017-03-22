@@ -27,7 +27,7 @@ public class Task {
     private Sprint sprint;
     private Developer developer;
     private Set<Document> documents;
-    private Set<Keyword> keywords;
+    private Requirement requirement;
 
     @Id
     @GeneratedValue
@@ -40,7 +40,6 @@ public class Task {
         this.taskId = taskId;
     }
 
-
     @Column(name = "Title")
     public String getTitle() {
         return title;
@@ -49,7 +48,6 @@ public class Task {
     public void setTitle(String title) {
         this.title = title;
     }
-
 
     @Column(name = "Description")
     public String getDescription() {
@@ -60,7 +58,6 @@ public class Task {
         this.description = description;
     }
 
-
     @Column(name = "Date_start")
     public Timestamp getDateStart() {
         return dateStart;
@@ -69,7 +66,6 @@ public class Task {
     public void setDateStart(Timestamp dateStart) {
         this.dateStart = dateStart;
     }
-
 
     @Column(name = "Deadline")
     public Timestamp getDeadline() {
@@ -80,7 +76,6 @@ public class Task {
         this.deadline = deadline;
     }
 
-
     @Column(name = "Version")
     public String getVersion() {
         return version;
@@ -89,7 +84,6 @@ public class Task {
     public void setVersion(String version) {
         this.version = version;
     }
-
 
     @Column(name = "Start_time")
     public Timestamp getStartTime() {
@@ -100,7 +94,6 @@ public class Task {
         this.startTime = startTime;
     }
 
-
     @Column(name = "End_time")
     public Timestamp getEndTime() {
         return endTime;
@@ -109,7 +102,6 @@ public class Task {
     public void setEndTime(Timestamp endTime) {
         this.endTime = endTime;
     }
-
 
     @ManyToOne
     @JoinColumn(name = "priority_id", referencedColumnName = "priority_id")
@@ -152,7 +144,7 @@ public class Task {
     }
 
     @ManyToOne
-    @JoinColumn(name = "developer_id")//, referencedColumnName = "developer_id")
+    @JoinColumn(name = "developer_id")
     public Developer getDeveloper() {
         return developer;
     }
@@ -161,18 +153,7 @@ public class Task {
         this.developer = developer;
     }
 
-    @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "keyword_id"))
-    public Set<Keyword> getKeywords() {
-        return keywords;
-    }
-
-    public void setKeywords(Set<Keyword> keywords) {
-        this.keywords = keywords;
-    }
-
     @OneToMany(mappedBy = "task")
-    //@JoinTable(joinColumns = @JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "document_id"))
     public Set<Document> getDocuments() {
         return documents;
     }
@@ -197,5 +178,14 @@ public class Task {
 
     public void setSubtasks(Set<Task> subtasks) {
         this.subtasks = subtasks;
+    }
+
+    @ManyToOne
+    public Requirement getRequirement() {
+        return requirement;
+    }
+
+    public void setRequirement(Requirement requirement) {
+        this.requirement = requirement;
     }
 }

@@ -36,7 +36,6 @@ public class DevType {
         this.devTypeId = devTypeId;
     }
 
-
     @Column(name = "value")
     public String getValue() {
         return value;
@@ -45,7 +44,6 @@ public class DevType {
     public void setValue(String value) {
         this.value = value;
     }
-
 
     @OneToMany(mappedBy = "devType")
     public Set<Developer> getDevelopers() {

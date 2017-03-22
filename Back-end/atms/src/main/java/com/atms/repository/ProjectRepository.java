@@ -10,5 +10,8 @@ import java.util.List;
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Integer> {
 
+    /**
+     * Return list of project in which developer work
+     */
     List<Project> findBySprintsTasksDeveloper(Developer developer);
 }

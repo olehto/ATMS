@@ -59,7 +59,7 @@ public class KeywordController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         oldKeyword.setValue(keyword.getValue());
-        oldKeyword.setTasks(keyword.getTasks());
+        // oldKeyword.setTasks(keyword.getTasks());
         return new ResponseEntity<>(keywordService.update(oldKeyword), HttpStatus.OK);
     }
 
