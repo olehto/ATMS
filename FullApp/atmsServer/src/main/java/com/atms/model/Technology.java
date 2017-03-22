@@ -18,6 +18,8 @@ public class Technology {
     private String description;
     @JsonIgnore
     private Set<Developer> developers;
+    @JsonIgnore
+    private Set<Requirement> requirements;
 
     @Id
     @GeneratedValue
@@ -30,7 +32,6 @@ public class Technology {
         this.technologyId = technologyId;
     }
 
-
     @Column(name = "title")
     public String getTitle() {
         return title;
@@ -39,7 +40,6 @@ public class Technology {
     public void setTitle(String title) {
         this.title = title;
     }
-
 
     @Column(name = "description")
     public String getDescription() {
@@ -50,13 +50,22 @@ public class Technology {
         this.description = description;
     }
 
-    @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "technology_id"), inverseJoinColumns = @JoinColumn(name = "developer_id"))
+    @ManyToMany(mappedBy = "technologies")
     public Set<Developer> getDevelopers() {
         return developers;
     }
 
     public void setDevelopers(Set<Developer> developers) {
         this.developers = developers;
+    }
+
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn(name = "technology_id"), inverseJoinColumns = @JoinColumn(name = "requirement_id"))
+    public Set<Requirement> getRequirements() {
+        return requirements;
+    }
+
+    public void setRequirements(Set<Requirement> requirements) {
+        this.requirements = requirements;
     }
 }

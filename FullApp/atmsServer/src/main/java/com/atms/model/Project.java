@@ -18,8 +18,10 @@ public class Project {
     @NotNull
     private String description;
     private Timestamp dateStart;
+    @NotNull
     private Timestamp deadline;
     private Set<Sprint> sprints;
+    private Set<Requirement> requirements;
 
     @Id
     @GeneratedValue
@@ -68,7 +70,6 @@ public class Project {
         this.deadline = deadline;
     }
 
-
     @OneToMany(mappedBy = "project")
     public Set<Sprint> getSprints() {
         return sprints;
@@ -76,5 +77,15 @@ public class Project {
 
     public void setSprints(Set<Sprint> sprints) {
         this.sprints = sprints;
+    }
+
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn(name = "requirement_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
+    public Set<Requirement> getRequirements() {
+        return requirements;
+    }
+
+    public void setRequirements(Set<Requirement> requirements) {
+        this.requirements = requirements;
     }
 }

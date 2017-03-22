@@ -8,9 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
-/**
- * Created by alex on 3/15/2017.
- */
+
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "typeId")
 public class Type {

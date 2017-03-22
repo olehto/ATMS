@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.sql.Date;
 import java.util.Set;
 
 
@@ -17,12 +18,17 @@ public class Developer {
     private String firstName;
     @NotNull
     private String lastName;
+    @NotNull
+    private Date dateOfBirth;
+    @NotNull
     private String email;
+    @NotNull
     private String telephone;
     @NotNull
     private String nickname;
     @NotNull
     private String password;
+    @NotNull
     private DevType devType;
     @JsonIgnore
     private Set<Task> tasks;
@@ -41,7 +47,7 @@ public class Developer {
     }
 
 
-    @Column(name = "first_name")
+    @Column(name = "firstName")
     public String getFirstName() {
         return firstName;
     }
@@ -60,8 +66,16 @@ public class Developer {
         this.lastName = lastName;
     }
 
+    @Column(name = "date_of_birth")
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
 
-    @Column(name = "email")
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    @Column(name = "email", unique = true)
     public String getEmail() {
         return email;
     }
@@ -120,7 +134,7 @@ public class Developer {
     }
 
     @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "developer_id"), inverseJoinColumns = @JoinColumn(name = "technology_id"))
+    @JoinTable(joinColumns = @JoinColumn(name = "technology_id"), inverseJoinColumns = @JoinColumn(name = "developer_id"))
     public Set<Technology> getTechnologies() {
         return technologies;
     }
@@ -128,6 +142,5 @@ public class Developer {
     public void setTechnologies(Set<Technology> technologies) {
         this.technologies = technologies;
     }
-
 
 }

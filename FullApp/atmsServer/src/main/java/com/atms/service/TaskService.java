@@ -53,8 +53,4 @@ public interface TaskService {
 
     List<Task> findByProject(Project project);
 
-    /**
-     * Return true if deleted task, else false
-     */
-    boolean delete(Integer id);
 }

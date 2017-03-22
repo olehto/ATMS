@@ -66,12 +66,4 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.findBySprintProject(project);
     }
 
-    @Override
-    public boolean delete(Integer id) {
-        if (taskRepository.exists(id)) {
-            taskRepository.delete(id);
-            return true;
-        }
-        return false;
-    }
 }

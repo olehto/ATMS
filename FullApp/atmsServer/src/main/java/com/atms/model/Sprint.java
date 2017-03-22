@@ -1,9 +1,11 @@
 package com.atms.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.util.Set;
 
@@ -12,8 +14,11 @@ import java.util.Set;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "sprintId")
 public class Sprint {
     private int sprintId;
+    @NotNull
     private Date dateStart;
+    @NotNull
     private Date dateEnd;
+    @JsonIgnore
     private Project project;
     private Set<Task> tasks;
 
