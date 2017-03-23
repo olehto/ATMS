@@ -18,7 +18,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Set;
 
-
+@CrossOrigin
 @RestController
 public class DocumentController {
 

@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 import javax.validation.Valid;
 
+@CrossOrigin
 @RestController
 public class DeveloperController {
 

@@ -18,7 +18,7 @@ public class Developer {
     private String firstName;
     @NotNull
     private String lastName;
-    @NotNull
+    //@NotNull
     private Date dateOfBirth;
     @NotNull
     private String email;
@@ -28,7 +28,7 @@ public class Developer {
     private String nickname;
     @NotNull
     private String password;
-    @NotNull
+    //@NotNull
     private DevType devType;
     @JsonIgnore
     private Set<Task> tasks;

@@ -17,27 +17,28 @@ var http_1 = require("@angular/http");
 var ProjectService = (function () {
     function ProjectService(http) {
         this.http = http;
+        this.httpAdress = 'http://localhost:8080';
     }
     ProjectService.prototype.getAll = function () {
-        return this.http.get('/api/project/').map(function (response) { return response.json(); });
+        return this.http.get(this.httpAdress + '/api/project/').map(function (response) { return response.json(); });
     };
     ProjectService.prototype.getById = function (id) {
-        return this.http.get('/api/project/' + id).map(function (response) { return response.json(); });
+        return this.http.get(this.httpAdress + '/api/project/' + id).map(function (response) { return response.json(); });
     };
     ProjectService.prototype.create = function (project) {
         var body = JSON.stringify(project);
         console.log(body);
         var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-        return this.http.post('/api/project/', body, { headers: headers }).map(function (response) { return response.json(); });
+        return this.http.post(this.httpAdress + '/api/project/', body, { headers: headers }).map(function (response) { return response.json(); });
     };
     ProjectService.prototype.getByDeveloper = function (id) {
-        return this.http.get('/api/project/developer/' + id).map(function (response) { return response.json(); });
+        return this.http.get(this.httpAdress + '/api/project/developer/' + id).map(function (response) { return response.json(); });
     };
     ProjectService.prototype.update = function (project) {
-        return this.http.put('/api/project/' + project, project).map(function (response) { return response.json(); });
+        return this.http.put(this.httpAdress + '/api/project/' + project, project).map(function (response) { return response.json(); });
     };
     ProjectService.prototype.delete = function (id) {
-        return this.http.delete('/api/project/' + id).map(function (response) { return response.json(); });
+        return this.http.delete(this.httpAdress + '/api/project/' + id).map(function (response) { return response.json(); });
     };
     // private helper methods
     ProjectService.prototype.jwt = function () {

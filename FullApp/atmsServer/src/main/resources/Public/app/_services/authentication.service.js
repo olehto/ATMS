@@ -15,10 +15,11 @@ require("rxjs/add/operator/map");
 var AuthenticationService = (function () {
     function AuthenticationService(http) {
         this.http = http;
+        this.httpAdress = 'http://localhost:8080';
     }
     AuthenticationService.prototype.login = function (email, password) {
         //console.log(JSON.stringify({ email: email, password: password }));
-        return this.http.post('/api/developer/authorize', JSON.stringify({ email: email, password: password }))
+        return this.http.post(this.httpAdress + '/api/developer/authorize', JSON.stringify({ email: email, password: password }))
             .map(function (response) {
             // login successful if there's a jwt token in the response
             var user = response.json();

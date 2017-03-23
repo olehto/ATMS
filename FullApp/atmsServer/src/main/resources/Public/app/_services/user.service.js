@@ -14,27 +14,28 @@ var http_1 = require("@angular/http");
 var UserService = (function () {
     function UserService(http) {
         this.http = http;
+        this.httpAdress = 'http://localhost:8080';
     }
     UserService.prototype.getAll = function () {
-        return this.http.get('/api/developer/').map(function (response) { return response.json(); });
+        return this.http.get(this.httpAdress + '/api/developer/').map(function (response) { return response.json(); });
     };
     UserService.prototype.getById = function (id) {
-        return this.http.get('/api/developer/' + id).map(function (response) { return response.json(); });
+        return this.http.get(this.httpAdress + '/api/developer/' + id).map(function (response) { return response.json(); });
     };
     UserService.prototype.remind = function (email) {
-        return this.http.get('/api/developer/' + email).map(function (response) { return response.json(); });
+        return this.http.get(this.httpAdress + '/api/developer/' + email).map(function (response) { return response.json(); });
     };
     UserService.prototype.create = function (user) {
         var body = JSON.stringify(user);
         console.log(body);
         var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-        return this.http.post('/api/developer/', body, { headers: headers }).map(function (response) { return response.json(); });
+        return this.http.post(this.httpAdress + '/api/developer/', body, { headers: headers }).map(function (response) { return response.json(); });
     };
     UserService.prototype.update = function (user) {
-        return this.http.put('/api/developer/' + user, user).map(function (response) { return response.json(); });
+        return this.http.put(this.httpAdress + '/api/developer/' + user, user).map(function (response) { return response.json(); });
     };
     UserService.prototype.delete = function (id) {
-        return this.http.delete('/api/developer/' + id).map(function (response) { return response.json(); });
+        return this.http.delete(this.httpAdress + '/api/developer/' + id).map(function (response) { return response.json(); });
     };
     // private helper methods
     UserService.prototype.jwt = function () {
