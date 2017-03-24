@@ -1,11 +1,10 @@
 package com.atms.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 
@@ -14,16 +13,19 @@ import java.util.Set;
 @Table(name = "requirements")
 public class Requirement {
     private int requirementId;
-    @NotNull
     private String title;
     private String description;
-    @JsonIgnore
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "taskId")
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<Task> tasks;
-    @JsonIgnore
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "keywordId")
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<Keyword> keywords;
-    @JsonIgnore
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "technologyId")
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<Technology> technologies;
-    @JsonIgnore
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "projectId")
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<Project> projects;
 
     @Id
@@ -37,7 +39,7 @@ public class Requirement {
         this.requirementId = requirementId;
     }
 
-    @Column(name = "Title")
+    @Column(name = "Title", nullable = false)
     public String getTitle() {
         return title;
     }

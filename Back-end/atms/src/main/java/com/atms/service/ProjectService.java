@@ -6,7 +6,9 @@ import com.atms.model.Project;
 import java.util.List;
 
 /**
- * Created by alex on 3/15/2017.
+ * Interface of business layer that describe work with Project entity
+ *
+ * @author Alex Kazanovskiy
  */
 public interface ProjectService {
 
@@ -18,6 +20,12 @@ public interface ProjectService {
 
     List<Project> findAll();
 
+    /**
+     * Find all project of concrete developer
+     *
+     * @param developer object of entity Developer
+     * @return List of Projects
+     */
     List<Project> findByDeveloper(Developer developer);
 
     boolean delete(Integer id);

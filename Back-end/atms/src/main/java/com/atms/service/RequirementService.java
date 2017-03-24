@@ -5,7 +5,9 @@ import com.atms.model.Requirement;
 import java.util.List;
 
 /**
- * Created by alex on 3/15/2017.
+ * Interface of business layer that describe work with Requirement entity
+ *
+ * @author Alex Kazanovskiy
  */
 public interface RequirementService {
 

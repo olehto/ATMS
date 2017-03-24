@@ -20,6 +20,7 @@ import java.util.Set;
 
 
 @RestController
+@CrossOrigin
 public class DocumentController {
 
     private static String UPLOADED_FOLDER = "F://temp//";
@@ -86,7 +87,7 @@ public class DocumentController {
             Files.write(path, new byte[]{0});
         } catch (IOException e) {
             e.printStackTrace();
-            return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(HttpStatus.OK);
     }

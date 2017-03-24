@@ -5,7 +5,9 @@ import com.atms.model.Priority;
 import java.util.List;
 
 /**
- * Created by alex on 3/15/2017.
+ * Interface of business layer that describe work with Priority entity
+ *
+ * @author Alex Kazanovskiy
  */
 public interface PriorityService {
 

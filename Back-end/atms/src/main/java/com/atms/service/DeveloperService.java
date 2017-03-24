@@ -5,7 +5,11 @@ import com.atms.model.Project;
 
 import java.util.List;
 
-
+/**
+ * Interface of business layer that describe work with Developer entity
+ *
+ * @author Alex Kazanovskiy
+ */
 public interface DeveloperService {
 
     Developer save(Developer developer);
@@ -18,7 +22,10 @@ public interface DeveloperService {
 
     boolean delete(Developer developer);
 
+    /**
+     * @param project oject of entity Project
+     * @return List of Developers
+     */
     List<Developer> findByProject(Project project);
-
 
 }

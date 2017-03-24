@@ -1,11 +1,10 @@
 package com.atms.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.util.Set;
 
@@ -14,12 +13,12 @@ import java.util.Set;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "sprintId")
 public class Sprint {
     private int sprintId;
-    @NotNull
     private Date dateStart;
-    @NotNull
     private Date dateEnd;
-    @JsonIgnore
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "projectId")
+    @JsonIdentityReference(alwaysAsId = true)
     private Project project;
+
     private Set<Task> tasks;
 
     @Id
@@ -33,7 +32,7 @@ public class Sprint {
         this.sprintId = sprintId;
     }
 
-    @Column(name = "date_start")
+    @Column(name = "date_start", nullable = false)
     public Date getDateStart() {
         return dateStart;
     }
@@ -42,7 +41,7 @@ public class Sprint {
         this.dateStart = dateStart;
     }
 
-    @Column(name = "date_end")
+    @Column(name = "date_end", nullable = false)
     public Date getDateEnd() {
         return dateEnd;
     }

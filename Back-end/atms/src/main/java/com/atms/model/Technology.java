@@ -1,11 +1,10 @@
 package com.atms.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 
@@ -13,12 +12,13 @@ import java.util.Set;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "technologyId")
 public class Technology {
     private int technologyId;
-    @NotNull
     private String title;
     private String description;
-    @JsonIgnore
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "developerId")
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<Developer> developers;
-    @JsonIgnore
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "requirementId")
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<Requirement> requirements;
 
     @Id
@@ -32,7 +32,7 @@ public class Technology {
         this.technologyId = technologyId;
     }
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     public String getTitle() {
         return title;
     }

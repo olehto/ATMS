@@ -5,11 +5,12 @@ import com.atms.model.Project;
 import com.atms.model.Status;
 import com.atms.model.Task;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
- * Created by alex on 3/15/2017.
+ * Interface of business layer that describe work with Task entity
+ *
+ * @author Alex Kazanovskiy
  */
 public interface TaskService {
 
@@ -22,20 +23,28 @@ public interface TaskService {
     List<Task> findAll();
 
     /**
-     * Return list of entity by project and task's priority
+     * Find all task of project with concrete priority
+     *
+     * @param project  object of Project
+     * @param priority object of Priority
+     * @return List of Task
      */
     List<Task> findByProjectAndPriority(Project project, Priority priority);
 
     /**
-     * Return list of task by project and task's status
+     * Find all task of project with concrete status
+     *
+     * @param project object of Project
+     * @param status  object of Status
+     * @return List of Task
      */
     List<Task> findByProjectAndStatus(Project project, Status status);
 
     /**
-     * Return list of task where task start time greater than param
+     * Find all task of project
+     *
+     * @param project object of Project
+     * @return List of Task
      */
-    List<Task> findByStartTimeGreater(Timestamp timestamp);
-
-
     List<Task> findByProject(Project project);
 }

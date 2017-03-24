@@ -11,16 +11,14 @@ import com.atms.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
 
 
 @RestController
+@CrossOrigin
 public class TaskController {
 
     private final TaskService taskService;
@@ -125,8 +123,7 @@ public class TaskController {
         oldTask.setDateStart(task.getDateStart());
         oldTask.setDeadline(task.getDeadline());
         oldTask.setVersion(task.getVersion());
-        oldTask.setStartTime(task.getStartTime());
-        oldTask.setEndTime(task.getEndTime());
+        oldTask.setDuration(task.getDuration());
         oldTask.setParent(task.getParent());
         oldTask.setSubtasks(task.getSubtasks());
         oldTask.setPriority(task.getPriority());

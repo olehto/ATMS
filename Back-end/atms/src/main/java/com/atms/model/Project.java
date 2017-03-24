@@ -1,10 +1,10 @@
 package com.atms.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.Set;
 
@@ -13,14 +13,15 @@ import java.util.Set;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "projectId")
 public class Project {
     private int projectId;
-    @NotNull
     private String title;
-    @NotNull
     private String description;
     private Timestamp dateStart;
-    @NotNull
     private Timestamp deadline;
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "sprintId")
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<Sprint> sprints;
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "requirementId")
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<Requirement> requirements;
 
     @Id
@@ -34,7 +35,7 @@ public class Project {
         this.projectId = projectId;
     }
 
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     public String getTitle() {
         return title;
     }
@@ -43,7 +44,7 @@ public class Project {
         this.title = title;
     }
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     public String getDescription() {
         return description;
     }
@@ -61,7 +62,7 @@ public class Project {
         this.dateStart = dateStart;
     }
 
-    @Column(name = "deadline")
+    @Column(name = "deadline", nullable = false)
     public Timestamp getDeadline() {
         return deadline;
     }

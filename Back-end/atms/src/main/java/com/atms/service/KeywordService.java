@@ -5,7 +5,9 @@ import com.atms.model.Keyword;
 import java.util.List;
 
 /**
- * Created by alex on 3/15/2017.
+ * Interface of business layer that describe work with Keyword entity
+ *
+ * @author Alex Kazanovskiy
  */
 public interface KeywordService {
     Keyword save(Keyword keyword);

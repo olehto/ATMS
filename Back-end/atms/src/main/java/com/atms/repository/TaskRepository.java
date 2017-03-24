@@ -7,11 +7,10 @@ import com.atms.model.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 /**
- * DAO class for interaction between application and Task table in DB
+ * DAO class for interaction between application and {@link com.atms.model.Task Task} table in DB
  *
  * @author Alex Kazanovskiy
  */
@@ -19,32 +18,25 @@ import java.util.List;
 public interface TaskRepository extends JpaRepository<Task, Integer> {
 
     /**
-     * Returns list of task where task's start time greater than timestamp
-     *
-     * @param timestamp time
-     */
-    List<Task> findByStartTimeGreaterThan(Timestamp timestamp);
-
-    /**
      * Returns list of task by project and task's
      *
-     * @param project  project
-     * @param priority task's priority
+     * @param project  object of {@link com.atms.model.Project Project}
+     * @param priority object of {@link com.atms.model.Priority Priority}
      */
     List<Task> findBySprintProjectAndPriority(Project project, Priority priority);
 
     /**
      * Returns list of task by project and task's status
      *
-     * @param project project
-     * @param status  task's status
+     * @param project object of {@link com.atms.model.Project Project}
+     * @param status  object of {@link com.atms.model.Status Status}
      */
     List<Task> findBySprintProjectAndStatus(Project project, Status status);
 
     /**
      * Returns list of task by project
      *
-     * @param project project
+     * @param project object of {@link com.atms.model.Project Project}
      */
     List<Task> findBySprintProject(Project project);
 

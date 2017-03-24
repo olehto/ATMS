@@ -5,7 +5,9 @@ import com.atms.model.Document;
 import java.util.List;
 
 /**
- * Created by alex on 3/15/2017.
+ * Interface of business layer that describe work with Document entity
+ *
+ * @author Alex Kazanovskiy
  */
 public interface DocumentService {
     Document save(Document document);

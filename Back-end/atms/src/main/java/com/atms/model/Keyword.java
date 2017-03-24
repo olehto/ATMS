@@ -1,18 +1,19 @@
 package com.atms.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "keywordId")
 public class Keyword {
     private int keywordId;
-    @NotNull
     private String value;
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "requirementId")
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<Requirement> requirements;
 
     @Id
@@ -26,7 +27,7 @@ public class Keyword {
         this.keywordId = keywordId;
     }
 
-    @Column(name = "value")
+    @Column(name = "value", nullable = false)
     public String getValue() {
         return value;
     }

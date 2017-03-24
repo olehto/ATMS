@@ -5,10 +5,7 @@ import com.atms.service.KeywordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -17,6 +14,7 @@ import java.util.List;
  * Created by alex on 3/17/2017.
  */
 @RestController
+@CrossOrigin
 public class KeywordController {
 
     private final KeywordService keywordService;
@@ -39,9 +37,9 @@ public class KeywordController {
     public ResponseEntity<Keyword> get(@PathVariable("keywordId") String keywordId) {
         Keyword keyword = keywordService.findOne(Integer.parseInt(keywordId));
         if (keyword == null) {
-            return new ResponseEntity<Keyword>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Keyword>(keyword, HttpStatus.OK);
+        return new ResponseEntity<>(keyword, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/api/keyword}", method = RequestMethod.POST)

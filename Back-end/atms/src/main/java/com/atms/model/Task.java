@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Set;
 
@@ -17,8 +18,7 @@ public class Task {
     private Timestamp dateStart;
     private Timestamp deadline;
     private String version;
-    private Timestamp startTime;
-    private Timestamp endTime;
+    private Time duration;
     private Task parent;
     private Set<Task> subtasks;
     private Priority priority;
@@ -40,7 +40,7 @@ public class Task {
         this.taskId = taskId;
     }
 
-    @Column(name = "Title")
+    @Column(name = "Title", nullable = false)
     public String getTitle() {
         return title;
     }
@@ -85,22 +85,13 @@ public class Task {
         this.version = version;
     }
 
-    @Column(name = "Start_time")
-    public Timestamp getStartTime() {
-        return startTime;
+    @Column(name = "duration")
+    public Time getDuration() {
+        return duration;
     }
 
-    public void setStartTime(Timestamp startTime) {
-        this.startTime = startTime;
-    }
-
-    @Column(name = "End_time")
-    public Timestamp getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Timestamp endTime) {
-        this.endTime = endTime;
+    public void setDuration(Time duration) {
+        this.duration = duration;
     }
 
     @ManyToOne

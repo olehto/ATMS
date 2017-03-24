@@ -1,11 +1,11 @@
 package com.atms.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.util.Set;
 
@@ -14,25 +14,20 @@ import java.util.Set;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "developerId")
 public class Developer {
     private Integer developerId;
-    @NotNull
     private String name;
-    @NotNull
     private String lastName;
-    @NotNull
     private Date dateOfBirth;
-    @NotNull
     private String email;
-    @NotNull
     private String telephone;
-    @NotNull
     private String nickname;
-    @NotNull
+    @JsonIgnore
     private String password;
-    @NotNull
     private DevType devType;
-    @JsonIgnore
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "taskId")
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<Task> tasks;
-    @JsonIgnore
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "technologyId")
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<Technology> technologies;
 
     @Id
@@ -46,8 +41,7 @@ public class Developer {
         this.developerId = developerId;
     }
 
-
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     public String getName() {
         return name;
     }
@@ -56,8 +50,7 @@ public class Developer {
         this.name = name;
     }
 
-
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     public String getLastName() {
         return lastName;
     }
@@ -66,7 +59,7 @@ public class Developer {
         this.lastName = lastName;
     }
 
-    @Column(name = "date_of_birth")
+    @Column(name = "date_of_birth", nullable = false)
     public Date getDateOfBirth() {
         return dateOfBirth;
     }
@@ -75,7 +68,7 @@ public class Developer {
         this.dateOfBirth = dateOfBirth;
     }
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true, nullable = false)
     public String getEmail() {
         return email;
     }
@@ -95,7 +88,7 @@ public class Developer {
     }
 
 
-    @Column(name = "nickname")
+    @Column(name = "nickname", unique = true, nullable = false)
     public String getNickname() {
         return nickname;
     }
@@ -105,7 +98,7 @@ public class Developer {
     }
 
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     public String getPassword() {
         return password;
     }
@@ -124,7 +117,7 @@ public class Developer {
         this.devType = devType;
     }
 
-    @OneToMany(mappedBy = "developer")//, targetEntity = Task.class)
+    @OneToMany(mappedBy = "developer")
     public Set<Task> getTasks() {
         return tasks;
     }
@@ -134,7 +127,7 @@ public class Developer {
     }
 
     @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "technology_id"), inverseJoinColumns = @JoinColumn(name = "developer_id"))
+    @JoinTable(joinColumns = @JoinColumn(name = "developer_id"), inverseJoinColumns = @JoinColumn(name = "technology_id"))
     public Set<Technology> getTechnologies() {
         return technologies;
     }
