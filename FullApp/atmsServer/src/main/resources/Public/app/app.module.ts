@@ -7,7 +7,7 @@ import { AppComponent }  from './app.component';
 import { routing }        from './app.routing';
 
 import { AuthGuard } from './_guards/index';
-import { AuthenticationService, UserService, ProjectService } from './_services/index';
+import { AuthenticationService, UserService, ProjectService, TechnologyService, TypeService, PriorityService, TaskService } from './_services/index';
 import { DashboardComponent } from './dashboard/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
@@ -29,7 +29,11 @@ import { RegisterComponent } from './register/index';
         AuthGuard,
         AuthenticationService,
         UserService,
-        ProjectService
+        ProjectService,
+        PriorityService,
+        TechnologyService,
+        TypeService,
+        TaskService
     ],
     bootstrap: [AppComponent]
 })

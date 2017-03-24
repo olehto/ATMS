@@ -13,8 +13,8 @@ import java.util.List;
 /**
  * Created by alex on 3/17/2017.
  */
-@CrossOrigin
 @RestController
+@CrossOrigin
 public class KeywordController {
 
     private final KeywordService keywordService;
@@ -37,9 +37,9 @@ public class KeywordController {
     public ResponseEntity<Keyword> get(@PathVariable("keywordId") String keywordId) {
         Keyword keyword = keywordService.findOne(Integer.parseInt(keywordId));
         if (keyword == null) {
-            return new ResponseEntity<Keyword>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<Keyword>(keyword, HttpStatus.OK);
+        return new ResponseEntity<>(keyword, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/api/keyword}", method = RequestMethod.POST)

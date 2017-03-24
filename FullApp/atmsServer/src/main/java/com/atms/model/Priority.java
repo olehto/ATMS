@@ -1,10 +1,10 @@
 package com.atms.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 
@@ -12,8 +12,9 @@ import java.util.Set;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "priorityId")
 public class Priority {
     private int priorityId;
-    @NotNull
     private String priorityValue;
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "taskId")
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<Task> tasks;
 
     public Priority() {
@@ -34,7 +35,7 @@ public class Priority {
         this.priorityId = priorityId;
     }
 
-    @Column(name = "priority_value")
+    @Column(name = "priority_value", nullable = false)
     public String getPriorityValue() {
         return priorityValue;
     }

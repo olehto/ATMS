@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 
@@ -13,7 +12,6 @@ import java.util.Set;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "statusId")
 public class Status {
     private int statusId;
-    @NotNull
     private String value;
     @JsonIgnore
     private Set<Task> tasks;
@@ -36,7 +34,7 @@ public class Status {
         this.statusId = statusId;
     }
 
-    @Column(name = "value")
+    @Column(name = "value", nullable = false)
     public String getValue() {
         return value;
     }

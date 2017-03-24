@@ -1,9 +1,6 @@
 package com.atms.service.impl;
 
-import com.atms.model.Priority;
-import com.atms.model.Project;
-import com.atms.model.Status;
-import com.atms.model.Task;
+import com.atms.model.*;
 import com.atms.repository.TaskRepository;
 import com.atms.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,13 +54,18 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> findByStartTimeGreater(Timestamp timestamp) {
-        return taskRepository.findByStartTimeGreaterThan(timestamp);
+    public List<Task> findByProject(Project project) {
+        return taskRepository.findBySprintProject(project);
     }
 
     @Override
-    public List<Task> findByProject(Project project) {
-        return taskRepository.findBySprintProject(project);
+    public List<Task> findByType(Type type) {
+        return taskRepository.findByType(type);
+    }
+
+    @Override
+    public List<Task> findByPriority(Priority priority) {
+        return taskRepository.findByPriority(priority);
     }
 
 }

@@ -14,8 +14,8 @@ import java.util.List;
  * Created by alex on 3/17/2017.
  */
 
-@CrossOrigin
 @RestController
+@CrossOrigin
 public class SprintController {
 
     private final SprintService sprintService;
@@ -61,7 +61,7 @@ public class SprintController {
         oldSprint.setDateStart(sprint.getDateStart());
         oldSprint.setProject(sprint.getProject());
         oldSprint.setTasks(sprint.getTasks());
-        return new ResponseEntity<Sprint>(sprintService.update(sprint), HttpStatus.OK);
+        return new ResponseEntity<>(sprintService.update(sprint), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/api/sprint/{sprintId}", method = RequestMethod.DELETE)

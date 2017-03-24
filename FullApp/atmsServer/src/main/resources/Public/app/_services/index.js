@@ -6,4 +6,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 __export(require("./authentication.service"));
 __export(require("./user.service"));
 __export(require("./project.service"));
+__export(require("./priority.service"));
+__export(require("./type.service"));
+__export(require("./technology.service"));
+__export(require("./task.service"));
 //# sourceMappingURL=index.js.map

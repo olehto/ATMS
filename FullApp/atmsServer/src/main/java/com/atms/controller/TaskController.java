@@ -1,13 +1,7 @@
 package com.atms.controller;
 
-import com.atms.model.Priority;
-import com.atms.model.Project;
-import com.atms.model.Status;
-import com.atms.model.Task;
-import com.atms.service.PriorityService;
-import com.atms.service.ProjectService;
-import com.atms.service.StatusService;
-import com.atms.service.TaskService;
+import com.atms.model.*;
+import com.atms.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,12 +22,15 @@ public class TaskController {
 
     private final PriorityService priorityService;
 
+    private final TypeService typeService;
+
     @Autowired
-    public TaskController(ProjectService projectService, StatusService statusService, PriorityService priorityService, TaskService taskService) {
+    public TaskController(ProjectService projectService, StatusService statusService, PriorityService priorityService, TaskService taskService, TypeService typeService) {
         this.projectService = projectService;
         this.statusService = statusService;
         this.priorityService = priorityService;
         this.taskService = taskService;
+        this.typeService=typeService;
     }
 
     @RequestMapping(value = "/api/task", method = RequestMethod.GET)
@@ -102,6 +99,32 @@ public class TaskController {
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/api/task/priority/{priorityId}", method = RequestMethod.GET)
+    public ResponseEntity<List<Task>> getByPriority(@PathVariable("priorityId") String priorityId) {
+        Priority priority = priorityService.findOne(Integer.parseInt(priorityId));
+        if (priority == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        List<Task> tasks = taskService.findByPriority(priority);
+        if (tasks == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/api/task/type/{typeId}", method = RequestMethod.GET)
+    public ResponseEntity<List<Task>> getByType(@PathVariable("typeId") String typeId) {
+        Type type = typeService.findOne(Integer.parseInt(typeId));
+        if (type == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        List<Task> tasks = taskService.findByType(type);
+        if (tasks == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/api/task", method = RequestMethod.POST)
     public ResponseEntity<Task> add(@Valid Task task) {
         if (taskService.findOne(task.getTaskId()) != null) {
@@ -122,8 +145,7 @@ public class TaskController {
         oldTask.setDateStart(task.getDateStart());
         oldTask.setDeadline(task.getDeadline());
         oldTask.setVersion(task.getVersion());
-        oldTask.setStartTime(task.getStartTime());
-        oldTask.setEndTime(task.getEndTime());
+        oldTask.setDuration(task.getDuration());
         oldTask.setParent(task.getParent());
         oldTask.setSubtasks(task.getSubtasks());
         oldTask.setPriority(task.getPriority());

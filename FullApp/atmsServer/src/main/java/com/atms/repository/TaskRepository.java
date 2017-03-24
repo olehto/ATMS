@@ -1,9 +1,6 @@
 package com.atms.repository;
 
-import com.atms.model.Priority;
-import com.atms.model.Project;
-import com.atms.model.Status;
-import com.atms.model.Task;
+import com.atms.model.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -21,5 +18,8 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
 
     List<Task> findBySprintProject(Project project);
 
+    List<Task> findByPriority(Priority priority);
+
+    List<Task> findByType(Type type);
 
 }
