@@ -1,4 +1,7 @@
 /**
+ * Created by Lenovo on 26.03.2017.
+ */
+/**
  * Created by Lenovo on 15.03.2017.
  */
 import {Component} from '@angular/core';
@@ -6,12 +9,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 @Component ({
     moduleId: module.id,
-    selector: 'dashboard',
-    styleUrls:['dashboard.component.css'],
-    templateUrl: 'dash.component.html',
+    selector: 'projects',
+    styleUrls:['projects.component.css'],
+    templateUrl: 'projects.component.html',
 })
 
-export class DashboardComponent {
+export class ProjectsComponent {
     condition: boolean=true;
     token: boolean = true;
     token2: boolean = true;

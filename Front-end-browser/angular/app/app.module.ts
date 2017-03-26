@@ -9,6 +9,7 @@ import { routing }   from './app.routing';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
 import {DashboardComponent} from './dashboard/index';
+import {ProjectsComponent} from './projects/index';
 
 @NgModule({
     imports: [BrowserModule, FormsModule, HttpModule, routing],
@@ -16,7 +17,8 @@ import {DashboardComponent} from './dashboard/index';
         AppComponent,
         LoginComponent,
         RegisterComponent,
-        DashboardComponent
+        DashboardComponent,
+        ProjectsComponent
     ],
     bootstrap: [AppComponent]
 })

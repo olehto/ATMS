@@ -7,33 +7,36 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
+ * Created by Lenovo on 26.03.2017.
+ */
+/**
  * Created by Lenovo on 15.03.2017.
  */
 var core_1 = require("@angular/core");
-var DashboardComponent = (function () {
-    function DashboardComponent() {
+var ProjectsComponent = (function () {
+    function ProjectsComponent() {
         this.condition = true;
         this.token = true;
         this.token2 = true;
     }
-    DashboardComponent.prototype.toggle = function () {
+    ProjectsComponent.prototype.toggle = function () {
         this.condition = !this.condition;
     };
-    DashboardComponent.prototype.hidden = function () {
+    ProjectsComponent.prototype.hidden = function () {
         this.token = !this.token;
     };
-    DashboardComponent.prototype.hidden2 = function () {
+    ProjectsComponent.prototype.hidden2 = function () {
         this.token2 = !this.token2;
     };
-    return DashboardComponent;
+    return ProjectsComponent;
 }());
-DashboardComponent = __decorate([
+ProjectsComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        selector: 'dashboard',
-        styleUrls: ['dashboard.component.css'],
-        templateUrl: 'dash.component.html',
+        selector: 'projects',
+        styleUrls: ['projects.component.css'],
+        templateUrl: 'projects.component.html',
     })
-], DashboardComponent);
-exports.DashboardComponent = DashboardComponent;
-//# sourceMappingURL=dashboard.component.js.map
+], ProjectsComponent);
+exports.ProjectsComponent = ProjectsComponent;
+//# sourceMappingURL=projects.component.js.map

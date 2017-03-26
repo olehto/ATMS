@@ -15,6 +15,7 @@ var app_routing_1 = require("./app.routing");
 var index_1 = require("./login/index");
 var index_2 = require("./register/index");
 var index_3 = require("./dashboard/index");
+var index_4 = require("./projects/index");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -27,7 +28,8 @@ AppModule = __decorate([
             app_component_1.AppComponent,
             index_1.LoginComponent,
             index_2.RegisterComponent,
-            index_3.DashboardComponent
+            index_3.DashboardComponent,
+            index_4.ProjectsComponent
         ],
         bootstrap: [app_component_1.AppComponent]
     })

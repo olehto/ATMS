@@ -1,15 +1,14 @@
 a {
     cursor: pointer;
+
 }
 
 .login {
     margin-top: 50px;
-    color: #fff;
 }
 .register{
-    margin-top: 50px;
-    color: #fff;
+    margin-top: 30px;
 }
 body {
-    background: #193654;
+    background: #fff;
 }
