@@ -36,7 +36,6 @@ public class Document {
 
     @ManyToOne
     @JoinColumn(name = "task_id")
-    //@JoinTable(joinColumns = @JoinColumn(name = "document_id"), inverseJoinColumns = @JoinColumn(name = "task_id"))
     public Task getTask() {
         return task;
     }

@@ -49,7 +49,11 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public void delete(Project project) {
-        projectRepository.delete(project);
+    public boolean delete(Integer id) {
+        if (projectRepository.exists(id)) {
+            projectRepository.delete(id);
+            return true;
+        }
+        return false;
     }
 }

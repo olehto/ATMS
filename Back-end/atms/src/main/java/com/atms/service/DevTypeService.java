@@ -4,6 +4,11 @@ import com.atms.model.DevType;
 
 import java.util.List;
 
+/**
+ * Interface of business layer that describe work with Developer entity
+ *
+ * @author Alex Kazanovskiy
+ */
 public interface DevTypeService {
 
     DevType save(DevType devType);
@@ -14,5 +19,5 @@ public interface DevTypeService {
 
     List<DevType> findAll();
 
-    void delete(DevType developer);
+    boolean delete(Integer id);
 }

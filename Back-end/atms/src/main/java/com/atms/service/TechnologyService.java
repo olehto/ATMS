@@ -1,14 +1,16 @@
 package com.atms.service;
 
-import com.atms.model.Task;
 import com.atms.model.Technology;
 
 import java.util.List;
 
 /**
- * Created by alex on 3/15/2017.
+ * Interface of business layer that describe work with Technology entity
+ *
+ * @author Alex Kazanovskiy
  */
 public interface TechnologyService {
+
     Technology save(Technology technology);
 
     Technology update(Technology technology);
@@ -17,5 +19,5 @@ public interface TechnologyService {
 
     List<Technology> findAll();
 
-    void delete(Technology technology);
+    boolean delete(Integer id);
 }

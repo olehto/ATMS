@@ -16,5 +16,5 @@ public interface SprintService {
 
     List<Sprint> findAll();
 
-    void delete(Sprint sprint);
+    boolean delete(Integer id);
 }

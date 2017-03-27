@@ -1,20 +1,27 @@
 package com.atms.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.Set;
 
-/**
- * Created by alex on 3/15/2017.
- */
+
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "typeId")
 public class Type {
     private Integer typeId;
     private String typeValue;
+    @JsonIgnore
     private Set<Task> tasks;
+
+    public Type() {
+    }
+
+    public Type(String typeValue) {
+        this.typeValue = typeValue;
+    }
 
     @Id
     @GeneratedValue
@@ -27,7 +34,7 @@ public class Type {
         this.typeId = typeId;
     }
 
-    @Column(name = "type_value")
+    @Column(name = "type_value", nullable = false)
     public String getTypeValue() {
         return typeValue;
     }

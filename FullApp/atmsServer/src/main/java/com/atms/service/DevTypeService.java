@@ -14,5 +14,5 @@ public interface DevTypeService {
 
     List<DevType> findAll();
 
-    void delete(DevType developer);
+    boolean delete(Integer id);
 }

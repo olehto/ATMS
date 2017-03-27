@@ -5,9 +5,12 @@ import com.atms.model.Requirement;
 import java.util.List;
 
 /**
- * Created by alex on 3/15/2017.
+ * Interface of business layer that describe work with Requirement entity
+ *
+ * @author Alex Kazanovskiy
  */
 public interface RequirementService {
+
     Requirement save(Requirement requirement);
 
     Requirement update(Requirement requirement);
@@ -16,6 +19,6 @@ public interface RequirementService {
 
     List<Requirement> findAll();
 
-    void delete(Requirement requirement);
+    boolean delete(Integer id);
 }
 

@@ -1,20 +1,20 @@
 package com.atms.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.Set;
 
-/**
- * Created by alex on 3/15/2017.
- */
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "keywordId")
 public class Keyword {
     private int keywordId;
     private String value;
-    private Set<Task> tasks;
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "requirementId")
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<Requirement> requirements;
 
     @Id
     @GeneratedValue
@@ -27,7 +27,7 @@ public class Keyword {
         this.keywordId = keywordId;
     }
 
-    @Column(name = "value")
+    @Column(name = "value", nullable = false)
     public String getValue() {
         return value;
     }
@@ -37,12 +37,12 @@ public class Keyword {
     }
 
     @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "keyword_id"), inverseJoinColumns = @JoinColumn(name = "task_id"))
-    public Set<Task> getTasks() {
-        return tasks;
+    @JoinTable(joinColumns = @JoinColumn(name = "keyword_id"), inverseJoinColumns = @JoinColumn(name = "requirement_id"))
+    public Set<Requirement> getRequirements() {
+        return requirements;
     }
 
-    public void setTasks(Set<Task> tasks) {
-        this.tasks = tasks;
+    public void setRequirements(Set<Requirement> requirements) {
+        this.requirements = requirements;
     }
 }

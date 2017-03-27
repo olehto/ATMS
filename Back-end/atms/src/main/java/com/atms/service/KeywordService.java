@@ -1,12 +1,13 @@
 package com.atms.service;
 
-import com.atms.model.Document;
 import com.atms.model.Keyword;
 
 import java.util.List;
 
 /**
- * Created by alex on 3/15/2017.
+ * Interface of business layer that describe work with Keyword entity
+ *
+ * @author Alex Kazanovskiy
  */
 public interface KeywordService {
     Keyword save(Keyword keyword);
@@ -17,5 +18,5 @@ public interface KeywordService {
 
     List<Keyword> findAll();
 
-    void delete(Keyword keyword);
+    boolean delete(Integer id);
 }

@@ -1,6 +1,5 @@
 package com.atms.service;
 
-import com.atms.model.Task;
 import com.atms.model.Technology;
 
 import java.util.List;
@@ -17,5 +16,5 @@ public interface TechnologyService {
 
     List<Technology> findAll();
 
-    void delete(Technology technology);
+    boolean delete(Integer id);
 }

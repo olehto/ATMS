@@ -1,12 +1,13 @@
 package com.atms.service;
 
 import com.atms.model.Document;
-import com.atms.model.Task;
 
 import java.util.List;
 
 /**
- * Created by alex on 3/15/2017.
+ * Interface of business layer that describe work with Document entity
+ *
+ * @author Alex Kazanovskiy
  */
 public interface DocumentService {
     Document save(Document document);
@@ -17,7 +18,5 @@ public interface DocumentService {
 
     List<Document> findAll();
 
-    List<Document> findByTask(Task task);
-
-    void delete(Document document);
+    boolean delete(Integer id);
 }

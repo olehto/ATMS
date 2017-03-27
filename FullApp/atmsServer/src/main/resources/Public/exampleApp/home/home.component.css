@@ -1,0 +1,8 @@
+.nav{
+    clear:both;
+    float: left;
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+}
+.active a {color:red;}

@@ -2,11 +2,9 @@ package com.atms.service;
 
 import com.atms.model.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
-/**
- * Created by alex on 3/15/2017.
- */
 public interface TaskService {
     Task save(Task task);
 
@@ -16,11 +14,13 @@ public interface TaskService {
 
     List<Task> findAll();
 
-    void delete(Task task);
+    List<Task> findByProjectAndPriority(Project project, Priority priority);
 
-    List<Task> findByType(Type type);
+    List<Task> findByProjectAndStatus(Project project, Status status);
 
-    List<Task> findByStatus(Status status);
+    List<Task> findByProject(Project project);
 
     List<Task> findByPriority(Priority priority);
+
+    List<Task> findByType(Type type);
 }

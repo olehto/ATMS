@@ -1,20 +1,27 @@
 package com.atms.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.Set;
 
-/**
- * Created by alex on 3/15/2017.
- */
+
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "priorityId")
 public class Priority {
     private int priorityId;
     private String priorityValue;
+    @JsonIgnore
     private Set<Task> tasks;
+
+    public Priority() {
+    }
+
+    public Priority(String priorityValue) {
+        this.priorityValue = priorityValue;
+    }
 
     @Id
     @GeneratedValue
@@ -27,7 +34,7 @@ public class Priority {
         this.priorityId = priorityId;
     }
 
-    @Column(name = "priority_value")
+    @Column(name = "priority_value", nullable = false)
     public String getPriorityValue() {
         return priorityValue;
     }
