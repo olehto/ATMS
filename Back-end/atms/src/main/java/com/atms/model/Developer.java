@@ -29,6 +29,27 @@ public class Developer {
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "technologyId")
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Technology> technologies;
+    @JsonIgnore
+    private Set<Authority> authorities;
+
+
+    public Developer() {
+    }
+
+    public Developer(Developer developer) {
+        this.developerId = developer.getDeveloperId();
+        this.name = developer.getName();
+        this.lastName = developer.getLastName();
+        this.dateOfBirth = developer.getDateOfBirth();
+        this.email = developer.getEmail();
+        this.telephone = developer.getTelephone();
+        this.nickname = developer.getNickname();
+        this.password = developer.getPassword();
+        this.devType = developer.getDevType();
+        this.tasks = developer.getTasks();
+        this.technologies = developer.getTechnologies();
+        this.authorities = developer.getAuthorities();
+    }
 
     @Id
     @GeneratedValue
@@ -78,7 +99,7 @@ public class Developer {
     }
 
 
-    @Column(name = "telephone")
+    @Column(name = "telephone", nullable = false)
     public String getTelephone() {
         return telephone;
     }
@@ -136,4 +157,16 @@ public class Developer {
         this.technologies = technologies;
     }
 
+    @ManyToMany
+    @JoinTable(
+            name = "developer_authority",
+            joinColumns = @JoinColumn(name = "developerId"),
+            inverseJoinColumns = @JoinColumn(name = "authority"))
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
+    }
 }

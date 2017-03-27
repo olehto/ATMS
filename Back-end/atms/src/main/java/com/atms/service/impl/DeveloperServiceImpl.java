@@ -5,6 +5,7 @@ import com.atms.model.Project;
 import com.atms.repository.DeveloperRepository;
 import com.atms.service.DeveloperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,15 +14,18 @@ import java.util.List;
 public class DeveloperServiceImpl implements DeveloperService {
 
     private final DeveloperRepository developerRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public DeveloperServiceImpl(DeveloperRepository developerRepository) {
+    public DeveloperServiceImpl(DeveloperRepository developerRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.developerRepository = developerRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
 
     @Override
     public Developer save(Developer developer) {
+        developer.setPassword(bCryptPasswordEncoder.encode(developer.getPassword()));
         return developerRepository.saveAndFlush(developer);
     }
 
