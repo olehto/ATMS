@@ -27,7 +27,10 @@ public class DeveloperServiceImpl implements DeveloperService {
 
     @Override
     public Developer update(Developer developer) {
-        return developerRepository.saveAndFlush(developer);
+        if (developerRepository.findOne(developer.getDeveloperId()) != null) {
+            return developerRepository.saveAndFlush(developer);
+        }
+        return null;
     }
 
     @Override
@@ -41,8 +44,12 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public void delete(Developer developer) {
-        developerRepository.delete(developer);
+    public boolean delete(Developer developer) {
+        if (developerRepository.exists(developer.getDeveloperId())) {
+            developerRepository.delete(developer);
+            return true;
+        }
+        return false;
     }
 
     @Override

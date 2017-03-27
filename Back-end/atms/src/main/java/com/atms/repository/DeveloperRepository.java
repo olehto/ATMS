@@ -7,8 +7,22 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * DAO class for interaction between application and {@link com.atms.model.Developer Developer} table in DB
+ *
+ * @author Alex Kazanovskiy
+ */
+
 @Repository
 public interface DeveloperRepository extends JpaRepository<Developer, Integer> {
 
+    /**
+     * Find all developers of concrete project
+     *
+     * @param project object of {@link com.atms.model.Project Project}
+     * @return list of {@link com.atms.model.Developer Developer}
+     */
+
     List<Developer> findByTasksSprintProject(Project project);
+
 }

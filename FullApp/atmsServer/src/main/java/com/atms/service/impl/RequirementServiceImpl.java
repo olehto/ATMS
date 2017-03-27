@@ -43,8 +43,13 @@ public class RequirementServiceImpl implements RequirementService {
     }
 
     @Override
-    public void delete(Requirement requirement) {
-        requirementsRepository.delete(requirement);
+    public boolean delete(Integer id) {
+        if (requirementsRepository.exists(id)) {
+            requirementsRepository.delete(id);
+            return true;
+        }
+        return false;
+
     }
 }
 

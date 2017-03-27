@@ -1,6 +1,5 @@
 package com.atms.service;
 
-import com.atms.model.Document;
 import com.atms.model.Keyword;
 
 import java.util.List;
@@ -17,5 +16,5 @@ public interface KeywordService {
 
     List<Keyword> findAll();
 
-    void delete(Keyword keyword);
+    boolean delete(Integer id);
 }

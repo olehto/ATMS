@@ -1,14 +1,19 @@
 package com.atms.service;
 
+import com.atms.model.Priority;
+import com.atms.model.Project;
 import com.atms.model.Status;
 import com.atms.model.Task;
 
 import java.util.List;
 
 /**
- * Created by alex on 3/15/2017.
+ * Interface of business layer that describe work with Task entity
+ *
+ * @author Alex Kazanovskiy
  */
 public interface TaskService {
+
     Task save(Task task);
 
     Task update(Task task);
@@ -17,5 +22,29 @@ public interface TaskService {
 
     List<Task> findAll();
 
-    void delete(Task task);
+    /**
+     * Find all task of project with concrete priority
+     *
+     * @param project  object of Project
+     * @param priority object of Priority
+     * @return List of Task
+     */
+    List<Task> findByProjectAndPriority(Project project, Priority priority);
+
+    /**
+     * Find all task of project with concrete status
+     *
+     * @param project object of Project
+     * @param status  object of Status
+     * @return List of Task
+     */
+    List<Task> findByProjectAndStatus(Project project, Status status);
+
+    /**
+     * Find all task of project
+     *
+     * @param project object of Project
+     * @return List of Task
+     */
+    List<Task> findByProject(Project project);
 }

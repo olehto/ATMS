@@ -1,12 +1,14 @@
 package com.atms.service;
 
-import com.atms.model.Sprint;
 import com.atms.model.Status;
 
 import java.util.List;
 
+
 /**
- * Created by alex on 3/15/2017.
+ * Interface of business layer that describe work with Status entity
+ *
+ * @author Alex Kazanovskiy
  */
 public interface StatusService {
     Status save(Status status);
@@ -17,5 +19,5 @@ public interface StatusService {
 
     List<Status> findAll();
 
-    void delete(Status status);
+    boolean delete(Integer id);
 }

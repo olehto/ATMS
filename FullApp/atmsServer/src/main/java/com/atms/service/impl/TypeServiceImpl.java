@@ -43,7 +43,11 @@ public class TypeServiceImpl implements TypeService {
     }
 
     @Override
-    public void delete(Type type) {
-        typeRepository.delete(type);
+    public boolean delete(Integer id) {
+        if (typeRepository.exists(id)) {
+            typeRepository.delete(id);
+            return true;
+        }
+        return false;
     }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Set;
 
@@ -17,15 +18,16 @@ public class Task {
     private Timestamp dateStart;
     private Timestamp deadline;
     private String version;
-    private Timestamp startTime;
-    private Timestamp endTime;
+    private Time duration;
+    private Task parent;
+    private Set<Task> subtasks;
     private Priority priority;
     private Type type;
     private Status status;
     private Sprint sprint;
     private Developer developer;
     private Set<Document> documents;
-    private Set<Keyword> keywords;
+    private Requirement requirement;
 
     @Id
     @GeneratedValue
@@ -38,8 +40,7 @@ public class Task {
         this.taskId = taskId;
     }
 
-
-    @Column(name = "Title")
+    @Column(name = "Title", nullable = false)
     public String getTitle() {
         return title;
     }
@@ -47,7 +48,6 @@ public class Task {
     public void setTitle(String title) {
         this.title = title;
     }
-
 
     @Column(name = "Description")
     public String getDescription() {
@@ -58,7 +58,6 @@ public class Task {
         this.description = description;
     }
 
-
     @Column(name = "Date_start")
     public Timestamp getDateStart() {
         return dateStart;
@@ -67,7 +66,6 @@ public class Task {
     public void setDateStart(Timestamp dateStart) {
         this.dateStart = dateStart;
     }
-
 
     @Column(name = "Deadline")
     public Timestamp getDeadline() {
@@ -78,7 +76,6 @@ public class Task {
         this.deadline = deadline;
     }
 
-
     @Column(name = "Version")
     public String getVersion() {
         return version;
@@ -88,26 +85,14 @@ public class Task {
         this.version = version;
     }
 
-
-    @Column(name = "Start_time")
-    public Timestamp getStartTime() {
-        return startTime;
+    @Column(name = "duration")
+    public Time getDuration() {
+        return duration;
     }
 
-    public void setStartTime(Timestamp startTime) {
-        this.startTime = startTime;
+    public void setDuration(Time duration) {
+        this.duration = duration;
     }
-
-
-    @Column(name = "End_time")
-    public Timestamp getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Timestamp endTime) {
-        this.endTime = endTime;
-    }
-
 
     @ManyToOne
     @JoinColumn(name = "priority_id", referencedColumnName = "priority_id")
@@ -150,7 +135,7 @@ public class Task {
     }
 
     @ManyToOne
-    @JoinColumn(name = "developer_id")//, referencedColumnName = "developer_id")
+    @JoinColumn(name = "developer_id")
     public Developer getDeveloper() {
         return developer;
     }
@@ -159,18 +144,7 @@ public class Task {
         this.developer = developer;
     }
 
-    @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "keyword_id"))
-    public Set<Keyword> getKeywords() {
-        return keywords;
-    }
-
-    public void setKeywords(Set<Keyword> keywords) {
-        this.keywords = keywords;
-    }
-
     @OneToMany(mappedBy = "task")
-    //@JoinTable(joinColumns = @JoinColumn(name = "task_id"), inverseJoinColumns = @JoinColumn(name = "document_id"))
     public Set<Document> getDocuments() {
         return documents;
     }
@@ -179,4 +153,30 @@ public class Task {
         this.documents = documents;
     }
 
+    @ManyToOne
+    public Task getParent() {
+        return parent;
+    }
+
+    public void setParent(Task parent) {
+        this.parent = parent;
+    }
+
+    @OneToMany(mappedBy = "parent")
+    public Set<Task> getSubtasks() {
+        return subtasks;
+    }
+
+    public void setSubtasks(Set<Task> subtasks) {
+        this.subtasks = subtasks;
+    }
+
+    @ManyToOne
+    public Requirement getRequirement() {
+        return requirement;
+    }
+
+    public void setRequirement(Requirement requirement) {
+        this.requirement = requirement;
+    }
 }

@@ -43,7 +43,11 @@ public class PriorityServiceImpl implements PriorityService {
     }
 
     @Override
-    public void delete(Priority priority) {
-        priorityRepository.delete(priority);
+    public boolean delete(Integer id) {
+        if (priorityRepository.exists(id)) {
+            priorityRepository.delete(id);
+            return true;
+        }
+        return false;
     }
 }

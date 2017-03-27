@@ -6,6 +6,7 @@ import com.atms.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -43,8 +44,18 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void delete(Task task) {
-        taskRepository.delete(task);
+    public List<Task> findByProjectAndPriority(Project project, Priority priority) {
+        return taskRepository.findBySprintProjectAndPriority(project, priority);
+    }
+
+    @Override
+    public List<Task> findByProjectAndStatus(Project project, Status status) {
+        return taskRepository.findBySprintProjectAndStatus(project, status);
+    }
+
+    @Override
+    public List<Task> findByProject(Project project) {
+        return taskRepository.findBySprintProject(project);
     }
 
     @Override
@@ -53,12 +64,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> findByStatus(Status status) {
-        return taskRepository.findByStatus(status);
-    }
-
-    @Override
     public List<Task> findByPriority(Priority priority) {
         return taskRepository.findByPriority(priority);
     }
+
 }

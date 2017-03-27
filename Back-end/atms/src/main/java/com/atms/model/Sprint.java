@@ -1,6 +1,7 @@
 package com.atms.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -14,8 +15,10 @@ public class Sprint {
     private int sprintId;
     private Date dateStart;
     private Date dateEnd;
-    private Integer projectId;
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "projectId")
+    @JsonIdentityReference(alwaysAsId = true)
     private Project project;
+
     private Set<Task> tasks;
 
     @Id
@@ -29,7 +32,7 @@ public class Sprint {
         this.sprintId = sprintId;
     }
 
-    @Column(name = "date_start")
+    @Column(name = "date_start", nullable = false)
     public Date getDateStart() {
         return dateStart;
     }
@@ -38,22 +41,13 @@ public class Sprint {
         this.dateStart = dateStart;
     }
 
-    @Column(name = "date_end")
+    @Column(name = "date_end", nullable = false)
     public Date getDateEnd() {
         return dateEnd;
     }
 
     public void setDateEnd(Date dateEnd) {
         this.dateEnd = dateEnd;
-    }
-
-    @Column(name = "project_id")
-    public Integer getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(Integer projectId) {
-        this.projectId = projectId;
     }
 
     @ManyToOne

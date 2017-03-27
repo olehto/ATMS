@@ -1,6 +1,7 @@
 package com.atms.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -12,7 +13,16 @@ import java.util.Set;
 public class DevType {
     private int devTypeId;
     private String value;
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "developerId")
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<Developer> developers;
+
+    public DevType() {
+    }
+
+    public DevType(String value) {
+        this.value = value;
+    }
 
     @Id
     @GeneratedValue
@@ -25,8 +35,7 @@ public class DevType {
         this.devTypeId = devTypeId;
     }
 
-
-    @Column(name = "value")
+    @Column(name = "value", nullable = false)
     public String getValue() {
         return value;
     }
@@ -34,7 +43,6 @@ public class DevType {
     public void setValue(String value) {
         this.value = value;
     }
-
 
     @OneToMany(mappedBy = "devType")
     public Set<Developer> getDevelopers() {

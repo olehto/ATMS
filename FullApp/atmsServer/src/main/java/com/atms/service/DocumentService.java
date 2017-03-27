@@ -1,7 +1,6 @@
 package com.atms.service;
 
 import com.atms.model.Document;
-import com.atms.model.Task;
 
 import java.util.List;
 
@@ -17,7 +16,5 @@ public interface DocumentService {
 
     List<Document> findAll();
 
-    List<Document> findByTask(Task task);
-
-    void delete(Document document);
+    boolean delete(Integer id);
 }

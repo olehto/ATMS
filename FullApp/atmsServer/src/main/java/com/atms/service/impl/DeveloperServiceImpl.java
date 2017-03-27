@@ -28,7 +28,10 @@ public class DeveloperServiceImpl implements DeveloperService {
 
     @Override
     public Developer update(Developer developer) {
-        return developerRepository.saveAndFlush(developer);
+        if (developerRepository.findOne(developer.getDeveloperId()) != null) {
+            return developerRepository.saveAndFlush(developer);
+        }
+        return null;
     }
 
     @Override
@@ -42,8 +45,12 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public void delete(Developer developer) {
-        developerRepository.delete(developer);
+    public boolean delete(Developer developer) {
+        if (developerRepository.exists(developer.getDeveloperId())) {
+            developerRepository.delete(developer);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -53,12 +60,12 @@ public class DeveloperServiceImpl implements DeveloperService {
 
     @Override
     public Developer getAuth(Developer developer){
-        List<Developer> list = developerRepository.findByEmail(developer.getEmail());
-        if(list!=null&&list.get(0).getPassword().equals(developer.getPassword())){
-            return list.get(0);
+        Developer tempDev = developerRepository.findByEmail(developer.getEmail());
+        if(tempDev.getPassword().equals(developer.getPassword())){
+            return tempDev;
         }
         else{
-            return new Developer();
+            return null;
         }
     }
 
@@ -69,12 +76,12 @@ public class DeveloperServiceImpl implements DeveloperService {
 
     @Override
     public Developer findByEmail(String mail){
-        List<Developer> list = developerRepository.findByEmail(mail);
-        if(list!=null){
-            return list.get(0);
+        Developer developer = developerRepository.findByEmail(mail);
+        if(developer!=null){
+            return developer;
         }
         else{
-            return new Developer();
+            return null;
         }
     }
 }

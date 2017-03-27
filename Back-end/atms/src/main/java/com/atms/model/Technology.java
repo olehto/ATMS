@@ -1,6 +1,7 @@
 package com.atms.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -13,7 +14,12 @@ public class Technology {
     private int technologyId;
     private String title;
     private String description;
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "developerId")
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<Developer> developers;
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "requirementId")
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<Requirement> requirements;
 
     @Id
     @GeneratedValue
@@ -26,8 +32,7 @@ public class Technology {
         this.technologyId = technologyId;
     }
 
-
-    @Column(name = "title")
+    @Column(name = "title", nullable = false)
     public String getTitle() {
         return title;
     }
@@ -35,7 +40,6 @@ public class Technology {
     public void setTitle(String title) {
         this.title = title;
     }
-
 
     @Column(name = "description")
     public String getDescription() {
@@ -46,13 +50,22 @@ public class Technology {
         this.description = description;
     }
 
-    @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "technology_id"), inverseJoinColumns = @JoinColumn(name = "developer_id"))
+    @ManyToMany(mappedBy = "technologies")
     public Set<Developer> getDevelopers() {
         return developers;
     }
 
     public void setDevelopers(Set<Developer> developers) {
         this.developers = developers;
+    }
+
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn(name = "technology_id"), inverseJoinColumns = @JoinColumn(name = "requirement_id"))
+    public Set<Requirement> getRequirements() {
+        return requirements;
+    }
+
+    public void setRequirements(Set<Requirement> requirements) {
+        this.requirements = requirements;
     }
 }
