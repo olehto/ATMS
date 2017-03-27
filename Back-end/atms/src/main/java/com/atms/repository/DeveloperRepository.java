@@ -22,9 +22,7 @@ public interface DeveloperRepository extends JpaRepository<Developer, Integer> {
      * @param project object of {@link com.atms.model.Project Project}
      * @return list of {@link com.atms.model.Developer Developer}
      */
-
     List<Developer> findByTasksSprintProject(Project project);
 
-    Developer findByNickname(String nickname);
-
+	Developer findByNickname(String nickname);
 }
