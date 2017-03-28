@@ -30,7 +30,7 @@ var TaskService = (function () {
         return this.http.post(this.httpAdress + '/api/task/', body, { headers: headers }).map(function (response) { return response.json(); });
     };
     TaskService.prototype.update = function (task) {
-        return this.http.put(this.httpAdress + '/api/task/' + task, task).map(function (response) { return response.json(); });
+        return this.http.put(this.httpAdress + '/api/task/' + task.taskId, task).map(function (response) { return response.json(); });
     };
     TaskService.prototype.delete = function (id) {
         return this.http.delete(this.httpAdress + '/api/task/' + id).map(function (response) { return response.json(); });
@@ -41,8 +41,14 @@ var TaskService = (function () {
     TaskService.prototype.getByType = function (id) {
         return this.http.get(this.httpAdress + '/api/task/type/' + id).map(function (response) { return response.json(); });
     };
+    TaskService.prototype.getByStatus = function (id) {
+        return this.http.get(this.httpAdress + '/api/task/status/' + id).map(function (response) { return response.json(); });
+    };
     TaskService.prototype.getByProject = function (id) {
         return this.http.get(this.httpAdress + '/api/task/project/' + id).map(function (response) { return response.json(); });
+    };
+    TaskService.prototype.getByParent = function (id) {
+        return this.http.get(this.httpAdress + '/api/task/epic/' + id).map(function (response) { return response.json(); });
     };
     // private helper methods
     TaskService.prototype.jwt = function () {

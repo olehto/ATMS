@@ -5,6 +5,6 @@ export class Project {
     projectId: number;
     title: string;
     description: string;
-    date_start: string;
-    deadline: string;
+    dateStart: number;
+    deadline: number;
 }

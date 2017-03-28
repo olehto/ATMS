@@ -16,9 +16,14 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var index_1 = require("../_services/index");
 var RegisterComponent = (function () {
-    function RegisterComponent(router, userService) {
+    function RegisterComponent(router, userService, typeService, technologyService, taskService, priorityService, projectService) {
         this.router = router;
         this.userService = userService;
+        this.typeService = typeService;
+        this.technologyService = technologyService;
+        this.taskService = taskService;
+        this.priorityService = priorityService;
+        this.projectService = projectService;
         this.model = {};
         this.loading = false;
     }
@@ -41,7 +46,12 @@ RegisterComponent = __decorate([
         templateUrl: 'reg.component.html'
     }),
     __metadata("design:paramtypes", [router_1.Router,
-        index_1.UserService])
+        index_1.UserService,
+        index_1.TypeService,
+        index_1.TechnologyService,
+        index_1.TaskService,
+        index_1.PriorityService,
+        index_1.ProjectService])
 ], RegisterComponent);
 exports.RegisterComponent = RegisterComponent;
 //# sourceMappingURL=register.component.js.map

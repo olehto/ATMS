@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Integer> {
 
-    List<Task> findByStartTimeGreaterThan(Timestamp timestamp);
+    //List<Task> findByStartTimeGreaterThan(Timestamp timestamp);
 
     List<Task> findBySprintProjectAndPriority(Project project, Priority priority);
 
@@ -20,6 +20,10 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
 
     List<Task> findByPriority(Priority priority);
 
+    List<Task> findByStatus(Status status);
+
     List<Task> findByType(Type type);
+
+    List<Task> findByParent(Task task);
 
 }

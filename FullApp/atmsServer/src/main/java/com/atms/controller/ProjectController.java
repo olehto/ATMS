@@ -4,6 +4,7 @@ import com.atms.model.Developer;
 import com.atms.model.Project;
 import com.atms.service.DeveloperService;
 import com.atms.service.ProjectService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,25 +63,36 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/api/project", method = RequestMethod.POST)
-    public ResponseEntity<Project> add(@Valid Project project) {
-        if (projectService.findOne(project.getProjectId()) != null) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+    public ResponseEntity<Project> add(@RequestBody String body) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            Project project = (Project) mapper.readValue(body, Project.class);
+            project = projectService.save(project);
+            return new ResponseEntity<>(project, HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(projectService.save(project), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/api/project/{projectId}", method = RequestMethod.PUT)
-    public ResponseEntity<Project> update(@Valid Project project, @PathVariable("projectId") String projectId) {
+    public ResponseEntity<Project> update(@RequestBody String body, @PathVariable("projectId") String projectId) {
         Project oldProject = projectService.findOne(Integer.parseInt(projectId));
         if (oldProject == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        oldProject.setDescription(project.getDescription());
-        oldProject.setDeadline(project.getDeadline());
-        oldProject.setDateStart(project.getDateStart());
-        oldProject.setTitle(project.getTitle());
-        oldProject.setSprints(project.getSprints());
-        return new ResponseEntity<>(projectService.update(project), HttpStatus.OK);
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            Project project = (Project) mapper.readValue(body, Project.class);
+            oldProject.setDescription(project.getDescription());
+            oldProject.setDeadline(project.getDeadline());
+            oldProject.setDateStart(project.getDateStart());
+            oldProject.setTitle(project.getTitle());
+            oldProject.setSprints(project.getSprints());
+            return new ResponseEntity<>(projectService.update(project), HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @RequestMapping(value = "/api/project/{projectId}", method = RequestMethod.DELETE)

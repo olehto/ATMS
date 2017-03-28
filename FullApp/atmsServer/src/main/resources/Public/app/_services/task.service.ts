@@ -26,7 +26,7 @@ export class TaskService {
     }
 
     update(task: Task) {
-        return this.http.put(this.httpAdress+'/api/task/' + task, task).map((response: Response) => response.json());
+        return this.http.put(this.httpAdress+'/api/task/' + task.taskId, task).map((response: Response) => response.json());
     }
 
     delete(id: number) {
@@ -41,10 +41,17 @@ export class TaskService {
         return  this.http.get(this.httpAdress+'/api/task/type/' + id).map((response: Response) => response.json());
     }
 
+    getByStatus(id: number){
+        return  this.http.get(this.httpAdress+'/api/task/status/' + id).map((response: Response) => response.json());
+    }
+
     getByProject(id: number){
         return  this.http.get(this.httpAdress+'/api/task/project/' + id).map((response: Response) => response.json());
     }
 
+    getByParent(id: number){
+        return  this.http.get(this.httpAdress+'/api/task/epic/' + id).map((response: Response) => response.json());
+    }
 
     // private helper methods
 

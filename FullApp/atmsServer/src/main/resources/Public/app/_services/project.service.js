@@ -35,10 +35,10 @@ var ProjectService = (function () {
         return this.http.get(this.httpAdress + '/api/project/developer/' + id).map(function (response) { return response.json(); });
     };
     ProjectService.prototype.update = function (project) {
-        return this.http.put(this.httpAdress + '/api/project/' + project, project).map(function (response) { return response.json(); });
+        return this.http.put(this.httpAdress + '/api/project/' + project.projectId, project).map(function (response) { return response.json(); });
     };
     ProjectService.prototype.delete = function (id) {
-        return this.http.delete(this.httpAdress + '/api/project/' + id).map(function (response) { return response.json(); });
+        return this.http.delete(this.httpAdress + '/api/project/' + id).map(function (response) { return response.statusText; } /*response.json()*/);
     };
     // private helper methods
     ProjectService.prototype.jwt = function () {

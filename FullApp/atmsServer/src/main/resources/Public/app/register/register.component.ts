@@ -3,7 +3,9 @@
  */
 import {Component} from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from '../_services/index';
+import { UserService,PriorityService,TaskService,ProjectService,TechnologyService,TypeService } from '../_services/index';
+import {Project} from "../_models/project";
+import {Task} from "../_models/task";
 
 
 @Component({
@@ -17,7 +19,12 @@ export class RegisterComponent {
 
     constructor(
         private router: Router,
-        private userService: UserService) { }
+        private userService: UserService,
+    private typeService: TypeService,
+    private technologyService: TechnologyService,
+    private taskService: TaskService,
+    private priorityService: PriorityService,
+    private projectService: ProjectService) { }
 
     register() {
         this.loading = true;
@@ -30,4 +37,5 @@ export class RegisterComponent {
                     this.loading = false;
                 });
     }
+
 }

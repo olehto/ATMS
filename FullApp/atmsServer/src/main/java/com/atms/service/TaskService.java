@@ -23,4 +23,8 @@ public interface TaskService {
     List<Task> findByPriority(Priority priority);
 
     List<Task> findByType(Type type);
+
+    List<Task> findByStatus(Status status);
+
+    List<Task> findByParent(Task task);
 }

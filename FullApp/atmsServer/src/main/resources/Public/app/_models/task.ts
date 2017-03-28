@@ -7,12 +7,9 @@ export class Task {
     taskId: number;
     title: string;
     description: string;
-    //rework with dates
-    date_start: string;
-    deadline: string;
-    startTime: string;
-    endTime: string;
-    //////
+    dateStart: number;
+    deadline: number;
+    duration: number;
     version: string;
     parent: Task;
     developer: User;

@@ -64,8 +64,18 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public List<Task> findByStatus(Status status) {
+        return taskRepository.findByStatus(status);
+    }
+
+    @Override
     public List<Task> findByPriority(Priority priority) {
         return taskRepository.findByPriority(priority);
+    }
+
+    @Override
+    public List<Task> findByParent(Task task) {
+        return taskRepository.findByParent(task);
     }
 
 }

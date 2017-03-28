@@ -32,11 +32,11 @@ export class ProjectService {
         return  this.http.get(this.httpAdress+'/api/project/developer/' + id).map((response: Response) => response.json());
     }
     update(project: Project) {
-        return this.http.put(this.httpAdress+'/api/project/' + project, project).map((response: Response) => response.json());
+        return this.http.put(this.httpAdress+'/api/project/' + project.projectId, project).map((response: Response) => response.json());
     }
 
     delete(id: number) {
-        return this.http.delete(this.httpAdress+'/api/project/' + id).map((response: Response) => response.json());
+        return this.http.delete(this.httpAdress+'/api/project/' + id).map((response: Response) => response.statusText/*response.json()*/);
     }
 
     // private helper methods

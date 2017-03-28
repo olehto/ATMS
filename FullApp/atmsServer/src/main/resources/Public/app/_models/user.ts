@@ -3,7 +3,7 @@
  */
 export class User {
     developerId: number;
-    firstName: string;
+    name: string;
     lastName: string;
     email: string;
     telephone: string;
