@@ -10,6 +10,7 @@ import java.util.List;
  * @author Alex Kazanovskiy
  */
 public interface KeywordService {
+
     Keyword save(Keyword keyword);
 
     Keyword update(Keyword keyword);

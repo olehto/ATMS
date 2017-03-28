@@ -10,6 +10,7 @@ import java.util.List;
  * @author Alex Kazanovskiy
  */
 public interface SprintService {
+
     Sprint save(Sprint sprint);
 
     Sprint update(Sprint sprint);

@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * @author Alex Kazanovskiy.
+ */
+
 @RestController
 @CrossOrigin
 public class DeveloperController {
@@ -54,7 +58,6 @@ public class DeveloperController {
 
     @RequestMapping(value = "/api/developer", method = RequestMethod.POST)
     public ResponseEntity<Developer> add(@Valid Developer developer) {
-
         if (developerService.findOne(developer.getDeveloperId()) != null) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
@@ -71,7 +74,6 @@ public class DeveloperController {
 
     @RequestMapping(value = "/api/developer", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(Developer developer) {
-
         if (developerService.delete(developer)) {
             return new ResponseEntity<>(HttpStatus.OK);
         }

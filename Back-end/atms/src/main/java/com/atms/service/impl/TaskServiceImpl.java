@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author Alex Kazanovskiy.
+ */
 
 @Service
 public class TaskServiceImpl implements TaskService {

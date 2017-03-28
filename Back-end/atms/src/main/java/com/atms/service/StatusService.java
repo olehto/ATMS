@@ -11,6 +11,7 @@ import java.util.List;
  * @author Alex Kazanovskiy
  */
 public interface StatusService {
+
     Status save(Status status);
 
     Status update(Status status);

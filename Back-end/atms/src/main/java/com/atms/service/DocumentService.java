@@ -10,6 +10,7 @@ import java.util.List;
  * @author Alex Kazanovskiy
  */
 public interface DocumentService {
+
     Document save(Document document);
 
     Document update(Document document);

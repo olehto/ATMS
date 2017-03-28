@@ -11,7 +11,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * Created by alex on 3/17/2017.
+ * @author Alex Kazanovskiy.
  */
 
 @RestController

@@ -10,6 +10,7 @@ import java.util.List;
  * @author Alex Kazanovskiy
  */
 public interface TypeService {
+
     Type save(Type type);
 
     Type update(Type type);

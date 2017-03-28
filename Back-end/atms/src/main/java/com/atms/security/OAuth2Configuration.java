@@ -40,7 +40,6 @@ public class OAuth2Configuration {
 
         @Override
         public void configure(HttpSecurity http) throws Exception {
-
             http
                     .exceptionHandling()
                     .authenticationEntryPoint(customAuthenticationEntryPoint)
@@ -56,7 +55,10 @@ public class OAuth2Configuration {
                     .frameOptions().disable()
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/**").authenticated();
+                    .antMatchers("/**").authenticated()
+                    .and()
+                    .formLogin()
+                    .loginPage("/login");
 
         }
 

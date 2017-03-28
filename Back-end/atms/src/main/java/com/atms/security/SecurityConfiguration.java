@@ -42,7 +42,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .ignoring()
                 .antMatchers("/login")
                 .antMatchers("/register")
-                .antMatchers("/resources/**")
                 .antMatchers("/api/oauth/**");
 
     }
