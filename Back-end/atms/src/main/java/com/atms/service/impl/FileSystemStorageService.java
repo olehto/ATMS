@@ -28,8 +28,8 @@ public class FileSystemStorageService implements StorageService {
     public FileSystemStorageService(StorageProperties properties) {
         this.rootLocation = Paths.get(properties.getLocation());
         extensions = new String[]{"image/jpeg", "image/pjpeg", "image/png", "image/gif", "text/plain", "application/msword",
-                "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/x-rar-compressed",
-                "application/pdf", "application/zip", "application/gzip", "application/xml"};
+                "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+                "application/pdf", "application/xml"};
     }
 
     @Override

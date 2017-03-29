@@ -28,7 +28,6 @@ public class DocumentController {
     private final DocumentService documentService;
     private final TaskService taskService;
 
-
     @Autowired
     public DocumentController(StorageService storageService, DocumentService documentService, TaskService taskService) {
         this.storageService = storageService;
@@ -51,9 +50,7 @@ public class DocumentController {
         if (task == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
         Set<Document> documents = task.getDocuments();
-
         if (documents == null)
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
@@ -63,6 +60,9 @@ public class DocumentController {
     @RequestMapping(value = "/api/document/task/{taskId}", method = RequestMethod.POST)
     public ResponseEntity<Document> add(@RequestParam("file") MultipartFile file,
                                         @PathVariable("taskId") String taskId) {
+        Task task;
+        if ((task = taskService.findOne(Integer.parseInt(taskId))) == null)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         String link;
         try {
             link = storageService.store(taskId, file);
@@ -71,8 +71,7 @@ public class DocumentController {
         }
         Document document = new Document();
         document.setLink(link);
-        document.setTask(taskService.findOne(Integer.parseInt(taskId)));
+        document.setTask(task);
         return new ResponseEntity<>(documentService.save(document), HttpStatus.OK);
     }
-
 }
