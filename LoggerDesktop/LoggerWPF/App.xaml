@@ -1,0 +1,274 @@
+﻿<Application x:Class="LoggerWPF.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <LinearGradientBrush x:Key="GrayBlueGradientBrush"     StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="Yellow" Offset="0" />
+            <GradientStop Color="#CCCCFF" Offset="0.5" />
+            <GradientStop Color="DarkGray" Offset="1" />
+        </LinearGradientBrush>
+        <Style x:Key="ForButtonMain" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Black" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid ClipToBounds="True">
+                            <Rectangle x:Name="outerRectangle"   Stroke="#FF045500" Fill="#FFE0F5E0" RadiusX="20" RadiusY="20" StrokeThickness="3"/>
+                            <!-- Present Content (text) of the button. -->
+                            <DockPanel Name="myContentPresenterDockPanel">
+                                <ContentPresenter x:Name="myContentPresenter" Margin="42 17 0 0" 
+                                    Content="{TemplateBinding  Content}" 
+                                    TextBlock.Foreground="Black" />
+                            </DockPanel>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+
+                            <!-- Set properties when mouse pointer is over the button. -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <!-- Below are one property setting that occur when the 
+         condition is met (user mouses over button).  -->
+                                <!-- Change the color of the outer rectangle when user 
+         mouses over it. -->
+                                <!--<Setter Property ="Rectangle.Stroke" TargetName="outerRectangle"
+                                Value="#FF017440" />-->
+                                <Setter Property ="Rectangle.Fill" TargetName="outerRectangle"
+                                Value="#FF045500" />
+                                <Setter Property="TextBlock.Foreground" TargetName="myContentPresenter" Value="White" />
+                            </Trigger>
+
+                            <!-- Animation fires when button is clicked, causing glass to spin.  -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Rectangle.StrokeThickness" TargetName="outerRectangle" Value="5" />
+                                <Setter Property="Rectangle.Stroke" TargetName="outerRectangle" Value="Black" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                    
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="LabelRegistr" TargetType="{x:Type Label}">
+            <Setter Property="Visibility" Value="Visible"/>
+            <Style.Triggers>
+                            <!-- Set properties when mouse pointer is over the button. -->
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Cursor" Value="Hand" />
+                    <Setter Property="Background" Value="#FF90F08D" />
+                </Trigger>
+
+            </Style.Triggers>
+        </Style>
+
+        <!-- 
+        ********************
+        ********************
+        THIS IS FOR LEFT MENU BUTTONS
+        -->
+        <Style x:Key="ForWindowsButton1" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid ClipToBounds="True">
+                            <Rectangle x:Name="outerRectangle"   Stroke="#FF045500" Fill="#FFE0F5E0" RadiusX="5" RadiusY="5" StrokeThickness="1"/>
+                            <!-- Present Content (text) of the button. -->
+                            <DockPanel Name="myContentPresenterDockPanel">
+                                <ContentPresenter x:Name="myContentPresenter" Margin="0 0 0 0" 
+                                    Content="{TemplateBinding  Content}" 
+                                    TextBlock.Foreground="Black" />
+                            </DockPanel>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!-- Set properties when mouse pointer is over the button. -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <!-- Below are one property setting that occur when the 
+         condition is met (user mouses over button).  -->
+                                <!-- Change the color of the outer rectangle when user 
+         mouses over it. -->
+                                <Setter Property ="Rectangle.Fill" TargetName="outerRectangle"
+                                Value="#FF67FB5F" />
+                            </Trigger>
+
+                            <!-- Animation fires when button is clicked, causing glass to spin.  -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Rectangle.StrokeThickness" TargetName="outerRectangle" Value="5" />
+                                <Setter Property="Rectangle.Stroke" TargetName="outerRectangle" Value="Black" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- 
+        ********************
+        ********************
+        THIS IS FOR ABOUT BUTTON
+        -->
+        <Style x:Key="ForWindowsButton2" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid ClipToBounds="True">
+                            <Rectangle x:Name="outerRectangle"   Stroke="#FF045500" Fill="#FFE0F5E0" RadiusX="5" RadiusY="5" StrokeThickness="1"/>
+                            <!-- Present Content (text) of the button. -->
+                            <DockPanel Name="myContentPresenterDockPanel">
+                                <ContentPresenter x:Name="myContentPresenter" Margin="33 11 0 0" 
+                                    Content="{TemplateBinding  Content}" 
+                                    TextBlock.Foreground="Black" />
+                            </DockPanel>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!-- Set properties when mouse pointer is over the button. -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <!-- Below are one property setting that occur when the 
+         condition is met (user mouses over button).  -->
+                                <!-- Change the color of the outer rectangle when user 
+         mouses over it. -->
+                                <Setter Property ="Rectangle.Fill" TargetName="outerRectangle"
+                                Value="#FF67FB5F" />
+                            </Trigger>
+
+                            <!-- Animation fires when button is clicked, causing glass to spin.  -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Rectangle.StrokeThickness" TargetName="outerRectangle" Value="5" />
+                                <Setter Property="Rectangle.Stroke" TargetName="outerRectangle" Value="Black" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- 
+        ********************
+        ********************
+        THIS IS FOR PLAY AND STOP BUTTONS
+        -->
+        <Style x:Key="ForWindowsButton3" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid ClipToBounds="True">
+                            <Rectangle x:Name="outerRectangle"   Stroke="Black" Fill="#FFE0F5E0" RadiusX="5" RadiusY="5" StrokeThickness="1"/>
+                            <!-- Present Content (text) of the button. -->
+                            <DockPanel Name="myContentPresenterDockPanel">
+                                <ContentPresenter x:Name="myContentPresenter" Margin="0 0 0 0" 
+                                    Content="{TemplateBinding  Content}" 
+                                    TextBlock.Foreground="Black" />
+                            </DockPanel>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!-- Set properties when mouse pointer is over the button. -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <!-- Below are one property setting that occur when the 
+         condition is met (user mouses over button).  -->
+                                <!-- Change the color of the outer rectangle when user 
+         mouses over it. -->
+                                <Setter Property ="Rectangle.Fill" TargetName="outerRectangle"
+                                Value="#FF67FB5F" />
+                            </Trigger>
+
+                            <!-- Animation fires when button is clicked.  -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Rectangle.StrokeThickness" TargetName="outerRectangle" Value="5" />
+                                <Setter Property="Rectangle.Stroke" TargetName="outerRectangle" Value="Black" />
+                            </Trigger>
+                            <!--ISENABLED*********************-->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property ="Rectangle.Fill" TargetName="outerRectangle"  Value="#FFB8B8B8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- 
+        ********************
+        ********************
+        THIS IS FOR PAUSE BUTTON
+        -->
+        <Style x:Key="ForWindowsButton4" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid ClipToBounds="True">
+                            <Rectangle x:Name="outerRectangle"   Stroke="#FF045500" Fill="#FFE0F5E0" RadiusX="5" RadiusY="5" StrokeThickness="1"/>
+                            <!-- Present Content (text) of the button. -->
+                            <DockPanel Name="myContentPresenterDockPanel">
+                                <ContentPresenter x:Name="myContentPresenter" Margin="0 0 0 0" 
+                                    Content="{TemplateBinding  Content}" 
+                                    TextBlock.Foreground="Black" />
+                            </DockPanel>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!-- Set properties when mouse pointer is over the button. -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <!-- Below are one property setting that occur when the 
+         condition is met (user mouses over button).  -->
+                                <!-- Change the color of the outer rectangle when user 
+         mouses over it. -->
+                                <Setter Property ="Rectangle.Fill" TargetName="outerRectangle"
+                                Value="#FF67FB5F" />
+                            </Trigger>
+
+                            <!-- Animation fires when button is clicked, causing glass to spin.  -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Rectangle.StrokeThickness" TargetName="outerRectangle" Value="5" />
+                                <Setter Property="Rectangle.Stroke" TargetName="outerRectangle" Value="Black" />
+                            </Trigger>
+
+
+                            <!--ISENABLED*********************-->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property ="Rectangle.Fill" TargetName="outerRectangle"  Value="#FFB8B8B8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <!-- 
+        ********************
+        ********************
+        THIS IS FOR CHANGE BUTTON
+        -->
+        <Style x:Key="ForWindowsButton5" TargetType="{x:Type Button}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid ClipToBounds="True">
+                            <Rectangle x:Name="outerRectangle"   Stroke="#FF045500" Fill="#FFE0F5E0" RadiusX="5" RadiusY="5" StrokeThickness="1"/>
+                            <!-- Present Content (text) of the button. -->
+                            <DockPanel Name="myContentPresenterDockPanel">
+                                <ContentPresenter x:Name="myContentPresenter" Margin="0 0 0 0" 
+                                    Content="{TemplateBinding  Content}" 
+                                    TextBlock.Foreground="Black" />
+                            </DockPanel>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!-- Set properties when mouse pointer is over the button. -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <!-- Below are one property setting that occur when the 
+         condition is met (user mouses over button).  -->
+                                <!-- Change the color of the outer rectangle when user 
+         mouses over it. -->
+                                <Setter Property ="Rectangle.Fill" TargetName="outerRectangle"
+                                Value="#FF67FB5F" />
+                            </Trigger>
+
+                            <!-- Animation fires when button is clicked, causing glass to spin.  -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Rectangle.StrokeThickness" TargetName="outerRectangle" Value="5" />
+                                <Setter Property="Rectangle.Stroke" TargetName="outerRectangle" Value="Black" />
+                            </Trigger>
+
+                            <!--ISENABLED*********************-->
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property ="Rectangle.Fill" TargetName="outerRectangle"  Value="#FFB8B8B8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,15 @@
+﻿<Window x:Class="LoggerWPF.AddWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="AddWindow" Height="150" Width="180.488">
+    <Grid>
+        <Button Content="Cancel" HorizontalAlignment="Left" Margin="10,71,0,0" VerticalAlignment="Top" Width="57" Height="36" Click="Button_Click_1"/>
+        <Button Content="Accept" HorizontalAlignment="Left" Margin="106,71,0,0" VerticalAlignment="Top" Width="57" Height="36" RenderTransformOrigin="1.979,0.558" Click="Button_Click_2"/>
+        <TextBox HorizontalAlignment="Left" Height="46" Margin="10,8,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="41" FontSize="28" Name="Hourss"/>
+        <TextBox HorizontalAlignment="Left" Height="46" Margin="65,8,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="41" FontSize="28" Name="Minutess"/>
+        <TextBox HorizontalAlignment="Left" Height="46" Margin="122,9,0,0" TextWrapping="Wrap" Text="00" VerticalAlignment="Top" Width="41" FontSize="28" Name="Secondss"/>
+        <Label Content=":" HorizontalAlignment="Left" Margin="51,8,0,0" VerticalAlignment="Top" FontSize="28" Width="16"/>
+        <Label Content=":" HorizontalAlignment="Left" Margin="106,6,0,0" VerticalAlignment="Top" FontSize="28" Width="16"/>
+
+    </Grid>
+</Window>
