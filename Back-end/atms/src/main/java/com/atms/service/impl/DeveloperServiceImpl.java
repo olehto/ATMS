@@ -62,6 +62,6 @@ public class DeveloperServiceImpl implements DeveloperService {
 
     @Override
     public List<Developer> findByProject(Project project) {
-        return developerRepository.findByTasksSprintProject(project);
+        return developerRepository.findByTasksAsDeveloperSprintProject(project);
     }
 }

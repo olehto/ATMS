@@ -51,4 +51,9 @@ public class Status {
     public void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
     }
+
+    @Override
+    public String toString() {
+        return value;
+    }
 }

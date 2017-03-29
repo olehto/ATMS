@@ -26,6 +26,7 @@ public class Task {
     private Status status;
     private Sprint sprint;
     private Developer developer;
+    private Developer reporter;
     private Set<Document> documents;
     private Requirement requirement;
 
@@ -132,6 +133,16 @@ public class Task {
 
     public void setSprint(Sprint sprint) {
         this.sprint = sprint;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "reporter_id", insertable = false, updatable = false)
+    public Developer getReporter() {
+        return reporter;
+    }
+
+    public void setReporter(Developer reporter) {
+        this.reporter = reporter;
     }
 
     @ManyToOne

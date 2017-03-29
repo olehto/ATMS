@@ -25,7 +25,10 @@ public class Developer {
     private DevType devType;
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "taskId")
     @JsonIdentityReference(alwaysAsId = true)
-    private Set<Task> tasks;
+    private Set<Task> tasksAsDeveloper;
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "taskId")
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<Task> tasksAsReporter;
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "technologyId")
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Technology> technologies;
@@ -46,7 +49,7 @@ public class Developer {
         this.nickname = developer.getNickname();
         this.password = developer.getPassword();
         this.devType = developer.getDevType();
-        this.tasks = developer.getTasks();
+        this.tasksAsDeveloper = developer.getTasksAsDeveloper();
         this.technologies = developer.getTechnologies();
         this.authorities = developer.getAuthorities();
     }
@@ -139,12 +142,21 @@ public class Developer {
     }
 
     @OneToMany(mappedBy = "developer")
-    public Set<Task> getTasks() {
-        return tasks;
+    public Set<Task> getTasksAsDeveloper() {
+        return tasksAsDeveloper;
     }
 
-    public void setTasks(Set<Task> tasks) {
-        this.tasks = tasks;
+    public void setTasksAsDeveloper(Set<Task> tasksAsDeveloper) {
+        this.tasksAsDeveloper = tasksAsDeveloper;
+    }
+
+    @OneToMany(mappedBy = "reporter")
+    public Set<Task> getTasksAsReporter() {
+        return tasksAsReporter;
+    }
+
+    public void setTasksAsReporter(Set<Task> tasksAsReporter) {
+        this.tasksAsReporter = tasksAsReporter;
     }
 
     @ManyToMany
