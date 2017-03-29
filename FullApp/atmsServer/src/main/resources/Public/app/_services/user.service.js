@@ -37,6 +37,9 @@ var UserService = (function () {
     UserService.prototype.delete = function (id) {
         return this.http.delete(this.httpAdress + '/api/developer/' + id).map(function (response) { return response.json(); });
     };
+    UserService.prototype.getDevTypes = function () {
+        return this.http.get(this.httpAdress + '/api/devType/').map(function (response) { return response.json(); });
+    };
     // private helper methods
     UserService.prototype.jwt = function () {
         // create authorization header with jwt token

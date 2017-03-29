@@ -1,58 +1,77 @@
+
 ul {
     list-style: none;
 }
 .karkas {
-    background: #193654;
-}
+    background: #fff;
 
-h1, h2, h3, h4, h5, h6{
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif ; font-weight: normal;
-    color: #000c33;
+}
+.wrapper{
+    padding-bottom: 211px;
+}
+.logo{
+    padding-top: 20px;
+}
+body{
+    height: 100%;
+    min-width:1200px;
+
+}
+html {
+    position:relative;
+    min-height:100%;
 }
 .header{
-     background:#152f49 ;
- }
+    background:#292929 ;
+}
 
 .menu{
-    background:#152f49;
+
 }
 .menu li{
+    position: relative;
     float: left;  display: block;
+    font-family: 'open_sansbold',Arial, Helvetica, sans-serif;
+    z-index: 99;
 }
 .menu ul li{
-    float: none;
+
     position: relative;
 }
 .menu ul li a {
-    color: #fff; text-decoration: none; font-size: 13px; font-weight: bold;
+    color: #fff; text-decoration: none; font-size: 13px;
     padding: 5px 15px; display: block;
     text-shadow: 1px 1px 1px rgba(0,0,0, 0.7);
+    font-family: 'open_sansbold',Arial, Helvetica, sans-serif;
 }
 .menu li a{
-    color: #fff; text-decoration: none; font-size: 13px; font-weight: bold;
-    padding: 10px 20px 10px 60px; display: block;
+    overflow: hidden;
+    color: #fff; text-decoration: none; font-size: 16px; font-weight: normal;
+    padding:30px 20px; display: block;
+    margin-top: 10px;
+    border-bottom:3px solid #292929;
 }
 .menu li a:hover{
-    background: #0D2033;
-    color: #919303;
+    color:#58c93a; border-bottom:3px solid #58c93a;
 }
 
-.dropdown {
-
+.menudown {
     position: absolute;
     top:100%;
-    background:#0D2033 ;
+    background:#292929 ;
     width: 150px;
     padding: 0;
     margin: 0;
     display: none;
 }
-.menu li:hover .dropdown{
+.menu li:hover .menudown{
     display: block;
-    background: #193654;
+    background: #292929;
 }
-
-.dropdown li {
+.menu ul li a:hover {
+    color:#58c93a;
+}
+.menudown li {
     width: 100%;
 }
 
@@ -65,36 +84,16 @@ h1, h2, h3, h4, h5, h6{
     border-bottom: 1px solid #666;
     transition: 0.5s all;
 }
-.dashboard-menu li{
-    font-size: 20px;
-}
-.dashboard-side{
-    width: 250px;
-    padding: 120px 0 0 15px;
-}
-.menu__list{
-    position: relative;
-}
-.menu__drop{
-    position: absolute;
-    top: -99999em;
-    width: 100%;
-    left: 100%;
-    opacity: 0;
-    transition: 0.5s opacity;
-}
-.menu__list:hover .menu__drop{
-    opacity: 1;
-    top: 0;
-}
-.dashboard-menu a:hover{
-    background: #666;
-    padding: 0 10px 0 20px;
-}
+
 
 .footer{
-    background: #252525; font-size: 12px; overflow: hidden; color: #959595; position: relative; padding: 0 0 10px 0;
+    background: #252525; font-size: 12px; overflow: hidden; color: #959595; padding: 0 0 10px 0;
+    height: 50px;;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
+
 .footer a{
     color: #959595; text-decoration: none;
 }
@@ -102,8 +101,27 @@ h1, h2, h3, h4, h5, h6{
     text-decoration: underline;
 }
 
+.radius{
+    position: relative;
 
+    margin: 30px 20px 30px 20px;
+    padding: 1em;
+    border-radius: 10px;
+    background: rgb(88, 201, 58) radial-gradient(circle at 84% 100%, rgba(255,255,255,.99), rgba(88, 201, 58,.99));
+    box-shadow:
+            inset 3px 3px 3px rgba(230,242,209,0.99),
+            inset -1px -2px 3px rgba(00,00,00,0.99),
 
+            0px 12px 55px -8px #000000;
+}
+
+.border2{
+    position: relative;
+    border-radius: 10px;
+    background: #f0f0f0; /* ���� ���� */
+    padding: 15px; /* ���� ������ ������ */
+    margin: 10px 10px 10px 10px; /* ������ ����� */
+}
 @media screen and (max-width: 745px)
 {
     .logo
@@ -112,4 +130,19 @@ h1, h2, h3, h4, h5, h6{
         margin: 0 auto;
     }
 
+}
+
+.sub-menu
+{
+    display: none;
+}
+.main-item:focus ~ .sub-menu,
+.main-item:active ~ .sub-menu,
+.sub-menu:hover
+{
+    display: block;
+}
+
+.description{
+    top: 2em;
 }

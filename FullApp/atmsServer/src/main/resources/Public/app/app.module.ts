@@ -11,6 +11,7 @@ import { AuthenticationService, UserService, ProjectService, TechnologyService, 
 import { DashboardComponent } from './dashboard/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
+import { ProjectsComponent} from './projects/index';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import { RegisterComponent } from './register/index';
         AppComponent,
         DashboardComponent,
         LoginComponent,
-        RegisterComponent
+        RegisterComponent,
+        ProjectsComponent
     ],
     providers: [
         AuthGuard,

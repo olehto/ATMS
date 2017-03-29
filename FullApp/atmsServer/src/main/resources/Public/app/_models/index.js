@@ -9,4 +9,5 @@ __export(require("./priority"));
 __export(require("./technology"));
 __export(require("./type"));
 __export(require("./task"));
+__export(require("./dev.type"));
 //# sourceMappingURL=index.js.map

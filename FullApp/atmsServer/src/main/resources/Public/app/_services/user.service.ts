@@ -37,6 +37,9 @@ export class UserService {
         return this.http.delete(this.httpAdress+'/api/developer/' + id).map((response: Response) => response.json());
     }
 
+    getDevTypes(){
+        return this.http.get(this.httpAdress+'/api/devType/').map((response: Response) => response.json());
+    }
     // private helper methods
 
     private jwt() {
