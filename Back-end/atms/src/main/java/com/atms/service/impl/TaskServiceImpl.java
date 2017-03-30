@@ -4,6 +4,7 @@ import com.atms.model.Priority;
 import com.atms.model.Project;
 import com.atms.model.Status;
 import com.atms.model.Task;
+import com.atms.notify.Notifier;
 import com.atms.repository.TaskRepository;
 import com.atms.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,19 +20,27 @@ import java.util.List;
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
+    private final Notifier notifier;
 
     @Autowired
-    public TaskServiceImpl(TaskRepository taskRepository) {
+    public TaskServiceImpl(TaskRepository taskRepository, Notifier notifier) {
         this.taskRepository = taskRepository;
+        this.notifier = notifier;
     }
 
     @Override
     public Task save(Task task) {
+        if (task.getDeveloper() != null) {
+            notifier.notifyDeveloper(task);
+        }
         return taskRepository.saveAndFlush(task);
     }
 
     @Override
     public Task update(Task task) {
+        if (task.getStatus() != null) {
+            notifier.notifyCustomer(task);
+        }
         return taskRepository.save(task);
     }
 
