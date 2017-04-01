@@ -40,5 +40,10 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
      */
     List<Task> findBySprintProject(Project project);
 
+    /**
+     * Return list of task where developer is not null
+     */
+    List<Task> findAllByDeveloperIsNotNull();
+
 
 }

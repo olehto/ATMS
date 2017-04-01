@@ -4,10 +4,7 @@ import com.atms.model.Priority;
 import com.atms.model.Project;
 import com.atms.model.Status;
 import com.atms.model.Task;
-import com.atms.service.PriorityService;
-import com.atms.service.ProjectService;
-import com.atms.service.StatusService;
-import com.atms.service.TaskService;
+import com.atms.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Alex Kazanovskiy.
@@ -23,21 +21,19 @@ import java.util.List;
 @RestController
 @CrossOrigin
 public class TaskController {
-
     private final TaskService taskService;
-
     private final ProjectService projectService;
-
     private final StatusService statusService;
-
     private final PriorityService priorityService;
+    private final DescriptionSimilarity descriptionSimilarity;
 
     @Autowired
-    public TaskController(ProjectService projectService, StatusService statusService, PriorityService priorityService, TaskService taskService) {
+    public TaskController(ProjectService projectService, StatusService statusService, PriorityService priorityService, TaskService taskService, DescriptionSimilarity descriptionSimilarity) {
         this.projectService = projectService;
         this.statusService = statusService;
         this.priorityService = priorityService;
         this.taskService = taskService;
+        this.descriptionSimilarity = descriptionSimilarity;
     }
 
     @RequestMapping(value = "/api/task", method = RequestMethod.GET)
@@ -72,7 +68,8 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/api/task/project/{projectId}/status/{statusId}", method = RequestMethod.GET)
-    public ResponseEntity<List<Task>> getByProjectAndStatus(@PathVariable("projectId") String projectId, @PathVariable("statusId") String statusId) {
+    public ResponseEntity<List<Task>> getByProjectAndStatus(@PathVariable("projectId") String projectId,
+                                                            @PathVariable("statusId") String statusId) {
         Project project = projectService.findOne(Integer.parseInt(projectId));
         if (project == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -116,28 +113,20 @@ public class TaskController {
 
     @RequestMapping(value = "/api/task/{taskId}", method = RequestMethod.PUT)
     public ResponseEntity<Task> update(@Valid Task task, @PathVariable("taskId") String taskId) {
-        Task oldTask = taskService.findOne(Integer.parseInt(taskId));
-        if (oldTask == null) {
+        task = taskService.update(Integer.parseInt(taskId), task);
+        if (task == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
-        oldTask.setTitle(task.getTitle());
-        oldTask.setDescription(task.getDescription());
-        oldTask.setDateStart(task.getDateStart());
-        oldTask.setDeadline(task.getDeadline());
-        oldTask.setVersion(task.getVersion());
-        oldTask.setDuration(task.getDuration());
-        oldTask.setParent(task.getParent());
-        oldTask.setSubtasks(task.getSubtasks());
-        oldTask.setPriority(task.getPriority());
-        oldTask.setType(task.getType());
-        oldTask.setStatus(task.getStatus());
-        oldTask.setSprint(task.getSprint());
-        oldTask.setDeveloper(task.getDeveloper());
-        oldTask.setDocuments(task.getDocuments());
-        // oldTask.setKeywords(task.getKeywords());
-        return new ResponseEntity<>(taskService.update(oldTask), HttpStatus.OK);
+        return new ResponseEntity<>(task, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/api/task/similar/{taskId}", method = RequestMethod.GET)
+    public ResponseEntity<Map<Integer, Integer>> getSimilar(@PathVariable("taskId") String taskId) {
+        Task task = taskService.findOne(Integer.parseInt(taskId));
+        if (task == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
+        return new ResponseEntity<>(descriptionSimilarity.findSimilar(task), HttpStatus.OK);
+    }
 }
