@@ -37,10 +37,32 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Task update(Task task) {
-        if (task.getStatus() != null) {
-            notifier.notifyCustomer(task);
+    public Task update(Integer id, Task task) {
+        Task oldTask = taskRepository.findOne(id);
+        if (oldTask == null) {
+            return null;
         }
+
+        if (!oldTask.getStatus().equals(task.getStatus()))
+            notifier.notifyCustomer(task);
+
+        if (!oldTask.getDeveloper().equals(task.getDeveloper()))
+            notifier.notifyDeveloper(task);
+
+        oldTask.setTitle(task.getTitle());
+        oldTask.setDescription(task.getDescription());
+        oldTask.setDateStart(task.getDateStart());
+        oldTask.setDeadline(task.getDeadline());
+        oldTask.setVersion(task.getVersion());
+        oldTask.setDuration(task.getDuration());
+        oldTask.setParent(task.getParent());
+        oldTask.setSubtasks(task.getSubtasks());
+        oldTask.setPriority(task.getPriority());
+        oldTask.setType(task.getType());
+        oldTask.setStatus(task.getStatus());
+        oldTask.setSprint(task.getSprint());
+        oldTask.setDeveloper(task.getDeveloper());
+        oldTask.setDocuments(task.getDocuments());
         return taskRepository.save(task);
     }
 
@@ -68,6 +90,4 @@ public class TaskServiceImpl implements TaskService {
     public List<Task> findByProject(Project project) {
         return taskRepository.findBySprintProject(project);
     }
-
-
 }
