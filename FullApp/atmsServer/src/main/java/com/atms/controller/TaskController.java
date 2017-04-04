@@ -10,28 +10,29 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
 public class TaskController {
 
     private final TaskService taskService;
-
     private final ProjectService projectService;
-
     private final StatusService statusService;
-
     private final PriorityService priorityService;
-
+    private final DescriptionSimilarity descriptionSimilarity;
     private final TypeService typeService;
 
     @Autowired
-    public TaskController(ProjectService projectService, StatusService statusService, PriorityService priorityService, TaskService taskService, TypeService typeService) {
+    public TaskController(ProjectService projectService, StatusService statusService,
+                          PriorityService priorityService, TaskService taskService,
+                          TypeService typeService, DescriptionSimilarity descriptionSimilarity) {
         this.projectService = projectService;
         this.statusService = statusService;
         this.priorityService = priorityService;
         this.taskService = taskService;
         this.typeService=typeService;
+        this.descriptionSimilarity = descriptionSimilarity;
     }
 
     @RequestMapping(value = "/api/task", method = RequestMethod.GET)
@@ -156,26 +157,11 @@ public class TaskController {
         try {
             ObjectMapper mapper = new ObjectMapper();
             Task task = (Task) mapper.readValue(body, Task.class);
-            Task oldTask = taskService.findOne(Integer.parseInt(taskId));
-            if (oldTask == null) {
+            task = taskService.update(Integer.parseInt(taskId), task);
+            if (task == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-            oldTask.setTitle(task.getTitle());
-            oldTask.setDescription(task.getDescription());
-            oldTask.setDateStart(task.getDateStart());
-            oldTask.setDeadline(task.getDeadline());
-            oldTask.setVersion(task.getVersion());
-            oldTask.setDuration(task.getDuration());
-            oldTask.setParent(task.getParent());
-            oldTask.setSubtasks(task.getSubtasks());
-            oldTask.setPriority(task.getPriority());
-            oldTask.setType(task.getType());
-            oldTask.setStatus(task.getStatus());
-            oldTask.setSprint(task.getSprint());
-            oldTask.setDeveloper(task.getDeveloper());
-            oldTask.setDocuments(task.getDocuments());
-            // oldTask.setKeywords(task.getKeywords());
-            return new ResponseEntity<>(taskService.update(oldTask), HttpStatus.OK);
+            return new ResponseEntity<>(task, HttpStatus.OK);
         } catch (Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -192,6 +178,15 @@ public class TaskController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/api/task/similar/{taskId}", method = RequestMethod.GET)
+    public ResponseEntity<Map<Integer, Integer>> getSimilar(@PathVariable("taskId") String taskId) {
+        Task task = taskService.findOne(Integer.parseInt(taskId));
+        if (task == null)
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<>(descriptionSimilarity.findSimilar(task), HttpStatus.OK);
     }
 
 }

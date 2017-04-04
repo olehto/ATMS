@@ -1,7 +1,7 @@
 package com.atms.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -13,8 +13,8 @@ import java.util.Set;
 public class Type {
     private Integer typeId;
     private String typeValue;
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "taskId")
-    @JsonIdentityReference(alwaysAsId = true)
+
+    @JsonIgnore
     private Set<Task> tasks;
 
     public Type() {

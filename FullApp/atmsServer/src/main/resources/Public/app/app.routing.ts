@@ -10,10 +10,10 @@ import {AuthGuard} from "./_guards/auth.guard";
 import {ProjectsComponent} from './projects/index';
 
 const appRoutes: Routes = [
-    {path: '', component: LoginComponent},
+    {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent },
-    {path: 'dashboard', component: DashboardComponent/*, canActivate: [AuthGuard]*/ },
-    {path: 'projects', component: ProjectsComponent},
+    {path: '', component: DashboardComponent, canActivate: [AuthGuard] },
+    {path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
     {path: '**', redirectTo: '' }
 ];
 

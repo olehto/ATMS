@@ -21,43 +21,51 @@ var TaskService = (function () {
     }
     //getByEpicTask, getByStatus
     TaskService.prototype.getById = function (id) {
-        return this.http.get(this.httpAdress + '/api/task/' + id).map(function (response) { return response.json(); });
+        var headers = new http_1.Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.get(this.httpAdress + '/api/task/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
     TaskService.prototype.create = function (task) {
         var body = JSON.stringify(task);
         console.log(body);
         var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
         return this.http.post(this.httpAdress + '/api/task/', body, { headers: headers }).map(function (response) { return response.json(); });
     };
     TaskService.prototype.update = function (task) {
-        return this.http.put(this.httpAdress + '/api/task/' + task.taskId, task).map(function (response) { return response.json(); });
+        var headers = new http_1.Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.put(this.httpAdress + '/api/task/' + task.taskId, task, { headers: headers }).map(function (response) { return response.json(); });
     };
     TaskService.prototype.delete = function (id) {
-        return this.http.delete(this.httpAdress + '/api/task/' + id).map(function (response) { return response.json(); });
+        var headers = new http_1.Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.delete(this.httpAdress + '/api/task/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
     TaskService.prototype.getByPriority = function (id) {
-        return this.http.get(this.httpAdress + '/api/task/priority/' + id).map(function (response) { return response.json(); });
+        var headers = new http_1.Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.get(this.httpAdress + '/api/task/priority/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
     TaskService.prototype.getByType = function (id) {
-        return this.http.get(this.httpAdress + '/api/task/type/' + id).map(function (response) { return response.json(); });
+        var headers = new http_1.Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.get(this.httpAdress + '/api/task/type/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
     TaskService.prototype.getByStatus = function (id) {
-        return this.http.get(this.httpAdress + '/api/task/status/' + id).map(function (response) { return response.json(); });
+        var headers = new http_1.Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.get(this.httpAdress + '/api/task/status/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
     TaskService.prototype.getByProject = function (id) {
-        return this.http.get(this.httpAdress + '/api/task/project/' + id).map(function (response) { return response.json(); });
+        var headers = new http_1.Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.get(this.httpAdress + '/api/task/project/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
     TaskService.prototype.getByParent = function (id) {
-        return this.http.get(this.httpAdress + '/api/task/epic/' + id).map(function (response) { return response.json(); });
-    };
-    // private helper methods
-    TaskService.prototype.jwt = function () {
-        // create authorization header with jwt token
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
-            var headers = new http_1.Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-            return new http_1.RequestOptions({ headers: headers });
-        }
+        var headers = new http_1.Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.get(this.httpAdress + '/api/task/epic/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
     return TaskService;
 }());

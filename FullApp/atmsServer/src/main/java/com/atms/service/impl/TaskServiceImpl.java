@@ -1,35 +1,62 @@
 package com.atms.service.impl;
 
 import com.atms.model.*;
+import com.atms.notify.Notifier;
 import com.atms.repository.TaskRepository;
 import com.atms.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.util.List;
 
-/**
- * Created by alex on 3/15/2017.
- */
 
 @Service
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
+    private final Notifier notifier;
 
     @Autowired
-    public TaskServiceImpl(TaskRepository taskRepository) {
+    public TaskServiceImpl(TaskRepository taskRepository, Notifier notifier) {
         this.taskRepository = taskRepository;
+        this.notifier = notifier;
     }
 
     @Override
     public Task save(Task task) {
+        if (task.getDeveloper() != null) {
+            notifier.notifyDeveloper(task);
+        }
         return taskRepository.saveAndFlush(task);
     }
 
     @Override
-    public Task update(Task task) {
+    public Task update(Integer id, Task task) {
+        Task oldTask = taskRepository.findOne(id);
+        if (oldTask == null) {
+            return null;
+        }
+
+        if (!oldTask.getStatus().equals(task.getStatus()))
+            notifier.notifyCustomer(task);
+
+        if (!oldTask.getDeveloper().equals(task.getDeveloper()))
+            notifier.notifyDeveloper(task);
+
+        oldTask.setTitle(task.getTitle());
+        oldTask.setDescription(task.getDescription());
+        oldTask.setDateStart(task.getDateStart());
+        oldTask.setDeadline(task.getDeadline());
+        oldTask.setVersion(task.getVersion());
+        oldTask.setDuration(task.getDuration());
+        oldTask.setParent(task.getParent());
+        oldTask.setSubtasks(task.getSubtasks());
+        oldTask.setPriority(task.getPriority());
+        oldTask.setType(task.getType());
+        oldTask.setStatus(task.getStatus());
+        oldTask.setSprint(task.getSprint());
+        oldTask.setDeveloper(task.getDeveloper());
+        oldTask.setDocuments(task.getDocuments());
         return taskRepository.save(task);
     }
 
@@ -69,13 +96,13 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> findByPriority(Priority priority) {
-        return taskRepository.findByPriority(priority);
+    public List<Task> findByParent(Task task) {
+        return taskRepository.findByParent(task);
     }
 
     @Override
-    public List<Task> findByParent(Task task) {
-        return taskRepository.findByParent(task);
+    public List<Task> findByPriority(Priority priority) {
+        return taskRepository.findByPriority(priority);
     }
 
 }

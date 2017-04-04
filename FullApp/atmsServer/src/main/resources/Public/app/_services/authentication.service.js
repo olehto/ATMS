@@ -11,28 +11,46 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var Observable_1 = require("rxjs/Observable");
 require("rxjs/add/operator/map");
 var AuthenticationService = (function () {
     function AuthenticationService(http) {
         this.http = http;
-        this.httpAdress = 'http://localhost:8080';
+        this.clientId = 'atms';
+        this.clientSecret = 'secret';
+        this.httpAdress = 'http://localhost:8080/oauth/token';
     }
-    AuthenticationService.prototype.login = function (email, password) {
-        //console.log(JSON.stringify({ email: email, password: password }));
-        return this.http.post(this.httpAdress + '/api/developer/authorize', JSON.stringify({ email: email, password: password }))
-            .map(function (response) {
-            // login successful if there's a jwt token in the response
-            var user = response.json();
-            console.log(user);
-            if (user.email != null) {
-                // store user details and jwt token in local storage to keep user logged in between page refreshes
-                localStorage.setItem('currentUser', JSON.stringify(user));
-            }
-        });
+    AuthenticationService.prototype.handleData = function (res) {
+        var body = res.json();
+        return body;
+    };
+    AuthenticationService.prototype.login = function (username, password) {
+        var _this = this;
+        var headers = new http_1.Headers();
+        headers.append("Accept", "application/json");
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('Authorization', 'Basic ' + btoa(this.clientId + ':' + this.clientSecret));
+        var options = new http_1.RequestOptions({ headers: headers });
+        var params = new http_1.URLSearchParams();
+        params.set('password', password);
+        params.set('username', username);
+        params.set('grant_type', 'password');
+        params.set('scope', 'read write');
+        params.set('client_secret', this.clientSecret);
+        params.set('client_id', this.clientId);
+        return this.http.post(this.httpAdress, params.toString(), { headers: headers })
+            .map(function (res) { return _this.handleData(res); }); //res => res.json());
+    };
+    AuthenticationService.prototype.handleError = function (error) {
+        // In a real world app, we might use a remote logging infrastructure
+        // We'd also dig deeper into the error to get a better message
+        var errMsg = (error.message) ? error.message :
+            error.status ? error.status + " - " + error.statusText : 'Server error';
+        console.error(errMsg); // log to console instead
+        return Observable_1.Observable.throw(errMsg);
     };
     AuthenticationService.prototype.logout = function () {
-        // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
+        localStorage.removeItem('token');
     };
     return AuthenticationService;
 }());

@@ -60,7 +60,7 @@ public class DeveloperController {
         }
     }
 
-    @RequestMapping(value = "/api/developer/authorize", method = RequestMethod.POST)
+    @RequestMapping(value = "/login/", method = RequestMethod.POST)
     public ResponseEntity<Developer> checkAccount(/*@RequestParam(value="username", defaultValue="") String name,
                                                                @RequestParam(value="password", defaultValue="") String pass*/
                                   @RequestBody String body) {
@@ -83,21 +83,6 @@ public class DeveloperController {
         return new ResponseEntity<>(developer, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/api/developer", method = RequestMethod.POST)
-    public ResponseEntity<Developer> addAccount(@RequestBody String body) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            Developer account = (Developer) mapper.readValue(body, Developer.class);
-            if (developerService.findByEmail(account.getEmail()) != null) {
-                return new ResponseEntity<>(HttpStatus.CONFLICT);
-            }
-            account = developerService.save(account);
-            return new ResponseEntity<>(account, HttpStatus.OK);
-        } catch (Exception ex) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-    }
 
     @RequestMapping(value = "/api/developer", method = RequestMethod.DELETE)
     public ResponseEntity<Void> delete(Developer developer) {

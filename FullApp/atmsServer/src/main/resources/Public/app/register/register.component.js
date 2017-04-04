@@ -37,6 +37,15 @@ var RegisterComponent = (function () {
             _this.loading = false;
         });
     };
+    RegisterComponent.prototype.loadUsers = function () {
+        var _this = this;
+        this.userService.getAll()
+            .subscribe(function (response) {
+            console.log(response);
+        }, function (error) {
+            _this.loading = false;
+        });
+    };
     return RegisterComponent;
 }());
 RegisterComponent = __decorate([

@@ -15,52 +15,59 @@ export class TaskService {
     //getByEpicTask, getByStatus
 
     getById(id: number) {
-        return this.http.get(this.httpAdress+'/api/task/' + id).map((response: Response) => response.json());
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer '+ localStorage.getItem('token'));
+        return this.http.get(this.httpAdress+'/api/task/' + id,{headers: headers}).map((response: Response) => response.json());
     }
 
     create(task: Task) {
         const body = JSON.stringify(task);
         console.log(body);
         let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+        headers.append('Authorization', 'Bearer '+ localStorage.getItem('token'));
         return this.http.post(this.httpAdress+'/api/task/',body, { headers: headers }).map((response: Response) => response.json());
     }
 
     update(task: Task) {
-        return this.http.put(this.httpAdress+'/api/task/' + task.taskId, task).map((response: Response) => response.json());
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer '+ localStorage.getItem('token'));
+        return this.http.put(this.httpAdress+'/api/task/' + task.taskId, task,{headers: headers}).map((response: Response) => response.json());
     }
 
     delete(id: number) {
-        return this.http.delete(this.httpAdress+'/api/task/' + id).map((response: Response) => response.json());
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer '+ localStorage.getItem('token'));
+        return this.http.delete(this.httpAdress+'/api/task/' + id,{headers: headers}).map((response: Response) => response.json());
     }
 
     getByPriority(id: number){
-        return  this.http.get(this.httpAdress+'/api/task/priority/' + id).map((response: Response) => response.json());
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer '+ localStorage.getItem('token'));
+        return  this.http.get(this.httpAdress+'/api/task/priority/' + id,{headers: headers}).map((response: Response) => response.json());
     }
 
     getByType(id: number){
-        return  this.http.get(this.httpAdress+'/api/task/type/' + id).map((response: Response) => response.json());
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer '+ localStorage.getItem('token'));
+        return  this.http.get(this.httpAdress+'/api/task/type/' + id,{headers: headers}).map((response: Response) => response.json());
     }
 
     getByStatus(id: number){
-        return  this.http.get(this.httpAdress+'/api/task/status/' + id).map((response: Response) => response.json());
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer '+ localStorage.getItem('token'));
+        return  this.http.get(this.httpAdress+'/api/task/status/' + id,{headers: headers}).map((response: Response) => response.json());
     }
 
     getByProject(id: number){
-        return  this.http.get(this.httpAdress+'/api/task/project/' + id).map((response: Response) => response.json());
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer '+ localStorage.getItem('token'));
+        return  this.http.get(this.httpAdress+'/api/task/project/' + id,{headers: headers}).map((response: Response) => response.json());
     }
 
     getByParent(id: number){
-        return  this.http.get(this.httpAdress+'/api/task/epic/' + id).map((response: Response) => response.json());
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer '+ localStorage.getItem('token'));
+        return  this.http.get(this.httpAdress+'/api/task/epic/' + id,{headers: headers}).map((response: Response) => response.json());
     }
 
-    // private helper methods
-
-    private jwt() {
-        // create authorization header with jwt token
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
-            let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-            return new RequestOptions({ headers: headers });
-        }
-    }
 }

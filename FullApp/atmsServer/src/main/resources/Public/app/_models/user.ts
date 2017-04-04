@@ -9,6 +9,5 @@ export class User {
     telephone: string;
     nickname: string;
     password: string;
-    devTypeId: number;
     dateOfBirth: number;
 }

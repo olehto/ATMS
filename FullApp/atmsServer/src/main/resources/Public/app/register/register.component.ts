@@ -15,6 +15,7 @@ import {Task} from "../_models/task";
 })
 export class RegisterComponent {
     model: any = {};
+    private devType: number;
     loading = false;
 
     constructor(
@@ -32,6 +33,16 @@ export class RegisterComponent {
             .subscribe(
                 data => {
                     this.router.navigate(['/']);
+                },
+                error => {
+                    this.loading = false;
+                });
+    }
+    loadUsers(){
+        this.userService.getAll()
+            .subscribe(
+                response => {
+                    console.log(response);
                 },
                 error => {
                     this.loading = false;

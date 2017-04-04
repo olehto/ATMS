@@ -20,16 +20,9 @@ var PriorityService = (function () {
         this.httpAdress = 'http://localhost:8080';
     }
     PriorityService.prototype.getAll = function () {
-        return this.http.get(this.httpAdress + '/api/priority/').map(function (response) { return response.json(); });
-    };
-    // private helper methods
-    PriorityService.prototype.jwt = function () {
-        // create authorization header with jwt token
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
-            var headers = new http_1.Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-            return new http_1.RequestOptions({ headers: headers });
-        }
+        var headers = new http_1.Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.get(this.httpAdress + '/api/priority/', { headers: headers }).map(function (response) { return response.json(); });
     };
     return PriorityService;
 }());

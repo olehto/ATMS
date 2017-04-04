@@ -26,18 +26,21 @@ var LoginComponent = (function () {
     LoginComponent.prototype.ngOnInit = function () {
         // reset login status
         this.authenticationService.logout();
+        console.log(localStorage.getItem('token'));
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
     };
     LoginComponent.prototype.login = function () {
         var _this = this;
-        this.loading = true;
-        this.authenticationService.login(this.model.email, this.model.password).subscribe(function (data) {
+        this.authenticationService.login(this.model.email, this.model.password)
+            .subscribe(function (response) {
+            console.log(response);
+            localStorage.setItem('token', response.access_token);
             _this.router.navigate([_this.returnUrl]);
         }, function (error) {
-            _this.loading = false;
+            console.log(error);
+            alert(error);
         });
-        //this.router.navigate([this.returnUrl]);
     };
     return LoginComponent;
 }());

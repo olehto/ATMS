@@ -27,22 +27,24 @@ export class LoginComponent implements OnInit {
     {
         // reset login status
         this.authenticationService.logout();
-
+        console.log(localStorage.getItem('token'));
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
     }
 
-    login()
-    {
-
-        this.loading = true;
-        this.authenticationService.login(this.model.email, this.model.password).subscribe(
-                data => {
+    login() {
+        this.authenticationService.login(this.model.email, this.model.password)
+            .subscribe(
+                response => {
+                    console.log(response);
+                    localStorage.setItem('token', response.access_token);
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    this.loading = false;
-                });
-        //this.router.navigate([this.returnUrl]);
+                    console.log(error);
+                    alert(error);
+                }
+            );
     }
+
 }

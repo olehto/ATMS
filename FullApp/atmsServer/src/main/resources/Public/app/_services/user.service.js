@@ -17,37 +17,41 @@ var UserService = (function () {
         this.httpAdress = 'http://localhost:8080';
     }
     UserService.prototype.getAll = function () {
-        return this.http.get(this.httpAdress + '/api/developer/').map(function (response) { return response.json(); });
+        var headers = new http_1.Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.get(this.httpAdress + '/api/developer/', { headers: headers }).map(function (response) { return response.json(); });
     };
     UserService.prototype.getById = function (id) {
-        return this.http.get(this.httpAdress + '/api/developer/' + id).map(function (response) { return response.json(); });
+        var headers = new http_1.Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.get(this.httpAdress + '/api/developer/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
     UserService.prototype.remind = function (email) {
-        return this.http.get(this.httpAdress + '/api/developer/' + email).map(function (response) { return response.json(); });
+        var headers = new http_1.Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.get(this.httpAdress + '/api/developer/' + email, { headers: headers }).map(function (response) { return response.json(); });
     };
     UserService.prototype.create = function (user) {
         var body = JSON.stringify(user);
         console.log(body);
         var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-        return this.http.post(this.httpAdress + '/api/developer/', body, { headers: headers }).map(function (response) { return response.json(); });
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.post(this.httpAdress + '/register', body, { headers: headers }).map(function (response) { return response.json(); });
     };
     UserService.prototype.update = function (user) {
-        return this.http.put(this.httpAdress + '/api/developer/' + user, user).map(function (response) { return response.json(); });
+        var headers = new http_1.Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.put(this.httpAdress + '/api/developer/' + user, user, { headers: headers }).map(function (response) { return response.json(); });
     };
     UserService.prototype.delete = function (id) {
-        return this.http.delete(this.httpAdress + '/api/developer/' + id).map(function (response) { return response.json(); });
+        var headers = new http_1.Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.delete(this.httpAdress + '/api/developer/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
     UserService.prototype.getDevTypes = function () {
-        return this.http.get(this.httpAdress + '/api/devType/').map(function (response) { return response.json(); });
-    };
-    // private helper methods
-    UserService.prototype.jwt = function () {
-        // create authorization header with jwt token
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
-            var headers = new http_1.Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-            return new http_1.RequestOptions({ headers: headers });
-        }
+        var headers = new http_1.Headers();
+        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        return this.http.get(this.httpAdress + '/api/devType/', { headers: headers }).map(function (response) { return response.json(); });
     };
     return UserService;
 }());

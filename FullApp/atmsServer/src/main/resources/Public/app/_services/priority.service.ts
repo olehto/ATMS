@@ -14,17 +14,9 @@ export class PriorityService {
     }
 
     getAll() {
-        return this.http.get(this.httpAdress+'/api/priority/').map((response: Response) => response.json());
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer '+ localStorage.getItem('token'));
+        return this.http.get(this.httpAdress+'/api/priority/',{headers: headers}).map((response: Response) => response.json());
     }
 
-    // private helper methods
-
-    private jwt() {
-        // create authorization header with jwt token
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
-            let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-            return new RequestOptions({ headers: headers });
-        }
-    }
 }

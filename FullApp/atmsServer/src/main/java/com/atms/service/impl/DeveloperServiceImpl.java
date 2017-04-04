@@ -2,8 +2,8 @@ package com.atms.service.impl;
 
 import com.atms.model.Developer;
 import com.atms.model.Project;
-import com.atms.model.Technology;
 import com.atms.repository.DeveloperRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.atms.service.DeveloperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,15 +14,18 @@ import java.util.List;
 public class DeveloperServiceImpl implements DeveloperService {
 
     private final DeveloperRepository developerRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public DeveloperServiceImpl(DeveloperRepository developerRepository) {
+    public DeveloperServiceImpl(DeveloperRepository developerRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.developerRepository = developerRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
 
     @Override
     public Developer save(Developer developer) {
+        developer.setPassword(bCryptPasswordEncoder.encode(developer.getPassword()));
         return developerRepository.saveAndFlush(developer);
     }
 
@@ -55,7 +58,7 @@ public class DeveloperServiceImpl implements DeveloperService {
 
     @Override
     public List<Developer> findByProject(Project project) {
-        return developerRepository.findByTasksSprintProject(project);
+        return developerRepository.findByTasksAsDeveloperSprintProject(project);
     }
 
     @Override
