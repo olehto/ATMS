@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
     moduleId: module.id,
     selector: 'dashboard',
     styleUrls:['dashboard.component.css'],
-    templateUrl: 'dash.component.html',
+    templateUrl: 'dashboard.component.html',
 })
 
 export class DashboardComponent {
@@ -25,3 +25,4 @@ export class DashboardComponent {
         this.token2 = !this.token2;
     }
 }
+

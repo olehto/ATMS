@@ -10,11 +10,10 @@ ul {
     padding-bottom: 211px;
 }
 .logo{
-    padding-top: 20px;
+    padding-top: 10px;
 }
 body{
     height: 100%;
-    min-width:1200px;
 
 }
 html {
@@ -31,7 +30,6 @@ html {
 .menu li{
     position: relative;
     float: left;  display: block;
-    font-family: 'open_sansbold',Arial, Helvetica, sans-serif;
     z-index: 99;
 }
 .menu ul li{
@@ -40,14 +38,13 @@ html {
 }
 .menu ul li a {
     color: #fff; text-decoration: none; font-size: 13px;
-    padding: 5px 15px; display: block;
-    text-shadow: 1px 1px 1px rgba(0,0,0, 0.7);
+    padding: 5px 10px; display: block;
     font-family: 'open_sansbold',Arial, Helvetica, sans-serif;
 }
 .menu li a{
     overflow: hidden;
-    color: #fff; text-decoration: none; font-size: 16px; font-weight: normal;
-    padding:30px 20px; display: block;
+    color: #fff; text-decoration: none; font-size: 14px; font-weight: normal;
+    padding:20px 20px; display: block;
     margin-top: 10px;
     border-bottom:3px solid #292929;
 }
@@ -105,7 +102,7 @@ html {
     position: relative;
 
     margin: 30px 20px 30px 20px;
-    padding: 1em;
+    padding: 1em 1em 2em 1em;
     border-radius: 10px;
     background: rgb(88, 201, 58) radial-gradient(circle at 84% 100%, rgba(255,255,255,.99), rgba(88, 201, 58,.99));
     box-shadow:
@@ -120,7 +117,7 @@ html {
     border-radius: 10px;
     background: #f0f0f0; /* Цвет фона */
     padding: 15px; /* Поля вокруг текста */
-    margin: 10px 10px 10px 10px; /* Отступ снизу */
+    margin: 1px 10px 10px 10px; /* Отступ снизу */
 }
 @media screen and (max-width: 745px)
 {
@@ -132,17 +129,57 @@ html {
 
 }
 
-.sub-menu
-{
-    display: none;
-}
-.main-item:focus ~ .sub-menu,
-.main-item:active ~ .sub-menu,
-.sub-menu:hover
-{
-    display: block;
+.projects-tree a{
+    color: #000;
+    text-decoration: none;
+    padding: 5px 0 0 10px;
+
 }
 
 .description{
     top: 2em;
+}
+
+.projects{
+    font-size: 10px;
+    margin: 0;
+    padding: 0;
+}
+#pro-btn{
+    margin: 0;
+    padding: 0;
+}
+#pro-btn2{
+    margin: 0;
+    padding: 0;
+}
+.btn
+{
+    box-shadow:
+    inset 3px 3px 3px rgba(230,242,209,0.99);
+    background:#58c93a ;
+    border: none;
+    padding: 4px 10px 4px 10px;
+    font-size: 12px;
+}
+.btn-projects{
+    float: right;
+    padding-right: 150px;
+}
+.project-down{
+    border-bottom:1px solid #f0f0f0;
+    display: block;
+    color: #000;
+    text-decoration: none;
+}
+
+.btn
+{
+    box-shadow:
+    inset 3px 3px 3px rgba(230,242,209,0.99);
+    background:#58c93a ;
+    border: none;
+}
+.project-down p:hover{
+    color:#58c93a; border-bottom:2px solid #58c93a;
 }

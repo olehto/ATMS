@@ -32,7 +32,7 @@ DashboardComponent = __decorate([
         moduleId: module.id,
         selector: 'dashboard',
         styleUrls: ['dashboard.component.css'],
-        templateUrl: 'dash.component.html',
+        templateUrl: 'dashboard.component.html',
     })
 ], DashboardComponent);
 exports.DashboardComponent = DashboardComponent;

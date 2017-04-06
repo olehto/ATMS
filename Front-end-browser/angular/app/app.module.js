@@ -10,12 +10,19 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
+var ng2_charts_1 = require("ng2-charts");
 var app_component_1 = require("./app.component");
 var app_routing_1 = require("./app.routing");
 var index_1 = require("./login/index");
 var index_2 = require("./register/index");
 var index_3 = require("./dashboard/index");
 var index_4 = require("./projects/index");
+var index_5 = require("./tasks/index");
+var index_6 = require("./new_task/index");
+var index_7 = require("./tasks_list/index");
+var index_8 = require("./developers/index");
+var index_9 = require("./statistics/index");
+var ngx_dropdown_1 = require("ngx-dropdown");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -23,13 +30,18 @@ var AppModule = (function () {
 }());
 AppModule = __decorate([
     core_1.NgModule({
-        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, app_routing_1.routing],
+        imports: [platform_browser_1.BrowserModule, forms_1.FormsModule, http_1.HttpModule, app_routing_1.routing, ng2_charts_1.ChartsModule, ngx_dropdown_1.DropdownModule],
         declarations: [
             app_component_1.AppComponent,
             index_1.LoginComponent,
             index_2.RegisterComponent,
             index_3.DashboardComponent,
-            index_4.ProjectsComponent
+            index_4.ProjectsComponent,
+            index_5.TasksComponent,
+            index_6.NewTaskComponent,
+            index_7.TasksListComponent,
+            index_8.DevelopersComponent,
+            index_9.StatisticsComponent
         ],
         bootstrap: [app_component_1.AppComponent]
     })

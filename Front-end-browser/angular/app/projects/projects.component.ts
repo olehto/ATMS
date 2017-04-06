@@ -1,9 +1,7 @@
 /**
  * Created by Lenovo on 26.03.2017.
  */
-/**
- * Created by Lenovo on 15.03.2017.
- */
+
 import {Component} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
