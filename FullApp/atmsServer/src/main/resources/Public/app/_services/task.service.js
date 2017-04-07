@@ -22,49 +22,49 @@ var TaskService = (function () {
     //getByEpicTask, getByStatus
     TaskService.prototype.getById = function (id) {
         var headers = new http_1.Headers();
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.get(this.httpAdress + '/api/task/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
     TaskService.prototype.create = function (task) {
         var body = JSON.stringify(task);
         console.log(body);
         var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.post(this.httpAdress + '/api/task/', body, { headers: headers }).map(function (response) { return response.json(); });
     };
     TaskService.prototype.update = function (task) {
         var headers = new http_1.Headers();
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.put(this.httpAdress + '/api/task/' + task.taskId, task, { headers: headers }).map(function (response) { return response.json(); });
     };
     TaskService.prototype.delete = function (id) {
         var headers = new http_1.Headers();
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.delete(this.httpAdress + '/api/task/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
     TaskService.prototype.getByPriority = function (id) {
         var headers = new http_1.Headers();
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.get(this.httpAdress + '/api/task/priority/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
     TaskService.prototype.getByType = function (id) {
         var headers = new http_1.Headers();
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.get(this.httpAdress + '/api/task/type/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
     TaskService.prototype.getByStatus = function (id) {
         var headers = new http_1.Headers();
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.get(this.httpAdress + '/api/task/status/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
     TaskService.prototype.getByProject = function (id) {
         var headers = new http_1.Headers();
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.get(this.httpAdress + '/api/task/project/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
     TaskService.prototype.getByParent = function (id) {
         var headers = new http_1.Headers();
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.get(this.httpAdress + '/api/task/epic/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
     return TaskService;

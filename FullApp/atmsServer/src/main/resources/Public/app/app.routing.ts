@@ -8,12 +8,22 @@ import { RegisterComponent } from './register/index';
 import {DashboardComponent} from './dashboard/index';
 import {AuthGuard} from "./_guards/auth.guard";
 import {ProjectsComponent} from './projects/index';
+import {TasksComponent} from "./tasks/tasks.component";
+import {NewTaskComponent} from "./new_task/newtask.component";
+import {TasksListComponent} from "./tasks_list/taskslist.component";
+import {DevelopersComponent} from "./developers/developers.component";
+import {StatisticsComponent} from "./statistics/statistics.component";
 
 const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent },
     {path: '', component: DashboardComponent, canActivate: [AuthGuard] },
     {path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
+    {path: 'tasks', component: TasksComponent, canActivate: [AuthGuard] },
+    {path: 'projects/new_task', component: NewTaskComponent, canActivate: [AuthGuard] },
+    {path: 'projects/tasks_list', component: TasksListComponent, canActivate: [AuthGuard] },
+    {path: 'developers', component:DevelopersComponent, canActivate: [AuthGuard] },
+    {path: 'statistics', component:StatisticsComponent, canActivate: [AuthGuard] },
     {path: '**', redirectTo: '' }
 ];
 

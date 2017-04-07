@@ -1,5 +1,6 @@
 package com.atms.notify.impl;
 
+import com.atms.model.Developer;
 import com.atms.model.Task;
 import com.atms.notify.Notifier;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,19 @@ public class NotifierImpl implements Notifier {
         message.setSubject("Update task: " + task.getTitle());
         StringBuilder sb = new StringBuilder();
         sb.append("Status was changed to ").append(task.getStatus().toString()).append(" in task: ").append(task.getTitle());
+        message.setText(sb.toString());
+        mailSender.send(message);
+    }
+
+    @Override
+    public void restorePassword(Developer developer) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("ATMS");
+        message.setTo(developer.getEmail());
+        message.setSubject("Restore password");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Status was changed to ");//.append(task.getStatus().toString()).append(" in task: ");    String url = contextPath + "/user/changePassword?id=" +
+        //user.getId() + "&token=" + token;
         message.setText(sb.toString());
         mailSender.send(message);
     }

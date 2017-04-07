@@ -17,18 +17,17 @@
             <div *ngIf="f.submitted && !nickname.valid" class="help-block">Nickname is required</div>
         </div>
 
-        <!--<div class="form-group" [ngClass]="{ 'has-error': f.submitted && !devType.valid}">
-            <label for="devType" >Developer type</label>
-            <select class="form-control" name="devType" [(ngModel)]="devType" #devType="ngModel" required >
+        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !devTypeId.valid}">
+            <label for="devTypeId" >Developer type</label>
+            <select class="form-control" name="devTypeId" [(ngModel)]="model.devTypeId" #devTypeId="ngModel" required >
                 <option value="1">PHP-developer</option>
                 <option value="2" selected>Java-developer</option>
                 <option value="3">JS-developer</option>
                 <option value="4">C#-developer</option>
                 <option value="5">Android-developer</option>
             </select>
-            <div *ngIf="f.submitted && !devType.valid" class="help-block">Developer type is required</div>
+            <div *ngIf="f.submitted && !devTypeId.valid" class="help-block">Developer type is required</div>
         </div>
-        -->
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !dateOfBirth.valid }">
             <label for="dateOfBirth">Date of Birth</label>
             <form>
@@ -54,7 +53,6 @@
         </div>
         <div class="form-group">
             <button [disabled]="loading" class="btn btn-success">Register</button>
-            <button (click)="loadUsers()" class="btn btn-success">Register</button>
             <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
             <a [routerLink]="['']" class="btn btn-success">Cancel</a>
         </div>

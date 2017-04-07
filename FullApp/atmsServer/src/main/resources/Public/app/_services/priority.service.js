@@ -21,7 +21,7 @@ var PriorityService = (function () {
     }
     PriorityService.prototype.getAll = function () {
         var headers = new http_1.Headers();
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.get(this.httpAdress + '/api/priority/', { headers: headers }).map(function (response) { return response.json(); });
     };
     return PriorityService;

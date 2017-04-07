@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {Http, Headers, Response, URLSearchParams, RequestOptions} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/map'
-import {encode} from "@angular/router/src/url_tree";
+import 'rxjs/add/operator/map';
+
 
 @Injectable()
 export class AuthenticationService {
@@ -47,23 +47,21 @@ export class AuthenticationService {
     public logout() {
         localStorage.removeItem('token');
     }
-    /*
-    login(email: string, password: string) {
-        //console.log(JSON.stringify({ email: email, password: password }));
-        return this.http.post(this.httpAdress+'/api/developer/authorize', JSON.stringify({ email: email, password: password }))
-            .map((response: Response) => {
-                // login successful if there's a jwt token in the response
-                let user = response.json();
-                console.log(user);
-                if (user.email!=null) {
-                    // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify(user));
-                }
-            });
+    public refresh(){
+        let headers = new Headers();
+        headers.append("Accept","application/json");
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('Authorization','Basic '+btoa(this.clientId+':'+this.clientSecret));
+        let options = new RequestOptions({ headers: headers });
+        let token=JSON.parse(localStorage.getItem('token'));
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('grant_type', 'refresh_token' );
+        params.set('refresh_token',token.refresh_token);
+        params.set('client_secret', this.clientSecret );
+        params.set('client_id', this.clientId );
+
+        return this.http.post(this.httpAdress, params.toString(), { headers: headers })
+            .map(res =>this.handleData(res));
     }
 
-    logout() {
-        // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
-    }*/
 }

@@ -11,24 +11,44 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var authentication_service_1 = require("../_services/authentication.service");
 var AuthGuard = (function () {
-    function AuthGuard(router) {
+    function AuthGuard(router, authenticationService) {
         this.router = router;
+        this.authenticationService = authenticationService;
     }
     AuthGuard.prototype.canActivate = function (route, state) {
+        var _this = this;
         if (localStorage.getItem('token')) {
+            var token = JSON.parse(localStorage.getItem('token'));
             // logged in so return true
-            return true;
+            if (token.expires - Date.now() > 0) {
+                return true;
+            }
+            else {
+                this.authenticationService.refresh().subscribe(function (response) {
+                    console.log(response);
+                    localStorage.setItem('token', JSON.stringify({ access_token: response.access_token, expires: (Date.now() + response.expires_in * 1000),
+                        refresh_token: response.refresh_token, received: Date.now() }));
+                    return true;
+                }, function (error) {
+                    console.log(error);
+                    alert(error);
+                    _this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+                    return false;
+                });
+            }
         }
         // not logged in so redirect to login page with the return url
-        this.router.navigate(['/'], { queryParams: { returnUrl: state.url } });
+        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
         return false;
     };
     return AuthGuard;
 }());
 AuthGuard = __decorate([
     core_1.Injectable(),
-    __metadata("design:paramtypes", [router_1.Router])
+    __metadata("design:paramtypes", [router_1.Router,
+        authentication_service_1.AuthenticationService])
 ], AuthGuard);
 exports.AuthGuard = AuthGuard;
 //# sourceMappingURL=auth.guard.js.map

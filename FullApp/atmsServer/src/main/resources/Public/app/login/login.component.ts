@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
     {
         // reset login status
         this.authenticationService.logout();
-        console.log(localStorage.getItem('token'));
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
     }
@@ -37,7 +36,8 @@ export class LoginComponent implements OnInit {
             .subscribe(
                 response => {
                     console.log(response);
-                    localStorage.setItem('token', response.access_token);
+                    localStorage.setItem('token', JSON.stringify({access_token:response.access_token,expires:(Date.now()+response.expires_in*1000),
+                    refresh_token:response.refresh_token,received:Date.now()}));
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {

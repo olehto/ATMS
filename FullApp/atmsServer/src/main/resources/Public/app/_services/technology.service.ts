@@ -15,7 +15,7 @@ export class TechnologyService {
 
     getAll() {
         let headers = new Headers();
-        headers.append('Authorization', 'Bearer '+ localStorage.getItem('token'));
+        headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.get(this.httpAdress+'/api/technology/',{headers: headers}).map((response: Response) => response.json());
     }
 }

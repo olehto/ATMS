@@ -21,7 +21,7 @@ public class DevTypeController {
         this.devTypeService = devTypeService;
     }
 
-    @RequestMapping(value = "/api/devType", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/devType/get", method = RequestMethod.GET)
     public ResponseEntity<List<DevType>> getAll() {
         List<DevType> devTypes = devTypeService.findAll();
         if (devTypes == null) {
@@ -30,7 +30,7 @@ public class DevTypeController {
         return new ResponseEntity<>(devTypes, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/api/devType/{devTypeId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/api/devType/get/{devTypeId}", method = RequestMethod.GET)
     public ResponseEntity<DevType> getDevType(@PathVariable("devTypeId") String devTypeId) {
         DevType devType = devTypeService.findOne(Integer.parseInt(devTypeId));
         if (devType == null) {

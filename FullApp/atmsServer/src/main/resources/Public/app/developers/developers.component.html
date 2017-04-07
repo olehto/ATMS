@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div class="container-fluid karkas">
+
+    <div class="row header">
+        <div class="col-md-6 logo">
+            <a [routerLink]="['/dashboard']"><img src="resources/images/logo.png" alt=""></a>
+        </div>
+        <div class="col-md-6">
+            <input type="checkbox" id="menu-checkbox" />
+            <nav role="navigation"><!-- навигация -->
+                <label for="menu-checkbox" class="toggle-button" data-open="Menu" data-close="Close" onclick></label>
+            <ul class="menu">
+                <li><a [routerLink]="['/dashboard']" class="now">Dashboard</a></li>
+                <li>
+                    <a [routerLink]="['/projects']" >Projects</a>
+                    <ul class="menudown">
+                        <li><a href="#">Projects 1</a></li>
+                        <li><a href="#">Projects 2</a></li>
+                        <li><a href="#">Projects 3</a></li>
+                        <li><a href="#">Projects 4</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a [routerLink]="['/tasks']" >Tasks</a>
+                    <ul class="menudown">
+                        <li><a href="#">Task 1</a></li>
+                        <li><a href="#">Task 2</a></li>
+                        <li><a href="#">Task 3</a></li>
+                        <li><a href="#">Task 4</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a [routerLink]="['/developers']">Developers</a>
+                </li>
+                <li>
+                    <a [routerLink]="['/statistics']" >Statistics</a>
+                    <ul class="menudown">
+                        <li ><a href="#">Statistics 1</a></li>
+                        <li><a href="#">Statistics 2</a></li>
+                        <li><a href="#">Statistics 3</a></li>
+                        <li><a href="#">Statistics 4</a></li>
+                    </ul>
+                </li>
+            </ul>
+                </nav>
+        </div>
+    </div>
+    <div class="container wrapper">
+        <div class="row">
+            <div class="col-md-12 ">
+                <div class="radius">
+                    <div class="border2">
+                        <div class="row">
+                        <div class="col-md-3">
+                            <form name="form">
+                                <div class="form-group">
+                                    <p><span class="select"> Avatar: </span></p>
+                                    <img src="/resources/images/avatar.jpg" alt="">
+                                </div>
+                                <div class="form-group">
+                                    <p><span class="select">First name: </span> Alexander</p>
+                                </div>
+                                <div class="form-group">
+                                    <p><span class="select">Last name: </span>Lukakhin</p>
+                                </div>
+                                <div class="form-group" >
+                                    <p><span class="select">Nickname: </span>Serpent</p>
+                                </div>
+                                <div class="form-group" >
+                                    <p><span class="select">Email: </span> A.Lukakhin@yandex.ru</p>
+                                </div>
+                                <div class="form-group" >
+                                    <p><span class="select">Skype: </span> S_y.r_a.x</p>
+                                </div>
+                                <div class="form-group" >
+                                    <label ><span class="select">Technologies: </span></label>
+                                    <select class="form-control">
+                                        <option value="t">PHP</option>
+                                        <option value="t1" selected>Java</option>
+                                        <option value="t2">JS</option>
+                                        <option value="t3">C#</option>
+                                        <option value="t4">Android</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-9">
+                            <label>Tasks list</label>
+                            <ul>
+                                <li><a href="">Task 1</a></li>
+                                <li><a href="">Task 2</a></li>
+                                <li><a href="">Task 3</a></li>
+                                <li><a href="">Task 4</a></li>
+                                <li><a href="">Task 5</a></li>
+                            </ul>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row footer">
+        <div class="col-md-4 ">
+            <img src="resources/images/footer.png" alt="">
+        </div>
+        <div class="col-md-8">
+            <p class="copy">© 2017 ATMS.com - All Rights Reserved</p>
+            <p class="ftr-nav">
+                <a href="#">Dashboard</a> | <a href="#">Projects</a> | <a href="#">Tasks</a> | <a href="#">Developers</a> | <a href="#">Statistics</a>
+            </p>
+        </div>
+    </div>
+</div><!-- .container karkas -->
+</body>
+</html>

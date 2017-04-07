@@ -1,6 +1,7 @@
 package com.atms.controller;
 
 import com.atms.model.Developer;
+import com.atms.model.PasswordResetToken;
 import com.atms.model.Technology;
 import com.atms.service.DeveloperService;
 import com.atms.service.ProjectService;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.UUID;
 import javax.validation.Valid;
 
 @CrossOrigin
@@ -49,31 +51,20 @@ public class DeveloperController {
         return new ResponseEntity<>(developer, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/api/developer/{email}", method = RequestMethod.GET)
-    public ResponseEntity<Developer> remind(@PathVariable("email") String email) {
-        Developer dev = developerService.findByEmail(email);
-        if (dev!=null) {
-            dev.setPassword("default");
-            return new ResponseEntity<>(developerService.update(dev), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
-    @RequestMapping(value = "/login/", method = RequestMethod.POST)
-    public ResponseEntity<Developer> checkAccount(/*@RequestParam(value="username", defaultValue="") String name,
-                                                               @RequestParam(value="password", defaultValue="") String pass*/
-                                  @RequestBody String body) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            Developer account = (Developer) mapper.readValue(body, Developer.class);
-            Developer temp = developerService.getAuth(account);
-            if (temp.getEmail() == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            return new ResponseEntity<>(temp, HttpStatus.OK);
-        } catch (Exception ex) {
+    @RequestMapping(value = "/user/resetPassword",method = RequestMethod.POST)
+    public ResponseEntity<Void> resetPassword(@RequestParam("email") String email) {
+        Developer developer = developerService.findByEmail(email);
+        if (developer == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
+        String token = UUID.randomUUID().toString();
+        PasswordResetToken resetToken=developerService.createPasswordResetTokenForDeveloper(developer, token);
+        if(resetToken!=null){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @RequestMapping(value = "/api/developer", method = RequestMethod.PUT)

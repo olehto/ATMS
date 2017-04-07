@@ -30,9 +30,19 @@ var RegisterComponent = (function () {
     RegisterComponent.prototype.register = function () {
         var _this = this;
         this.loading = true;
+        this.userService.getDevType(this.model.devTypeId)
+            .subscribe(function (data) {
+            _this.model.devType = data;
+            console.log(data);
+            _this.create();
+            //this.model.devTypeId-undefined;
+        });
+    };
+    RegisterComponent.prototype.create = function () {
+        var _this = this;
         this.userService.create(this.model)
             .subscribe(function (data) {
-            _this.router.navigate(['/']);
+            _this.router.navigate(['/login']);
         }, function (error) {
             _this.loading = false;
         });

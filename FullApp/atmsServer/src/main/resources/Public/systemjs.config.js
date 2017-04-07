@@ -51,7 +51,9 @@
       // other libraries
       'rxjs':                      'npm:rxjs@5.0.0-rc.3',
       'ts':                        'npm:plugin-typescript@4.0.10/lib/plugin.js',
-      'typescript':                'npm:typescript@2.0.3/lib/typescript.js'
+      'typescript':                'npm:typescript@2.0.3/lib/typescript.js',
+      'ng2-charts': 'npm:ng2-charts/bundles/ng2-charts.umd.min.js',
+      "ngx-dropdown": "node_modules/ngx-dropdown"
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -61,7 +63,8 @@
       },
       rxjs: {
         defaultExtension: 'js'
-      }
+      },
+      "ngx-dropdown": { "main": "index.js", "defaultExtension": "js" }
     }
   });
 
@@ -87,3 +90,4 @@
   }
 
 })(this);
+

@@ -1,8 +1,10 @@
 package com.atms.service.impl;
 
 import com.atms.model.Developer;
+import com.atms.model.PasswordResetToken;
 import com.atms.model.Project;
 import com.atms.repository.DeveloperRepository;
+import com.atms.repository.PasswordTokenRepository;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.atms.service.DeveloperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +17,14 @@ public class DeveloperServiceImpl implements DeveloperService {
 
     private final DeveloperRepository developerRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final PasswordTokenRepository passwordTokenRepository;
 
     @Autowired
-    public DeveloperServiceImpl(DeveloperRepository developerRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public DeveloperServiceImpl(DeveloperRepository developerRepository, BCryptPasswordEncoder bCryptPasswordEncoder,
+                                PasswordTokenRepository passwordTokenRepository) {
         this.developerRepository = developerRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.passwordTokenRepository=passwordTokenRepository;
     }
 
 
@@ -86,5 +91,10 @@ public class DeveloperServiceImpl implements DeveloperService {
         else{
             return null;
         }
+    }
+
+    public PasswordResetToken createPasswordResetTokenForDeveloper(Developer developer, String token) {
+        PasswordResetToken myToken = new PasswordResetToken(token, developer);
+        return passwordTokenRepository.save(myToken);
     }
 }

@@ -1,14 +1,27 @@
+
+@font-face {
+    font-family: 'open_sanslight';
+    src: url('resources/font/opensans-light-webfont.woff2') format('woff2'),
+    url('resources/font/opensans-light-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+body {
+    font-family: 'open_sanslight';
+    background: #fff;
+}
 a {
     cursor: pointer;
 
 }
+
+li {list-style-type: none;}
 
 .login {
     margin-top: 50px;
 }
 .register{
     margin-top: 30px;
-}
-body {
-    background: #fff;
 }

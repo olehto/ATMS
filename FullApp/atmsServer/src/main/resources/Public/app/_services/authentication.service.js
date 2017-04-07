@@ -52,6 +52,22 @@ var AuthenticationService = (function () {
     AuthenticationService.prototype.logout = function () {
         localStorage.removeItem('token');
     };
+    AuthenticationService.prototype.refresh = function () {
+        var _this = this;
+        var headers = new http_1.Headers();
+        headers.append("Accept", "application/json");
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('Authorization', 'Basic ' + btoa(this.clientId + ':' + this.clientSecret));
+        var options = new http_1.RequestOptions({ headers: headers });
+        var token = JSON.parse(localStorage.getItem('token'));
+        var params = new http_1.URLSearchParams();
+        params.set('grant_type', 'refresh_token');
+        params.set('refresh_token', token.refresh_token);
+        params.set('client_secret', this.clientSecret);
+        params.set('client_id', this.clientId);
+        return this.http.post(this.httpAdress, params.toString(), { headers: headers })
+            .map(function (res) { return _this.handleData(res); });
+    };
     return AuthenticationService;
 }());
 AuthenticationService = __decorate([

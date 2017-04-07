@@ -18,40 +18,55 @@ var UserService = (function () {
     }
     UserService.prototype.getAll = function () {
         var headers = new http_1.Headers();
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.get(this.httpAdress + '/api/developer/', { headers: headers }).map(function (response) { return response.json(); });
     };
     UserService.prototype.getById = function (id) {
         var headers = new http_1.Headers();
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.get(this.httpAdress + '/api/developer/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
     UserService.prototype.remind = function (email) {
         var headers = new http_1.Headers();
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.get(this.httpAdress + '/api/developer/' + email, { headers: headers }).map(function (response) { return response.json(); });
     };
     UserService.prototype.create = function (user) {
+        /*this.getDevType(user.devTypeId).subscribe(
+            response => {
+                console.log(response);
+                user.devType=response;
+            },
+            error => {
+                console.log(error);
+                alert(error);
+            }
+        );*/
+        user.devTypeId = undefined;
         var body = JSON.stringify(user);
         console.log(body);
         var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
         return this.http.post(this.httpAdress + '/register', body, { headers: headers }).map(function (response) { return response.json(); });
     };
     UserService.prototype.update = function (user) {
         var headers = new http_1.Headers();
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.put(this.httpAdress + '/api/developer/' + user, user, { headers: headers }).map(function (response) { return response.json(); });
     };
     UserService.prototype.delete = function (id) {
         var headers = new http_1.Headers();
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
+        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.delete(this.httpAdress + '/api/developer/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
     UserService.prototype.getDevTypes = function () {
-        var headers = new http_1.Headers();
-        headers.append('Authorization', 'Bearer ' + localStorage.getItem('token'));
-        return this.http.get(this.httpAdress + '/api/devType/', { headers: headers }).map(function (response) { return response.json(); });
+        /*let headers = new Headers();
+        headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);*/
+        return this.http.get(this.httpAdress + '/api/devType/get' /*,{headers: headers}*/).map(function (response) { return response.json(); });
+    };
+    UserService.prototype.getDevType = function (id) {
+        /*let headers = new Headers();
+        headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);*/
+        return this.http.get(this.httpAdress + '/api/devType/get/' + id /*,{headers: headers}*/).map(function (response) { return response.json(); });
     };
     return UserService;
 }());

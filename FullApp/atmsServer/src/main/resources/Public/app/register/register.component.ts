@@ -29,10 +29,22 @@ export class RegisterComponent {
 
     register() {
         this.loading = true;
+        this.userService.getDevType(this.model.devTypeId)
+            .subscribe(
+                data=>{
+                    this.model.devType=data;
+                    console.log(data);
+                    this.create();
+                    //this.model.devTypeId-undefined;
+                }
+            )
+
+    }
+    create(){
         this.userService.create(this.model)
             .subscribe(
                 data => {
-                    this.router.navigate(['/']);
+                    this.router.navigate(['/login']);
                 },
                 error => {
                     this.loading = false;

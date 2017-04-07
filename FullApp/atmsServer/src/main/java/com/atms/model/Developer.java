@@ -21,8 +21,6 @@ public class Developer {
     private String telephone;
     private String nickname;
     private String password;
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "devTypeId")
-    @JsonIdentityReference(alwaysAsId = true)
     private DevType devType;
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "taskId")
     @JsonIdentityReference(alwaysAsId = true)
@@ -132,7 +130,7 @@ public class Developer {
     }
 
     @ManyToOne
-    @JoinColumn(name = "dev_type_id", referencedColumnName = "dev_type_id", insertable = false, nullable = false, updatable = false)
+    @JoinColumn(name = "dev_type_id", referencedColumnName = "dev_type_id", nullable = false)
     public DevType getDevType() {
         return devType;
     }
