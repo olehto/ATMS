@@ -1,5 +1,6 @@
 package com.atms.repository;
 
+import com.atms.model.Developer;
 import com.atms.model.Keyword;
 import com.atms.model.PasswordResetToken;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,4 +11,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface PasswordTokenRepository extends JpaRepository<PasswordResetToken, Integer> {
+    PasswordResetToken findByToken(String token);
 }

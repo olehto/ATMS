@@ -1,6 +1,7 @@
 package com.atms.notify;
 
 import com.atms.model.Developer;
+import com.atms.model.PasswordResetToken;
 import com.atms.model.Task;
 
 /**
@@ -13,5 +14,5 @@ public interface Notifier {
 
     void notifyCustomer(Task task);
 
-    void restorePassword(Developer developer);
+    void restorePassword(Developer developer, PasswordResetToken token);
 }

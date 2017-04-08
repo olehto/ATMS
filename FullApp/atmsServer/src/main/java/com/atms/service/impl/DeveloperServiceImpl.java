@@ -36,10 +36,8 @@ public class DeveloperServiceImpl implements DeveloperService {
 
     @Override
     public Developer update(Developer developer) {
-        if (developerRepository.findOne(developer.getDeveloperId()) != null) {
-            return developerRepository.saveAndFlush(developer);
-        }
-        return null;
+        developer.setPassword(bCryptPasswordEncoder.encode(developer.getPassword()));
+        return developerRepository.saveAndFlush(developer);
     }
 
     @Override
@@ -93,8 +91,15 @@ public class DeveloperServiceImpl implements DeveloperService {
         }
     }
 
+    @Override
     public PasswordResetToken createPasswordResetTokenForDeveloper(Developer developer, String token) {
         PasswordResetToken myToken = new PasswordResetToken(token, developer);
         return passwordTokenRepository.save(myToken);
+    }
+
+    @Override
+    public boolean checkPasswordResetToken(Developer developer, String token){
+        PasswordResetToken myToken=passwordTokenRepository.findByToken(token);
+        return myToken.getDeveloper().getEmail().equals(developer.getEmail());
     }
 }

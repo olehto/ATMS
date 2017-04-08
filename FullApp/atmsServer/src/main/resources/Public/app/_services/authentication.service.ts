@@ -10,7 +10,7 @@ export class AuthenticationService {
     private clientId ='atms';
     private clientSecret ='secret';
     constructor(private http: Http) {
-       this.httpAdress= 'http://localhost:8080/oauth/token';
+       this.httpAdress= 'http://localhost:8080';
     }
 
     private handleData(res: Response) {
@@ -23,8 +23,6 @@ export class AuthenticationService {
         headers.append("Accept","application/json");
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         headers.append('Authorization','Basic '+btoa(this.clientId+':'+this.clientSecret));
-        let options = new RequestOptions({ headers: headers });
-
         let params: URLSearchParams = new URLSearchParams();
         params.set('password', password );
         params.set('username', username );
@@ -32,7 +30,7 @@ export class AuthenticationService {
         params.set('scope','read write');
         params.set('client_secret', this.clientSecret );
         params.set('client_id', this.clientId );
-        return this.http.post(this.httpAdress, params.toString(), { headers: headers })
+        return this.http.post(this.httpAdress+'/oauth/token', params.toString(), { headers: headers })
             .map(res =>this.handleData(res));//res => res.json());
     }
     private handleError (error: any) {
@@ -60,8 +58,25 @@ export class AuthenticationService {
         params.set('client_secret', this.clientSecret );
         params.set('client_id', this.clientId );
 
-        return this.http.post(this.httpAdress, params.toString(), { headers: headers })
+        return this.http.post(this.httpAdress+'/oauth/token', params.toString(), { headers: headers })
             .map(res =>this.handleData(res));
     }
 
+    public restore(mail: string){
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('email', mail );
+        return this.http.post(this.httpAdress+'/user/resetPassword/',params.toString(),{ headers: headers });//.map((response: Response) => response.json());
+    }
+
+    public change(mail: string, token: string, password: string){
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('email', mail );
+        params.set('token', token);
+        params.set('password', password);
+        return this.http.post(this.httpAdress+'/user/changePassword/',params.toString(),{ headers: headers });//.map((response: Response) => response.json());
+    }
 }

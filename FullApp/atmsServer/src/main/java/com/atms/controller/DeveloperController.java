@@ -3,6 +3,7 @@ package com.atms.controller;
 import com.atms.model.Developer;
 import com.atms.model.PasswordResetToken;
 import com.atms.model.Technology;
+import com.atms.notify.Notifier;
 import com.atms.service.DeveloperService;
 import com.atms.service.ProjectService;
 import com.atms.service.TechnologyService;
@@ -26,11 +27,15 @@ public class DeveloperController {
 
     private final TechnologyService technologyService;
 
+    private final Notifier notifier;
+
     @Autowired
-    public DeveloperController(DeveloperService developerService, ProjectService projectService, TechnologyService technologyService) {
+    public DeveloperController(DeveloperService developerService, ProjectService projectService,
+                               TechnologyService technologyService, Notifier notifier) {
         this.developerService = developerService;
         this.projectService = projectService;
         this.technologyService = technologyService;
+        this.notifier=notifier;
     }
 
     @RequestMapping(value = "/api/developer", method = RequestMethod.GET)
@@ -60,6 +65,25 @@ public class DeveloperController {
         String token = UUID.randomUUID().toString();
         PasswordResetToken resetToken=developerService.createPasswordResetTokenForDeveloper(developer, token);
         if(resetToken!=null){
+            notifier.restorePassword(developer,resetToken);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/user/changePassword",method = RequestMethod.POST)
+    public ResponseEntity<Void> changePassword(@RequestParam("email") String email,
+                                              @RequestParam("token") String token,
+                                              @RequestParam("password") String password) {
+        Developer developer = developerService.findByEmail(email);
+        if (developer == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        developer.setPassword(password);
+        if(developerService.checkPasswordResetToken(developer,token)){
+            developerService.update(developer);
             return new ResponseEntity<>(HttpStatus.OK);
         }
         else{

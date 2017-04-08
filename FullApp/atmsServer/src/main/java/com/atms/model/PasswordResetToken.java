@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Created by EvSpirit on 06.04.2017.
@@ -13,16 +14,17 @@ import java.sql.Date;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "resettokenId")
 public class PasswordResetToken {
 
-    private static final int EXPIRATION = 60 * 24;
+    private static final int EXPIRATION = 100*60*60 * 24;
     private Integer resetTokenId;
     private String token;
     private Developer developer;
-    private Date expiryDate;
+    private Timestamp expiryDate;
 
     public PasswordResetToken(){}
     public PasswordResetToken(String token, Developer developer){
         this.token=token;
         this.developer=developer;
+        this.expiryDate=new Timestamp(System.currentTimeMillis()+EXPIRATION);
     }
     @Id
     @GeneratedValue
@@ -55,11 +57,11 @@ public class PasswordResetToken {
     }
 
     @Column(name = "expiry_date", nullable = false)
-    public Date getExpiryDate() {
+    public Timestamp getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(Date expiryDate) {
+    public void setExpiryDate(Timestamp expiryDate) {
         this.expiryDate = expiryDate;
     }
 }

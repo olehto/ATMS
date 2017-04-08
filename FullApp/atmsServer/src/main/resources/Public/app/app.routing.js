@@ -14,6 +14,8 @@ var newtask_component_1 = require("./new_task/newtask.component");
 var taskslist_component_1 = require("./tasks_list/taskslist.component");
 var developers_component_1 = require("./developers/developers.component");
 var statistics_component_1 = require("./statistics/statistics.component");
+var newpass_component_1 = require("./new_pass/newpass.component");
+var restore_component_1 = require("./restore/restore.component");
 var appRoutes = [
     { path: 'login', component: index_1.LoginComponent },
     { path: 'register', component: index_2.RegisterComponent },
@@ -24,6 +26,8 @@ var appRoutes = [
     { path: 'projects/tasks_list', component: taskslist_component_1.TasksListComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'developers', component: developers_component_1.DevelopersComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'statistics', component: statistics_component_1.StatisticsComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'newpass', component: newpass_component_1.NewPasswordComponent },
+    { path: 'restore', component: restore_component_1.RestoreComponent },
     { path: '**', redirectTo: '' }
 ];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);

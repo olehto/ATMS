@@ -29,4 +29,6 @@ public interface DeveloperService {
     Developer findByEmail(String mail);
 
     PasswordResetToken createPasswordResetTokenForDeveloper(Developer developer, String token);
+
+    boolean checkPasswordResetToken(Developer developer, String token);
 }

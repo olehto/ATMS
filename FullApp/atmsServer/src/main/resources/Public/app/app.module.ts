@@ -19,6 +19,9 @@ import {TasksListComponent} from './tasks_list/index';
 import {DevelopersComponent} from './developers/index';
 import {StatisticsComponent} from './statistics/index';
 import {DropdownModule} from "ngx-dropdown";
+import {RestoreComponent} from './restore/index';
+import {NewPasswordComponent} from './new_pass/index';
+
 
 @NgModule({
     imports: [
@@ -39,7 +42,9 @@ import {DropdownModule} from "ngx-dropdown";
         NewTaskComponent,
         TasksListComponent,
         DevelopersComponent,
-        StatisticsComponent
+        StatisticsComponent,
+        RestoreComponent,
+        NewPasswordComponent
     ],
     providers: [
         AuthGuard,

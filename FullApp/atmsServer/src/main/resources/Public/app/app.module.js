@@ -25,6 +25,8 @@ var index_9 = require("./tasks_list/index");
 var index_10 = require("./developers/index");
 var index_11 = require("./statistics/index");
 var ngx_dropdown_1 = require("ngx-dropdown");
+var index_12 = require("./restore/index");
+var index_13 = require("./new_pass/index");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -50,7 +52,9 @@ AppModule = __decorate([
             index_8.NewTaskComponent,
             index_9.TasksListComponent,
             index_10.DevelopersComponent,
-            index_11.StatisticsComponent
+            index_11.StatisticsComponent,
+            index_12.RestoreComponent,
+            index_13.NewPasswordComponent
         ],
         providers: [
             index_1.AuthGuard,

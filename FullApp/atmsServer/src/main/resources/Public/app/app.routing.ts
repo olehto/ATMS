@@ -13,6 +13,8 @@ import {NewTaskComponent} from "./new_task/newtask.component";
 import {TasksListComponent} from "./tasks_list/taskslist.component";
 import {DevelopersComponent} from "./developers/developers.component";
 import {StatisticsComponent} from "./statistics/statistics.component";
+import {NewPasswordComponent} from "./new_pass/newpass.component";
+import {RestoreComponent} from "./restore/restore.component";
 
 const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
@@ -24,6 +26,8 @@ const appRoutes: Routes = [
     {path: 'projects/tasks_list', component: TasksListComponent, canActivate: [AuthGuard] },
     {path: 'developers', component:DevelopersComponent, canActivate: [AuthGuard] },
     {path: 'statistics', component:StatisticsComponent, canActivate: [AuthGuard] },
+    {path: 'newpass', component:NewPasswordComponent},
+    {path: 'restore', component:RestoreComponent},
     {path: '**', redirectTo: '' }
 ];
 

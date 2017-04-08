@@ -18,7 +18,7 @@ var AuthenticationService = (function () {
         this.http = http;
         this.clientId = 'atms';
         this.clientSecret = 'secret';
-        this.httpAdress = 'http://localhost:8080/oauth/token';
+        this.httpAdress = 'http://localhost:8080';
     }
     AuthenticationService.prototype.handleData = function (res) {
         var body = res.json();
@@ -30,7 +30,6 @@ var AuthenticationService = (function () {
         headers.append("Accept", "application/json");
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         headers.append('Authorization', 'Basic ' + btoa(this.clientId + ':' + this.clientSecret));
-        var options = new http_1.RequestOptions({ headers: headers });
         var params = new http_1.URLSearchParams();
         params.set('password', password);
         params.set('username', username);
@@ -38,7 +37,7 @@ var AuthenticationService = (function () {
         params.set('scope', 'read write');
         params.set('client_secret', this.clientSecret);
         params.set('client_id', this.clientId);
-        return this.http.post(this.httpAdress, params.toString(), { headers: headers })
+        return this.http.post(this.httpAdress + '/oauth/token', params.toString(), { headers: headers })
             .map(function (res) { return _this.handleData(res); }); //res => res.json());
     };
     AuthenticationService.prototype.handleError = function (error) {
@@ -65,8 +64,24 @@ var AuthenticationService = (function () {
         params.set('refresh_token', token.refresh_token);
         params.set('client_secret', this.clientSecret);
         params.set('client_id', this.clientId);
-        return this.http.post(this.httpAdress, params.toString(), { headers: headers })
+        return this.http.post(this.httpAdress + '/oauth/token', params.toString(), { headers: headers })
             .map(function (res) { return _this.handleData(res); });
+    };
+    AuthenticationService.prototype.restore = function (mail) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        var params = new http_1.URLSearchParams();
+        params.set('email', mail);
+        return this.http.post(this.httpAdress + '/user/resetPassword/', params.toString(), { headers: headers }); //.map((response: Response) => response.json());
+    };
+    AuthenticationService.prototype.change = function (mail, token, password) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        var params = new http_1.URLSearchParams();
+        params.set('email', mail);
+        params.set('token', token);
+        params.set('password', password);
+        return this.http.post(this.httpAdress + '/user/changePassword/', params.toString(), { headers: headers }); //.map((response: Response) => response.json());
     };
     return AuthenticationService;
 }());
