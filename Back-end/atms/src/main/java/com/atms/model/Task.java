@@ -28,6 +28,7 @@ public class Task {
     private Developer developer;
     private Developer reporter;
     private Set<Document> documents;
+    private Set<Log> logs;
     private Requirement requirement;
 
     @Id
@@ -126,7 +127,7 @@ public class Task {
     }
 
     @ManyToOne
-    @JoinColumn(name = "sprint_id", referencedColumnName = "sprint_id", updatable = false, insertable = false)
+    @JoinColumn(name = "sprint_id", referencedColumnName = "sprint_id")
     public Sprint getSprint() {
         return sprint;
     }
@@ -136,7 +137,7 @@ public class Task {
     }
 
     @ManyToOne
-    @JoinColumn(name = "reporter_id", insertable = false, updatable = false)
+    @JoinColumn(name = "reporter_id")
     public Developer getReporter() {
         return reporter;
     }
@@ -162,6 +163,15 @@ public class Task {
 
     public void setDocuments(Set<Document> documents) {
         this.documents = documents;
+    }
+
+    @OneToMany(mappedBy = "task")
+    public Set<Log> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(Set<Log> logs) {
+        this.logs = logs;
     }
 
     @ManyToOne

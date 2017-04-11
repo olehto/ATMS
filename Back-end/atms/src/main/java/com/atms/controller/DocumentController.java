@@ -65,7 +65,7 @@ public class DocumentController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         String link;
         try {
-            link = storageService.store(taskId, file);
+            link = storageService.store(taskId + "/documents", file);
         } catch (StorageException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
