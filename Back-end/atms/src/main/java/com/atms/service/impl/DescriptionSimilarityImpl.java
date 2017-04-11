@@ -1,7 +1,6 @@
 package com.atms.service.impl;
 
 import com.atms.model.Task;
-import com.atms.repository.TaskRepository;
 import com.atms.service.DescriptionSimilarity;
 import com.atms.service.IntersectionService;
 import info.debatty.java.stringsimilarity.Cosine;
@@ -15,18 +14,16 @@ import java.util.*;
  */
 @Service
 public class DescriptionSimilarityImpl implements DescriptionSimilarity {
-    private final TaskRepository taskRepository;
     private final IntersectionService intersectionService;
 
     @Autowired
-    public DescriptionSimilarityImpl(TaskRepository taskRepository, IntersectionService intersectionService) {
-        this.taskRepository = taskRepository;
+    public DescriptionSimilarityImpl(IntersectionService intersectionService) {
         this.intersectionService = intersectionService;
     }
 
     @Override
     public Map<Integer, Integer> findSimilar(Task task) {
-        List<Task> tasks = new ArrayList<>(intersectionService.getTop(task));// taskRepository.findAllByDeveloperIsNotNull();
+        List<Task> tasks = new ArrayList<>(intersectionService.getTop(task));
         Map<Integer, Integer> descriptions = new HashMap<>();
         Cosine cosine = new Cosine(DescriptionSimilarity.SHINGLE_LENGTH);
         for (Task t : tasks) {
