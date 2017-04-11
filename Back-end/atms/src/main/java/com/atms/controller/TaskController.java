@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Alex Kazanovskiy.
@@ -25,15 +25,18 @@ public class TaskController {
     private final ProjectService projectService;
     private final StatusService statusService;
     private final PriorityService priorityService;
-    private final DescriptionSimilarity descriptionSimilarity;
+    private final IntersectionService intersectionService;
 
     @Autowired
-    public TaskController(ProjectService projectService, StatusService statusService, PriorityService priorityService, TaskService taskService, DescriptionSimilarity descriptionSimilarity) {
+    public TaskController(ProjectService projectService, StatusService statusService,
+                          PriorityService priorityService, TaskService taskService,
+                          IntersectionService intersectionService) {
         this.projectService = projectService;
         this.statusService = statusService;
         this.priorityService = priorityService;
         this.taskService = taskService;
-        this.descriptionSimilarity = descriptionSimilarity;
+        this.intersectionService = intersectionService;
+
     }
 
     @RequestMapping(value = "/api/task", method = RequestMethod.GET)
@@ -117,16 +120,19 @@ public class TaskController {
         if (task == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
         return new ResponseEntity<>(task, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/api/task/similar/{taskId}", method = RequestMethod.GET)
-    public ResponseEntity<Map<Integer, Integer>> getSimilar(@PathVariable("taskId") String taskId) {
-        Task task = taskService.findOne(Integer.parseInt(taskId));
-        if (task == null)
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        return new ResponseEntity<>(descriptionSimilarity.findSimilar(task), HttpStatus.OK);
+    @RequestMapping(value = "/api/task/similar/{taskId}", method = RequestMethod.GET)
+    public ResponseEntity<Set<Task>> getSimilar(@PathVariable("taskId") String taskId) {
+        Task task;
+        if ((task = taskService.findOne(Integer.parseInt(taskId))) == null)
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        Set<Task> similar = intersectionService.getTop(task);
+        if (similar.size() == 0) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(similar, HttpStatus.OK);
     }
 }
