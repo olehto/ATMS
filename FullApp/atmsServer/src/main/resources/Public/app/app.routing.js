@@ -21,7 +21,7 @@ var appRoutes = [
     { path: 'register', component: index_2.RegisterComponent },
     { path: '', component: index_3.DashboardComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'projects', component: index_4.ProjectsComponent, canActivate: [auth_guard_1.AuthGuard] },
-    { path: 'tasks', component: tasks_component_1.TasksComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'task', component: tasks_component_1.TasksComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'projects/new_task', component: newtask_component_1.NewTaskComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'projects/tasks_list', component: taskslist_component_1.TasksListComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'developers', component: developers_component_1.DevelopersComponent, canActivate: [auth_guard_1.AuthGuard] },

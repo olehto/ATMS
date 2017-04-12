@@ -13,4 +13,7 @@ export class User {
     devType: DevType;
     devTypeId: number;
     dateOfBirth: number;
+    constructor(){
+        this.devType=new DevType();
+    }
 }

@@ -22,8 +22,6 @@ public interface DeveloperService {
 
     List<Developer> findByProject(Project project);
 
-    Developer getAuth(Developer developer);
-
     //List<Developer> findByTechnology(Technology technology);
 
     Developer findByEmail(String mail);
@@ -31,4 +29,7 @@ public interface DeveloperService {
     PasswordResetToken createPasswordResetTokenForDeveloper(Developer developer, String token);
 
     boolean checkPasswordResetToken(Developer developer, String token);
+
+    Developer findByUsername(String username);
+
 }

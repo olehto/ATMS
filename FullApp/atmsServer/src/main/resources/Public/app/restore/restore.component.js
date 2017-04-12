@@ -15,11 +15,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var authentication_service_1 = require("../_services/authentication.service");
+var alert_service_1 = require("../_services/alert.service");
 var RestoreComponent = (function () {
-    function RestoreComponent(route, router, authenticationService) {
+    function RestoreComponent(route, router, authenticationService, alertService) {
         this.route = route;
         this.router = router;
         this.authenticationService = authenticationService;
+        this.alertService = alertService;
         this.model = {};
         this.loading = false;
     }
@@ -36,8 +38,12 @@ var RestoreComponent = (function () {
             console.log(response);
             _this.router.navigate([_this.returnUrl]);
         }, function (error) {
-            console.log(error);
-            alert(error);
+            if (error.status === 0) {
+                _this.alertService.error("Connection error");
+            }
+            else {
+                _this.alertService.error("Wrong data");
+            }
         });
     };
     return RestoreComponent;
@@ -51,7 +57,8 @@ RestoreComponent = __decorate([
     }),
     __metadata("design:paramtypes", [router_1.ActivatedRoute,
         router_1.Router,
-        authentication_service_1.AuthenticationService])
+        authentication_service_1.AuthenticationService,
+        alert_service_1.AlertService])
 ], RestoreComponent);
 exports.RestoreComponent = RestoreComponent;
 //# sourceMappingURL=restore.component.js.map

@@ -1,5 +1,6 @@
 package com.atms.service.impl;
 
+import com.atms.model.Developer;
 import com.atms.model.Technology;
 import com.atms.repository.TechnologyRepository;
 import com.atms.service.TechnologyService;
@@ -49,5 +50,10 @@ public class TechnologyServiceImpl implements TechnologyService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Technology> getByDeveloper(Developer developer) {
+        return technologyRepository.findByRequirementsTasksDeveloper(developer);
     }
 }

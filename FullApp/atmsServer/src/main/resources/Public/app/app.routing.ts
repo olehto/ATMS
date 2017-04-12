@@ -21,7 +21,7 @@ const appRoutes: Routes = [
     {path: 'register', component: RegisterComponent },
     {path: '', component: DashboardComponent, canActivate: [AuthGuard] },
     {path: 'projects', component: ProjectsComponent, canActivate: [AuthGuard] },
-    {path: 'tasks', component: TasksComponent, canActivate: [AuthGuard] },
+    {path: 'task', component: TasksComponent, canActivate: [AuthGuard] },
     {path: 'projects/new_task', component: NewTaskComponent, canActivate: [AuthGuard] },
     {path: 'projects/tasks_list', component: TasksListComponent, canActivate: [AuthGuard] },
     {path: 'developers', component:DevelopersComponent, canActivate: [AuthGuard] },

@@ -28,11 +28,9 @@ public class Developer {
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "taskId")
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Task> tasksAsReporter;
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "technologyId")
-    @JsonIdentityReference(alwaysAsId = true)
-    private Set<Technology> technologies;
     @JsonIgnore
     private Set<Authority> authorities;
+    private boolean locked;
 
     public Developer() {
     }
@@ -48,7 +46,7 @@ public class Developer {
         this.password = developer.getPassword();
         this.devType = developer.getDevType();
         this.tasksAsDeveloper = developer.getTasksAsDeveloper();
-        this.technologies = developer.getTechnologies();
+        this.locked = developer.isLocked();
         this.authorities = developer.getAuthorities();
     }
 
@@ -99,6 +97,14 @@ public class Developer {
         this.email = email;
     }
 
+    @Column(name = "locked", nullable = false)
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
 
     @Column(name = "telephone")
     public String getTelephone() {
@@ -155,16 +161,6 @@ public class Developer {
 
     public void setTasksAsReporter(Set<Task> tasksAsReporter) {
         this.tasksAsReporter = tasksAsReporter;
-    }
-
-    @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "developer_id"), inverseJoinColumns = @JoinColumn(name = "technology_id"))
-    public Set<Technology> getTechnologies() {
-        return technologies;
-    }
-
-    public void setTechnologies(Set<Technology> technologies) {
-        this.technologies = technologies;
     }
 
     @ManyToMany

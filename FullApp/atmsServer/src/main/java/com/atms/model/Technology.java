@@ -14,12 +14,12 @@ public class Technology {
     private int technologyId;
     private String title;
     private String description;
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "developerId")
-    @JsonIdentityReference(alwaysAsId = true)
-    private Set<Developer> developers;
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "requirementId")
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Requirement> requirements;
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "keywordId")
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<Keyword> keywords;
 
     @Id
     @GeneratedValue
@@ -50,15 +50,6 @@ public class Technology {
         this.description = description;
     }
 
-    @ManyToMany(mappedBy = "technologies")
-    public Set<Developer> getDevelopers() {
-        return developers;
-    }
-
-    public void setDevelopers(Set<Developer> developers) {
-        this.developers = developers;
-    }
-
     @ManyToMany
     @JoinTable(joinColumns = @JoinColumn(name = "technology_id"), inverseJoinColumns = @JoinColumn(name = "requirement_id"))
     public Set<Requirement> getRequirements() {
@@ -67,5 +58,29 @@ public class Technology {
 
     public void setRequirements(Set<Requirement> requirements) {
         this.requirements = requirements;
+    }
+
+    @ManyToMany(mappedBy = "technologies", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    public Set<Keyword> getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(Set<Keyword> keywords) {
+        this.keywords = keywords;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Technology that = (Technology) o;
+
+        return title != null ? title.equals(that.title) : that.title == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return title != null ? title.hashCode() : 0;
     }
 }

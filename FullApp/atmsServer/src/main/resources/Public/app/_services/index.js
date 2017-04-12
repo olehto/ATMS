@@ -10,4 +10,5 @@ __export(require("./priority.service"));
 __export(require("./type.service"));
 __export(require("./technology.service"));
 __export(require("./task.service"));
+__export(require("./alert.service"));
 //# sourceMappingURL=index.js.map

@@ -4,6 +4,7 @@
 import {Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {AuthenticationService} from "../_services/authentication.service";
+import {AlertService} from "../_services/alert.service";
 
 @Component({
     moduleId: module.id,
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService){}
+        private authenticationService: AuthenticationService,
+        private alertService: AlertService) { }
 
 
     ngOnInit()
@@ -42,7 +44,12 @@ export class LoginComponent implements OnInit {
                 },
                 error => {
                     console.log(error);
-                    alert(error);
+                    if(error.status===401){
+                        this.alertService.error("Wrong Username/password")
+                    }
+                    else{
+                        this.alertService.error("Connection error");
+                    }
                 }
             );
     }

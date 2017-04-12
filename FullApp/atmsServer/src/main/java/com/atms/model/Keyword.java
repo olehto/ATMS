@@ -15,6 +15,9 @@ public class Keyword {
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "requirementId")
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Requirement> requirements;
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "technologyId")
+    @JsonIdentityReference(alwaysAsId = true)
+    private Set<Technology> technologies;
 
     @Id
     @GeneratedValue
@@ -44,5 +47,30 @@ public class Keyword {
 
     public void setRequirements(Set<Requirement> requirements) {
         this.requirements = requirements;
+    }
+
+    @ManyToMany
+    @JoinTable(joinColumns = @JoinColumn(name = "keyword_id"), inverseJoinColumns = @JoinColumn(name = "technology_id"))
+    public Set<Technology> getTechnologies() {
+        return technologies;
+    }
+
+    public void setTechnologies(Set<Technology> technologies) {
+        this.technologies = technologies;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Keyword keyword = (Keyword) o;
+
+        return value.equals(keyword.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return value.hashCode();
     }
 }

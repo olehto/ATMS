@@ -56,7 +56,6 @@ public class TechnologyController {
         }
         oldTechnology.setDescription(technology.getDescription());
         oldTechnology.setTitle(technology.getTitle());
-        oldTechnology.setDevelopers(technology.getDevelopers());
         oldTechnology = technologyService.update(oldTechnology);
         return new ResponseEntity<>(oldTechnology, HttpStatus.OK);
     }

@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { UserService,PriorityService,TaskService,ProjectService,TechnologyService,TypeService } from '../_services/index';
 import {Project} from "../_models/project";
 import {Task} from "../_models/task";
+import {AlertService} from "../_services/alert.service";
+import {error} from "util";
 
 
 @Component({
@@ -25,7 +27,8 @@ export class RegisterComponent {
     private technologyService: TechnologyService,
     private taskService: TaskService,
     private priorityService: PriorityService,
-    private projectService: ProjectService) { }
+    private projectService: ProjectService,
+    private alertService: AlertService) { }
 
     register() {
         this.loading = true;
@@ -36,6 +39,10 @@ export class RegisterComponent {
                     console.log(data);
                     this.create();
                     //this.model.devTypeId-undefined;
+                },
+                error=>{
+                    this.loading=false;
+                    this.alertService.error("DevType error");
                 }
             )
 
@@ -47,6 +54,12 @@ export class RegisterComponent {
                     this.router.navigate(['/login']);
                 },
                 error => {
+                    if(error.status===0){
+                        this.alertService.error("Connection error");
+                    }
+                    else{
+                        this.alertService.error("Wrong data");
+                    }
                     this.loading = false;
                 });
     }

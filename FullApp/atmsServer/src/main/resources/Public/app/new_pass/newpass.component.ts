@@ -5,6 +5,7 @@ import {Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {AuthenticationService} from "../_services/authentication.service";
 import {Subscription} from "rxjs";
+import {AlertService} from "../_services/alert.service";
 
 @Component({
     moduleId: module.id,
@@ -13,7 +14,7 @@ import {Subscription} from "rxjs";
     templateUrl: 'newpass.component.html'
 })
 
-export class NewPasswordComponent implements OnInit {
+export class NewPasswordComponent {
     model: any = {};
     loading = false;
     returnUrl: string;
@@ -22,7 +23,8 @@ export class NewPasswordComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService)
+        private authenticationService: AuthenticationService,
+        private alertService: AlertService)
     {
         this.querySubscription = route.queryParams.subscribe(
             (queryParam: any) => {
@@ -33,13 +35,6 @@ export class NewPasswordComponent implements OnInit {
     }
 
 
-    ngOnInit()
-    {
-        // reset login status
-        this.authenticationService.logout();
-        // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/login';
-    }
 
     change() {
         this.authenticationService.change(this.model.email, this.model.token, this.model.password)
@@ -49,8 +44,12 @@ export class NewPasswordComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    console.log(error);
-                    alert(error);
+                    if(error.status===0){
+                        this.alertService.error("Connection error");
+                    }
+                    else{
+                        this.alertService.error("Wrong data");
+                    }
                 }
             );
     }

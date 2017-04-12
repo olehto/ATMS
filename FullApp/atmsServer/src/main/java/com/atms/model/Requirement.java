@@ -57,7 +57,7 @@ public class Requirement {
         this.description = description;
     }
 
-    @OneToMany(mappedBy = "requirement")
+    @OneToMany(mappedBy = "requirement", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public Set<Task> getTasks() {
         return tasks;
     }
@@ -66,7 +66,7 @@ public class Requirement {
         this.tasks = tasks;
     }
 
-    @ManyToMany(mappedBy = "requirements")
+    @ManyToMany(mappedBy = "requirements", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public Set<Keyword> getKeywords() {
         return keywords;
     }
@@ -75,7 +75,7 @@ public class Requirement {
         this.keywords = keywords;
     }
 
-    @ManyToMany(mappedBy = "requirements")
+    @ManyToMany(mappedBy = "requirements", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public Set<Technology> getTechnologies() {
         return technologies;
     }

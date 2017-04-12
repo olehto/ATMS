@@ -18,9 +18,10 @@ import {NewTaskComponent} from './new_task/index';
 import {TasksListComponent} from './tasks_list/index';
 import {DevelopersComponent} from './developers/index';
 import {StatisticsComponent} from './statistics/index';
-import {DropdownModule} from "ngx-dropdown";
 import {RestoreComponent} from './restore/index';
 import {NewPasswordComponent} from './new_pass/index';
+import {AlertComponent} from "./_directives/alert.component";
+import {AlertService} from "./_services/alert.service";
 
 
 @NgModule({
@@ -29,8 +30,7 @@ import {NewPasswordComponent} from './new_pass/index';
         FormsModule,
         HttpModule,
         routing,
-        ChartsModule,
-        DropdownModule
+        ChartsModule
     ],
     declarations: [
         AppComponent,
@@ -38,6 +38,7 @@ import {NewPasswordComponent} from './new_pass/index';
         LoginComponent,
         RegisterComponent,
         ProjectsComponent,
+        AlertComponent,
         TasksComponent,
         NewTaskComponent,
         TasksListComponent,
@@ -51,6 +52,7 @@ import {NewPasswordComponent} from './new_pass/index';
         AuthenticationService,
         UserService,
         ProjectService,
+        AlertService,
         PriorityService,
         TechnologyService,
         TypeService,

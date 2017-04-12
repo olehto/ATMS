@@ -15,12 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var authentication_service_1 = require("../_services/authentication.service");
+var alert_service_1 = require("../_services/alert.service");
 var NewPasswordComponent = (function () {
-    function NewPasswordComponent(route, router, authenticationService) {
+    function NewPasswordComponent(route, router, authenticationService, alertService) {
         var _this = this;
         this.route = route;
         this.router = router;
         this.authenticationService = authenticationService;
+        this.alertService = alertService;
         this.model = {};
         this.loading = false;
         this.querySubscription = route.queryParams.subscribe(function (queryParam) {
@@ -28,12 +30,6 @@ var NewPasswordComponent = (function () {
             _this.model.token = queryParam['token'];
         });
     }
-    NewPasswordComponent.prototype.ngOnInit = function () {
-        // reset login status
-        this.authenticationService.logout();
-        // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/login';
-    };
     NewPasswordComponent.prototype.change = function () {
         var _this = this;
         this.authenticationService.change(this.model.email, this.model.token, this.model.password)
@@ -41,8 +37,12 @@ var NewPasswordComponent = (function () {
             console.log(response);
             _this.router.navigate([_this.returnUrl]);
         }, function (error) {
-            console.log(error);
-            alert(error);
+            if (error.status === 0) {
+                _this.alertService.error("Connection error");
+            }
+            else {
+                _this.alertService.error("Wrong data");
+            }
         });
     };
     return NewPasswordComponent;
@@ -56,7 +56,8 @@ NewPasswordComponent = __decorate([
     }),
     __metadata("design:paramtypes", [router_1.ActivatedRoute,
         router_1.Router,
-        authentication_service_1.AuthenticationService])
+        authentication_service_1.AuthenticationService,
+        alert_service_1.AlertService])
 ], NewPasswordComponent);
 exports.NewPasswordComponent = NewPasswordComponent;
 //# sourceMappingURL=newpass.component.js.map

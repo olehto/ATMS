@@ -5,3 +5,4 @@ export * from './priority.service';
 export * from './type.service';
 export * from './technology.service';
 export * from './task.service';
+export * from './alert.service';

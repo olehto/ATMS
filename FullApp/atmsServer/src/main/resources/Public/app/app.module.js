@@ -24,9 +24,10 @@ var index_8 = require("./new_task/index");
 var index_9 = require("./tasks_list/index");
 var index_10 = require("./developers/index");
 var index_11 = require("./statistics/index");
-var ngx_dropdown_1 = require("ngx-dropdown");
 var index_12 = require("./restore/index");
 var index_13 = require("./new_pass/index");
+var alert_component_1 = require("./_directives/alert.component");
+var alert_service_1 = require("./_services/alert.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -39,8 +40,7 @@ AppModule = __decorate([
             forms_1.FormsModule,
             http_1.HttpModule,
             app_routing_1.routing,
-            ng2_charts_1.ChartsModule,
-            ngx_dropdown_1.DropdownModule
+            ng2_charts_1.ChartsModule
         ],
         declarations: [
             app_component_1.AppComponent,
@@ -48,6 +48,7 @@ AppModule = __decorate([
             index_4.LoginComponent,
             index_5.RegisterComponent,
             index_6.ProjectsComponent,
+            alert_component_1.AlertComponent,
             index_7.TasksComponent,
             index_8.NewTaskComponent,
             index_9.TasksListComponent,
@@ -61,6 +62,7 @@ AppModule = __decorate([
             index_2.AuthenticationService,
             index_2.UserService,
             index_2.ProjectService,
+            alert_service_1.AlertService,
             index_2.PriorityService,
             index_2.TechnologyService,
             index_2.TypeService,

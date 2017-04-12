@@ -64,21 +64,6 @@ public class DeveloperServiceImpl implements DeveloperService {
         return developerRepository.findByTasksAsDeveloperSprintProject(project);
     }
 
-    @Override
-    public Developer getAuth(Developer developer){
-        Developer tempDev = developerRepository.findByEmail(developer.getEmail());
-        if(tempDev.getPassword().equals(developer.getPassword())){
-            return tempDev;
-        }
-        else{
-            return null;
-        }
-    }
-
-    /*@Override
-    public List<Developer> findByTechnology(Technology technology){
-        return developerRepository.findByTechnology(technology);
-    }*/
 
     @Override
     public Developer findByEmail(String mail){
@@ -101,5 +86,10 @@ public class DeveloperServiceImpl implements DeveloperService {
     public boolean checkPasswordResetToken(Developer developer, String token){
         PasswordResetToken myToken=passwordTokenRepository.findByToken(token);
         return myToken.getDeveloper().getEmail().equals(developer.getEmail());
+    }
+
+    @Override
+    public Developer findByUsername(String username) {
+        return developerRepository.findByNickname(username);
     }
 }

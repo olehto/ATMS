@@ -15,8 +15,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var index_1 = require("../_services/index");
+var alert_service_1 = require("../_services/alert.service");
 var RegisterComponent = (function () {
-    function RegisterComponent(router, userService, typeService, technologyService, taskService, priorityService, projectService) {
+    function RegisterComponent(router, userService, typeService, technologyService, taskService, priorityService, projectService, alertService) {
         this.router = router;
         this.userService = userService;
         this.typeService = typeService;
@@ -24,6 +25,7 @@ var RegisterComponent = (function () {
         this.taskService = taskService;
         this.priorityService = priorityService;
         this.projectService = projectService;
+        this.alertService = alertService;
         this.model = {};
         this.loading = false;
     }
@@ -36,6 +38,9 @@ var RegisterComponent = (function () {
             console.log(data);
             _this.create();
             //this.model.devTypeId-undefined;
+        }, function (error) {
+            _this.loading = false;
+            _this.alertService.error("DevType error");
         });
     };
     RegisterComponent.prototype.create = function () {
@@ -44,6 +49,12 @@ var RegisterComponent = (function () {
             .subscribe(function (data) {
             _this.router.navigate(['/login']);
         }, function (error) {
+            if (error.status === 0) {
+                _this.alertService.error("Connection error");
+            }
+            else {
+                _this.alertService.error("Wrong data");
+            }
             _this.loading = false;
         });
     };
@@ -70,7 +81,8 @@ RegisterComponent = __decorate([
         index_1.TechnologyService,
         index_1.TaskService,
         index_1.PriorityService,
-        index_1.ProjectService])
+        index_1.ProjectService,
+        alert_service_1.AlertService])
 ], RegisterComponent);
 exports.RegisterComponent = RegisterComponent;
 //# sourceMappingURL=register.component.js.map

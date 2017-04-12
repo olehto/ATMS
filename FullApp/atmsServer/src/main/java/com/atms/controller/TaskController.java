@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @CrossOrigin
 @RestController
@@ -26,12 +27,12 @@ public class TaskController {
     @Autowired
     public TaskController(ProjectService projectService, StatusService statusService,
                           PriorityService priorityService, TaskService taskService,
-                          TypeService typeService, DescriptionSimilarity descriptionSimilarity) {
+                          DescriptionSimilarity descriptionSimilarity, TypeService typeService) {
         this.projectService = projectService;
         this.statusService = statusService;
         this.priorityService = priorityService;
         this.taskService = taskService;
-        this.typeService=typeService;
+        this.typeService = typeService;
         this.descriptionSimilarity = descriptionSimilarity;
     }
 
@@ -182,11 +183,14 @@ public class TaskController {
 
     @RequestMapping(value = "/api/task/similar/{taskId}", method = RequestMethod.GET)
     public ResponseEntity<Map<Integer, Integer>> getSimilar(@PathVariable("taskId") String taskId) {
-        Task task = taskService.findOne(Integer.parseInt(taskId));
-        if (task == null)
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        Task task;
+        if ((task = taskService.findOne(Integer.parseInt(taskId))) == null)
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        Map<Integer, Integer> similar = descriptionSimilarity.findSimilar(task);
+        if (similar.size() == 0) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(similar, HttpStatus.OK);
 
-        return new ResponseEntity<>(descriptionSimilarity.findSimilar(task), HttpStatus.OK);
     }
-
 }

@@ -1,5 +1,6 @@
 package com.atms.service;
 
+import com.atms.model.Developer;
 import com.atms.model.Technology;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface TechnologyService {
     List<Technology> findAll();
 
     boolean delete(Integer id);
+
+    List<Technology> getByDeveloper(Developer developer);
 }

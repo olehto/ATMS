@@ -55,32 +55,19 @@
                         <div class="col-md-2">
                             <h1 id="Tasks-id">Tasks</h1>
                             <div class="tasks-p">
-                                <p><span class="select"> Priority: </span>main</p>
-                                <p><span class="select"> Version:</span> 1.0.1</p>
-                                <p><span class="select"> Developer:</span> Serpent</p>
-                                <p><span class="select"> Functional:</span> functional</p>
-                                <p><span class="select"> Type:</span> type</p>
-                                <p><span class="select"> Beginning:</span> 20.01.2020</p>
-                                <p><span class="select"> Deadline:</span> 21.02.2020</p>
+                                <p><span class="select"> Priority: </span>{{task.priority.priorityValue}}</p>
+                                <p><span class="select"> Version:</span> {{task.version}}</p>
+                                <p><span class="select"> Developer:</span> {{task.developer.nickname}}</p>
+                                <p><span class="select"> Type:</span> {{task.type.typeValue}}</p>
+                                <p><span class="select"> Beginning:</span> {{task.dateStart}}</p>
+                                <p><span class="select"> Deadline:</span> {{task.deadline}}</p>
+                                <p><span class="select"> Duration:</span>{{task.duration}}</p>
                                 <p><span class="select"> Technologies:</span> Angular 2</p>
                                 <p><span class="select"> Keywords:</span> keywords</p>
                             </div>
                         </div>
                         <div class="col-md-10">
-                        <p class ="description">DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
-                            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
-                            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
-                            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
-                            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
-                            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
-                            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
-                            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
-                            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
-                            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
-                            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
-                            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
-                            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION
-                            DESCRIPTION DESCRIPTION DESCRIPTION DESCRIPTION</p>
+                        <p class ="description">{{task.description}}</p>
                         </div>
                         <br>
                         <br>

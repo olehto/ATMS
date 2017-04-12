@@ -4,6 +4,7 @@
 import {Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import {AuthenticationService} from "../_services/authentication.service";
+import {AlertService} from "../_services/alert.service";
 
 @Component({
     moduleId: module.id,
@@ -20,7 +21,8 @@ export class RestoreComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private router: Router,
-        private authenticationService: AuthenticationService){}
+        private authenticationService: AuthenticationService,
+        private alertService: AlertService) { }
 
 
     ngOnInit()
@@ -39,8 +41,12 @@ export class RestoreComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    console.log(error);
-                    alert(error);
+                    if(error.status===0){
+                        this.alertService.error("Connection error");
+                    }
+                    else{
+                        this.alertService.error("Wrong data");
+                    }
                 }
             );
     }

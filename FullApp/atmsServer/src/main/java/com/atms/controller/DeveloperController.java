@@ -9,6 +9,8 @@ import com.atms.service.ProjectService;
 import com.atms.service.TechnologyService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -91,11 +93,15 @@ public class DeveloperController {
         }
     }
 
-    @RequestMapping(value = "/api/developer", method = RequestMethod.PUT)
-    public ResponseEntity<Developer> update(@Valid Developer developer) {
-        if (developerService.update(developer) == null)
+    @RequestMapping(value = "/api/developer/{developerId}", method = RequestMethod.PUT)
+    public ResponseEntity<Developer> update(@PathVariable("developerId") String developerId, @Valid Developer developer) {
+        Developer oldDeveloper = developerService.findOne(Integer.parseInt(developerId));
+        if (oldDeveloper == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(developer, HttpStatus.OK);
+        oldDeveloper.setTelephone(developer.getTelephone());
+        oldDeveloper.setLastName(developer.getLastName());
+        oldDeveloper.setName(developer.getName());
+        return new ResponseEntity<>(developerService.update(oldDeveloper), HttpStatus.OK);
     }
 
 
@@ -116,9 +122,20 @@ public class DeveloperController {
         }
         return new ResponseEntity<>(developers, HttpStatus.OK);
     }
+    @RequestMapping(value = "/api/developer/current", method = RequestMethod.GET)
 
-    /*@RequestMapping(value = "/developer/technology/{technologyId}", method = RequestMethod.GET)
-    public List<Developer> getByTechnology(@PathVariable("technologyId") String technologyId) {
-        return developerService.findByTechnology(technologyService.findOne(Integer.parseInt(technologyId)));
-    }*/
+    public ResponseEntity<Developer> getCurrent() {
+        String userName;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails) principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+        Developer current = developerService.findByUsername(userName);
+        if (current == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(current, HttpStatus.OK);
+    }
 }
