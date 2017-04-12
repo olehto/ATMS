@@ -64,4 +64,14 @@ public class DeveloperServiceImpl implements DeveloperService {
     public List<Developer> findByProject(Project project) {
         return developerRepository.findByTasksAsDeveloperSprintProject(project);
     }
+
+    @Override
+    public Developer findByUsername(String username) {
+        return developerRepository.findByNickname(username);
+    }
+
+    @Override
+    public Developer findByEmail(String email) {
+        return developerRepository.findByEmail(email);
+    }
 }

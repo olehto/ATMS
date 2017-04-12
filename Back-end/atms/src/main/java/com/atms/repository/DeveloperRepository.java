@@ -24,5 +24,7 @@ public interface DeveloperRepository extends JpaRepository<Developer, Integer> {
      */
     List<Developer> findByTasksAsDeveloperSprintProject(Project project);
 
-	Developer findByNickname(String nickname);
+    Developer findByNickname(String nickname);
+
+    Developer findByEmail(String email);
 }

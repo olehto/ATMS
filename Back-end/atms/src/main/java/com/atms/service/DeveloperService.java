@@ -28,4 +28,8 @@ public interface DeveloperService {
      */
     List<Developer> findByProject(Project project);
 
+    Developer findByUsername(String username);
+
+    Developer findByEmail(String email);
+
 }
