@@ -9,5 +9,8 @@ import java.util.Set;
  */
 public interface IntersectionService {
 
+    /**
+     * Returns set of task by intersection of requirement and technology of given task and finished tasks
+     */
     Set<Task> getTop(Task task);
 }

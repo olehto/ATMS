@@ -11,7 +11,6 @@ import javax.persistence.*;
 public class Document {
     private int documentId;
     private String link;
-    // private Blob data;
     private Task task;
 
     @Id
@@ -25,7 +24,6 @@ public class Document {
         this.documentId = documentId;
     }
 
-
     @Column(name = "link")
     public String getLink() {
         return link;
@@ -34,16 +32,6 @@ public class Document {
     public void setLink(String link) {
         this.link = link;
     }
-
-    /*@Column(name = "data")
-    @Lob
-    public Blob getData() {
-        return data;
-    }
-*/
-   /* public void setData(Blob data) {
-        this.data = data;
-    }*/
 
     @ManyToOne
     @JoinColumn(name = "task_id")

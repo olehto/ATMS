@@ -6,6 +6,8 @@ import com.atms.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,13 +22,13 @@ import java.util.List;
 public class DeveloperController {
 
     private final DeveloperService developerService;
-
     private final ProjectService projectService;
 
     @Autowired
     public DeveloperController(DeveloperService developerService, ProjectService projectService) {
         this.developerService = developerService;
         this.projectService = projectService;
+
     }
 
     @RequestMapping(value = "/api/developer", method = RequestMethod.GET)
@@ -65,11 +67,15 @@ public class DeveloperController {
         return new ResponseEntity<>(developer, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/api/developer", method = RequestMethod.PUT)
-    public ResponseEntity<Developer> update(@Valid Developer developer) {
-        if (developerService.update(developer) == null)
+    @RequestMapping(value = "/api/developer/{developerId}", method = RequestMethod.PUT)
+    public ResponseEntity<Developer> update(@PathVariable("developerId") String developerId, @Valid Developer developer) {
+        Developer oldDeveloper = developerService.findOne(Integer.parseInt(developerId));
+        if (oldDeveloper == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(developer, HttpStatus.OK);
+        oldDeveloper.setTelephone(developer.getTelephone());
+        oldDeveloper.setLastName(developer.getLastName());
+        oldDeveloper.setName(developer.getName());
+        return new ResponseEntity<>(developerService.update(oldDeveloper), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/api/developer", method = RequestMethod.DELETE)
@@ -79,4 +85,22 @@ public class DeveloperController {
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
+
+    @RequestMapping(value = "/api/developer/current", method = RequestMethod.GET)
+
+    public ResponseEntity<Developer> getCurrent() {
+        String userName;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails) principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+        Developer current = developerService.findByUsername(userName);
+        if (current == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(current, HttpStatus.OK);
+    }
 }
+
