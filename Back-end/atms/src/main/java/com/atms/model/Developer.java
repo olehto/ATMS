@@ -29,11 +29,9 @@ public class Developer {
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "taskId")
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Task> tasksAsReporter;
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "technologyId")
-    @JsonIdentityReference(alwaysAsId = true)
-    private Set<Technology> technologies;
     @JsonIgnore
     private Set<Authority> authorities;
+    private boolean locked;
 
 
     public Developer() {
@@ -50,8 +48,8 @@ public class Developer {
         this.password = developer.getPassword();
         this.devType = developer.getDevType();
         this.tasksAsDeveloper = developer.getTasksAsDeveloper();
-        this.technologies = developer.getTechnologies();
         this.authorities = developer.getAuthorities();
+        this.locked = developer.isLocked();
     }
 
     @Id
@@ -131,8 +129,17 @@ public class Developer {
         this.password = password;
     }
 
+    @Column(name = "locked", nullable = false)
+    public boolean isLocked() {
+        return locked;
+    }
+
+    public void setLocked(boolean locked) {
+        this.locked = locked;
+    }
+
     @ManyToOne
-    @JoinColumn(name = "dev_type_id", referencedColumnName = "dev_type_id", insertable = false, nullable = false, updatable = false)
+    @JoinColumn(name = "dev_type_id", referencedColumnName = "dev_type_id", nullable = false)
     public DevType getDevType() {
         return devType;
     }
@@ -160,16 +167,6 @@ public class Developer {
     }
 
     @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "developer_id"), inverseJoinColumns = @JoinColumn(name = "technology_id"))
-    public Set<Technology> getTechnologies() {
-        return technologies;
-    }
-
-    public void setTechnologies(Set<Technology> technologies) {
-        this.technologies = technologies;
-    }
-
-    @ManyToMany
     @JoinTable(
             name = "developer_authority",
             joinColumns = @JoinColumn(name = "developerId"),
@@ -181,4 +178,5 @@ public class Developer {
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
     }
+
 }
