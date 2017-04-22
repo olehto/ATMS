@@ -19,7 +19,11 @@ export class TaskService {
         headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.get(this.httpAdress+'/api/task/' + id,{headers: headers}).map((response: Response) => response.json());
     }
-
+    getAll() {
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
+        return this.http.get(this.httpAdress+'/api/task',{headers: headers}).map((response: Response) => response.json());
+    }
     create(task: Task) {
         const body = JSON.stringify(task);
         console.log(body);

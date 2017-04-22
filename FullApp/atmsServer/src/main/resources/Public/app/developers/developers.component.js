@@ -27,7 +27,7 @@ var DevelopersComponent = (function () {
     }
     DevelopersComponent.prototype.ngOnInit = function () {
         if (this.id === undefined) {
-            var returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
+            var returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
             this.router.navigate([returnUrl]);
         }
     };

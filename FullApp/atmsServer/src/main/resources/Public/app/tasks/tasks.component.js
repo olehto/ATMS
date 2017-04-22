@@ -33,7 +33,7 @@ var TasksComponent = (function () {
     }
     TasksComponent.prototype.ngOnInit = function () {
         if (this.id === undefined) {
-            var returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
+            var returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
             this.router.navigate([returnUrl]);
         }
         this.fill();
@@ -44,12 +44,12 @@ var TasksComponent = (function () {
     };
     TasksComponent.prototype.fill = function () {
         var _this = this;
-        this.getTask(1).subscribe(function (response) {
+        this.getTask(this.id).subscribe(function (response) {
             _this.task = response;
         });
     };
     TasksComponent.prototype.getTask = function (id) {
-        return this.taskService.getById(this.id);
+        return this.taskService.getById(id);
     };
     return TasksComponent;
 }());

@@ -32,7 +32,7 @@ export class ProjectsComponent  implements OnInit {
     }
     ngOnInit() {
         if(this.id===undefined){
-            let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
+            let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
             this.router.navigate([returnUrl]);
         }
     }

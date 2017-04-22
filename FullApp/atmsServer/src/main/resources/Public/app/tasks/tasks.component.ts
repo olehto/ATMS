@@ -40,7 +40,7 @@ export class TasksComponent implements OnInit {
 
     ngOnInit() {
         if(this.id===undefined){
-            let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
+            let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
             this.router.navigate([returnUrl]);
         }
         this.fill();
@@ -51,13 +51,13 @@ export class TasksComponent implements OnInit {
 
     }
     fill(){
-        this.getTask(1).subscribe(
+        this.getTask(this.id).subscribe(
             (response)=> {
                 this.task=response;
             }
         );
     }
     getTask(id: number){
-        return this.taskService.getById(this.id);
+        return this.taskService.getById(id);
     }
 }
