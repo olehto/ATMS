@@ -22,6 +22,8 @@ public class Developer {
     private String nickname;
     @JsonIgnore
     private String password;
+    private Double load;
+    private Double rate;
     private DevType devType;
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "taskId")
     @JsonIdentityReference(alwaysAsId = true)
@@ -31,7 +33,7 @@ public class Developer {
     private Set<Task> tasksAsReporter;
     @JsonIgnore
     private Set<Authority> authorities;
-    private boolean locked;
+    private Set<DeveloperEffectiveness> developerEffectiveness;
 
 
     public Developer() {
@@ -46,10 +48,11 @@ public class Developer {
         this.telephone = developer.getTelephone();
         this.nickname = developer.getNickname();
         this.password = developer.getPassword();
+        this.load = developer.getLoad();
+        this.rate = developer.getRate();
         this.devType = developer.getDevType();
         this.tasksAsDeveloper = developer.getTasksAsDeveloper();
         this.authorities = developer.getAuthorities();
-        this.locked = developer.isLocked();
     }
 
     @Id
@@ -129,13 +132,22 @@ public class Developer {
         this.password = password;
     }
 
-    @Column(name = "locked", nullable = false)
-    public boolean isLocked() {
-        return locked;
+    @Column(name = "load")
+    public Double getLoad() {
+        return load;
     }
 
-    public void setLocked(boolean locked) {
-        this.locked = locked;
+    public void setLoad(Double load) {
+        this.load = load;
+    }
+
+    @Column(name = "rate")
+    public Double getRate() {
+        return rate;
+    }
+
+    public void setRate(Double rate) {
+        this.rate = rate;
     }
 
     @ManyToOne
@@ -179,4 +191,12 @@ public class Developer {
         this.authorities = authorities;
     }
 
+    @OneToMany(mappedBy = "developer")
+    public Set<DeveloperEffectiveness> getDeveloperEffectiveness() {
+        return developerEffectiveness;
+    }
+
+    public void setDeveloperEffectiveness(Set<DeveloperEffectiveness> developerEffectiveness) {
+        this.developerEffectiveness = developerEffectiveness;
+    }
 }

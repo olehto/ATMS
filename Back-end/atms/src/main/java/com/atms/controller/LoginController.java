@@ -18,7 +18,6 @@ import javax.validation.Valid;
 @RestController
 public class LoginController {
 
-
     private final DeveloperService developerService;
 
     @Autowired

@@ -21,6 +21,5 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
                          AuthenticationException ae) throws IOException, ServletException {
 
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Access Denied");
-
     }
 }

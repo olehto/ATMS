@@ -30,6 +30,7 @@ public class Task {
     private Set<Document> documents;
     private Set<Log> logs;
     private Requirement requirement;
+    private Set<TaskKeyword> keywords;
 
     @Id
     @GeneratedValue
@@ -199,5 +200,14 @@ public class Task {
 
     public void setRequirement(Requirement requirement) {
         this.requirement = requirement;
+    }
+
+    @OneToMany
+    public Set<TaskKeyword> getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(Set<TaskKeyword> keywords) {
+        this.keywords = keywords;
     }
 }

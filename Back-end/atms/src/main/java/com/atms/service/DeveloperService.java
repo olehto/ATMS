@@ -1,6 +1,7 @@
 package com.atms.service;
 
 import com.atms.model.Developer;
+import com.atms.model.PasswordResetToken;
 import com.atms.model.Project;
 
 import java.util.List;
@@ -31,5 +32,9 @@ public interface DeveloperService {
     Developer findByUsername(String username);
 
     Developer findByEmail(String email);
+
+    PasswordResetToken createPasswordResetTokenForDeveloper(Developer developer, String token);
+
+    boolean checkPasswordResetToken(Developer developer, String token);
 
 }

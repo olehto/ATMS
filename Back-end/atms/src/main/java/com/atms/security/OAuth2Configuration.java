@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
@@ -32,10 +33,16 @@ public class OAuth2Configuration {
 
         private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
 
+        private final CustomBadCredentials customBadCredentials;
+
+        private final AuthenticationManager authenticationManager;
+
         @Autowired
-        public ResourceServerConfiguration(CustomLogoutSuccessHandler customLogoutSuccessHandler, CustomAuthenticationEntryPoint customAuthenticationEntryPoint) {
+        public ResourceServerConfiguration(CustomLogoutSuccessHandler customLogoutSuccessHandler, CustomAuthenticationEntryPoint customAuthenticationEntryPoint, CustomBadCredentials customBadCredentials, AuthenticationManager authenticationManager) {
             this.customLogoutSuccessHandler = customLogoutSuccessHandler;
             this.customAuthenticationEntryPoint = customAuthenticationEntryPoint;
+            this.customBadCredentials = customBadCredentials;
+            this.authenticationManager = authenticationManager;
         }
 
         @Override
@@ -57,11 +64,17 @@ public class OAuth2Configuration {
                     .authorizeRequests()
                     .antMatchers("/**").authenticated()
                     .and()
-                    .formLogin()
-                    .loginPage("/login");
+                    .addFilter(usernamePasswordAuthenticationFilter())
+                    .formLogin().failureHandler(customBadCredentials);
 
         }
 
+        private UsernamePasswordAuthenticationFilter usernamePasswordAuthenticationFilter() {
+            UsernamePasswordAuthenticationFilter filter = new UsernamePasswordAuthenticationFilter();
+            filter.setAuthenticationManager(authenticationManager);
+            filter.setAuthenticationFailureHandler(customBadCredentials);
+            return filter;
+        }
     }
 
     @Configuration

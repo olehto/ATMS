@@ -17,10 +17,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
+    private final CustomBadCredentials customBadCredentials;
 
     @Autowired
-    public SecurityConfiguration(UserDetailsService userDetailsService) {
+    public SecurityConfiguration(UserDetailsService userDetailsService, CustomBadCredentials customBadCredentials) {
         this.userDetailsService = userDetailsService;
+        this.customBadCredentials = customBadCredentials;
     }
 
     @Bean
@@ -33,7 +35,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
-
     }
 
     @Override
@@ -43,7 +44,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login")
                 .antMatchers("/register")
                 .antMatchers("/api/oauth/**");
-
     }
 
     @Override

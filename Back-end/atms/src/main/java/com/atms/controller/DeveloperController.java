@@ -1,6 +1,8 @@
 package com.atms.controller;
 
 import com.atms.model.Developer;
+import com.atms.model.PasswordResetToken;
+import com.atms.notify.Notifier;
 import com.atms.service.DeveloperService;
 import com.atms.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author Alex Kazanovskiy.
@@ -23,12 +26,13 @@ public class DeveloperController {
 
     private final DeveloperService developerService;
     private final ProjectService projectService;
+    private final Notifier notifier;
 
     @Autowired
-    public DeveloperController(DeveloperService developerService, ProjectService projectService) {
+    public DeveloperController(DeveloperService developerService, ProjectService projectService, Notifier notifier) {
         this.developerService = developerService;
         this.projectService = projectService;
-
+        this.notifier = notifier;
     }
 
     @RequestMapping(value = "/api/developer", method = RequestMethod.GET)
@@ -102,5 +106,39 @@ public class DeveloperController {
         }
         return new ResponseEntity<>(current, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/user/resetPassword", method = RequestMethod.POST)
+    public ResponseEntity<Void> resetPassword(@RequestParam("email") String email) {
+        Developer developer = developerService.findByEmail(email);
+        if (developer == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        String token = UUID.randomUUID().toString();
+        PasswordResetToken resetToken = developerService.createPasswordResetTokenForDeveloper(developer, token);
+        if (resetToken != null) {
+            notifier.restorePassword(developer, resetToken);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @RequestMapping(value = "/user/changePassword", method = RequestMethod.POST)
+    public ResponseEntity<Void> changePassword(@RequestParam("email") String email,
+                                               @RequestParam("token") String token,
+                                               @RequestParam("password") String password) {
+        Developer developer = developerService.findByEmail(email);
+        if (developer == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        developer.setPassword(password);
+        if (developerService.checkPasswordResetToken(developer, token)) {
+            developerService.update(developer);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 }
+
 
