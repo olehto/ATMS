@@ -23,7 +23,6 @@ import {NewPasswordComponent} from './new_pass/index';
 import {AlertComponent} from "./_directives/alert.component";
 import {AlertService} from "./_services/alert.service";
 
-
 @NgModule({
     imports: [
         BrowserModule,

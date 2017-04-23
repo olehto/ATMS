@@ -3,12 +3,8 @@
  */
 import {Component} from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService,PriorityService,TaskService,ProjectService,TechnologyService,TypeService } from '../_services/index';
-import {Project} from "../_models/project";
-import {Task} from "../_models/task";
-import {AlertService} from "../_services/alert.service";
-import {error} from "util";
-
+import { UserService} from '../_services/index';
+import {DevType} from "../_models/dev.type";
 
 @Component({
     moduleId: module.id,
@@ -19,17 +15,25 @@ export class RegisterComponent {
     model: any = {};
     private devType: number;
     loading = false;
+    devTypes: DevType [] = [];
 
     constructor(
         private router: Router,
-        private userService: UserService,
-    private typeService: TypeService,
-    private technologyService: TechnologyService,
-    private taskService: TaskService,
-    private priorityService: PriorityService,
-    private projectService: ProjectService,
-    private alertService: AlertService) { }
+        private userService: UserService) {
 
+        this.getDevTypes();
+
+    }
+
+    getDevTypes()
+    {
+        this.userService.getDevTypes().subscribe(
+            response=> {
+                this.devTypes = response;
+                console.log(this.devTypes);
+            }
+        );
+    }
     register() {
         this.loading = true;
         this.userService.getDevType(this.model.devTypeId)
@@ -38,11 +42,7 @@ export class RegisterComponent {
                     this.model.devType=data;
                     console.log(data);
                     this.create();
-                    //this.model.devTypeId-undefined;
-                },
-                error=>{
-                    this.loading=false;
-                    this.alertService.error("DevType error");
+
                 }
             )
 
@@ -54,12 +54,6 @@ export class RegisterComponent {
                     this.router.navigate(['/login']);
                 },
                 error => {
-                    if(error.status===0){
-                        this.alertService.error("Connection error");
-                    }
-                    else{
-                        this.alertService.error("Wrong data");
-                    }
                     this.loading = false;
                 });
     }

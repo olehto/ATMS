@@ -20,11 +20,11 @@
         <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !devTypeId.valid}">
             <label for="devTypeId" >Developer type</label>
             <select class="form-control" name="devTypeId" [(ngModel)]="model.devTypeId" #devTypeId="ngModel" required >
-                <option value="1">PHP-developer</option>
-                <option value="2" selected>Java-developer</option>
+                <option *ngFor="let devType of devTypes" value={{devType.devTypeId}}>{{devType.value}}</option>
+                <!--<option value="2" selected>Java-developer</option>
                 <option value="3">JS-developer</option>
                 <option value="4">C#-developer</option>
-                <option value="5">Android-developer</option>
+                <option value="5">Android-developer</option>-->
             </select>
             <div *ngIf="f.submitted && !devTypeId.valid" class="help-block">Developer type is required</div>
         </div>

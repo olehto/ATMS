@@ -15,20 +15,22 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var index_1 = require("../_services/index");
-var alert_service_1 = require("../_services/alert.service");
 var RegisterComponent = (function () {
-    function RegisterComponent(router, userService, typeService, technologyService, taskService, priorityService, projectService, alertService) {
+    function RegisterComponent(router, userService) {
         this.router = router;
         this.userService = userService;
-        this.typeService = typeService;
-        this.technologyService = technologyService;
-        this.taskService = taskService;
-        this.priorityService = priorityService;
-        this.projectService = projectService;
-        this.alertService = alertService;
         this.model = {};
         this.loading = false;
+        this.devTypes = [];
+        this.getDevTypes();
     }
+    RegisterComponent.prototype.getDevTypes = function () {
+        var _this = this;
+        this.userService.getDevTypes().subscribe(function (response) {
+            _this.devTypes = response;
+            console.log(_this.devTypes);
+        });
+    };
     RegisterComponent.prototype.register = function () {
         var _this = this;
         this.loading = true;
@@ -37,10 +39,6 @@ var RegisterComponent = (function () {
             _this.model.devType = data;
             console.log(data);
             _this.create();
-            //this.model.devTypeId-undefined;
-        }, function (error) {
-            _this.loading = false;
-            _this.alertService.error("DevType error");
         });
     };
     RegisterComponent.prototype.create = function () {
@@ -49,12 +47,6 @@ var RegisterComponent = (function () {
             .subscribe(function (data) {
             _this.router.navigate(['/login']);
         }, function (error) {
-            if (error.status === 0) {
-                _this.alertService.error("Connection error");
-            }
-            else {
-                _this.alertService.error("Wrong data");
-            }
             _this.loading = false;
         });
     };
@@ -76,13 +68,7 @@ RegisterComponent = __decorate([
         templateUrl: 'reg.component.html'
     }),
     __metadata("design:paramtypes", [router_1.Router,
-        index_1.UserService,
-        index_1.TypeService,
-        index_1.TechnologyService,
-        index_1.TaskService,
-        index_1.PriorityService,
-        index_1.ProjectService,
-        alert_service_1.AlertService])
+        index_1.UserService])
 ], RegisterComponent);
 exports.RegisterComponent = RegisterComponent;
 //# sourceMappingURL=register.component.js.map

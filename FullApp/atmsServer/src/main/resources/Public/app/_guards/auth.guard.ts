@@ -22,13 +22,13 @@ export class AuthGuard implements CanActivate {
                         localStorage.setItem('token', JSON.stringify({access_token:response.access_token,expires:(Date.now()+response.expires_in*1000),
                             refresh_token:response.refresh_token,received:Date.now()}));
                         return true;
-                    },
+                    }/*,
                     error => {
                         console.log(error);
                         alert(error);
                         this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
                         return false;
-                    }
+                    }*/
                 );
 
             }

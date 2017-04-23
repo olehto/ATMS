@@ -12,39 +12,43 @@
             <a [routerLink]="['/dashboard']"><img src="resources/images/logo.png" alt=""></a>
         </div>
         <div class="col-md-6">
-            <ul class="menu">
-                <li><a [routerLink]="['/dashboard']" class="now">Dashboard</a></li>
-                <li>
-                    <a [routerLink]="['/projects']" >Projects</a>
-                    <ul class="menudown">
-                        <li><a href="#">Projects 1</a></li>
-                        <li><a href="#">Projects 2</a></li>
-                        <li><a href="#">Projects 3</a></li>
-                        <li><a href="#">Projects 4</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a [routerLink]="['/tasks']" >Tasks</a>
-                    <ul class="menudown">
-                        <li><a href="#">Task 1</a></li>
-                        <li><a href="#">Task 2</a></li>
-                        <li><a href="#">Task 3</a></li>
-                        <li><a href="#">Task 4</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a [routerLink]="['/developers']" >Developers</a>
-                </li>
-                <li>
-                    <a [routerLink]="['/statistics']" >Statistics</a>
-                    <ul class="menudown">
-                        <li ><a href="#">Statistics 1</a></li>
-                        <li><a href="#">Statistics 2</a></li>
-                        <li><a href="#">Statistics 3</a></li>
-                        <li><a href="#">Statistics 4</a></li>
-                    </ul>
-                </li>
-            </ul>
+            <input type="checkbox" id="menu-checkbox" />
+            <nav role="navigation"><!-- навигация -->
+                <label for="menu-checkbox" class="toggle-button" data-open="Menu" data-close="Close" onclick></label>
+                <ul class="menu">
+                    <li><a [routerLink]="['/dashboard']" [queryParams]="{ id: 1 }" class="now">Dashboard</a></li>
+                    <li>
+                        <a [routerLink]="['/project']" [queryParams]="{ id: 1 }">Projects</a>
+                        <ul class="menudown">
+                            <li><a href="#">Projects 1</a></li>
+                            <li><a href="#">Projects 2</a></li>
+                            <li><a href="#">Projects 3</a></li>
+                            <li><a href="#">Projects 4</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/task']" [queryParams]="{ id: 1 }">Tasks</a>
+                        <ul class="menudown">
+                            <li><a href="#">Task 1</a></li>
+                            <li><a href="#">Task 2</a></li>
+                            <li><a href="#">Task 3</a></li>
+                            <li><a href="#">Task 4</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/developer']" [queryParams]="{ id: 1 }">Developers</a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/statistics']" [queryParams]="{ id: 1 }">Statistics</a>
+                        <ul class="menudown">
+                            <li ><a href="#">Statistics 1</a></li>
+                            <li><a href="#">Statistics 2</a></li>
+                            <li><a href="#">Statistics 3</a></li>
+                            <li><a href="#">Statistics 4</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
     <div class="container wrapper">

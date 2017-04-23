@@ -31,5 +31,5 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
      */
     List<Task> findAllByDeveloperIsNotNull();
 
-
+    List<Task> findByDeveloper(Developer developer);
 }

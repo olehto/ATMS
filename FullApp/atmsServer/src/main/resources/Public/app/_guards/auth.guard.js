@@ -18,7 +18,6 @@ var AuthGuard = (function () {
         this.authenticationService = authenticationService;
     }
     AuthGuard.prototype.canActivate = function (route, state) {
-        var _this = this;
         if (localStorage.getItem('token')) {
             var token = JSON.parse(localStorage.getItem('token'));
             // logged in so return true
@@ -31,12 +30,13 @@ var AuthGuard = (function () {
                     localStorage.setItem('token', JSON.stringify({ access_token: response.access_token, expires: (Date.now() + response.expires_in * 1000),
                         refresh_token: response.refresh_token, received: Date.now() }));
                     return true;
-                }, function (error) {
+                } /*,
+                error => {
                     console.log(error);
                     alert(error);
-                    _this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+                    this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
                     return false;
-                });
+                }*/);
             }
         }
         // not logged in so redirect to login page with the return url

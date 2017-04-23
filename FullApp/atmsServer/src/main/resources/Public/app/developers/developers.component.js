@@ -14,13 +14,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var user_1 = require("../_models/user");
+var user_service_1 = require("../_services/user.service");
 var task_service_1 = require("../_services/task.service");
 var DevelopersComponent = (function () {
-    function DevelopersComponent(taskService, route, router) {
+    function DevelopersComponent(userService, taskService, route, router) {
         var _this = this;
+        this.userService = userService;
         this.taskService = taskService;
         this.route = route;
         this.router = router;
+        this.model = {};
+        this.user = new user_1.User();
         this.querySubscription = route.queryParams.subscribe(function (queryParam) {
             _this.id = queryParam['id'];
         });
@@ -30,6 +35,33 @@ var DevelopersComponent = (function () {
             var returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
             this.router.navigate([returnUrl]);
         }
+        this.fill();
+    };
+    DevelopersComponent.prototype.toggle = function () {
+        this.condition = !this.condition;
+    };
+    DevelopersComponent.prototype.fill = function () {
+        var _this = this;
+        this.getUser(this.id).subscribe(function (response) {
+            _this.user = response;
+            console.log(response);
+        });
+        this.getAllTasks().subscribe(function (response) {
+            _this.tasks = response;
+            console.log(response);
+        });
+        this.getAllDevelopers().subscribe(function (response) {
+            _this.developers = response;
+        });
+    };
+    DevelopersComponent.prototype.getUser = function (id) {
+        return this.userService.getById(this.id);
+    };
+    DevelopersComponent.prototype.getAllTasks = function () {
+        return this.taskService.getAll();
+    };
+    DevelopersComponent.prototype.getAllDevelopers = function () {
+        return this.userService.getAll();
     };
     return DevelopersComponent;
 }());
@@ -40,7 +72,8 @@ DevelopersComponent = __decorate([
         selector: 'developers',
         templateUrl: 'developers.component.html'
     }),
-    __metadata("design:paramtypes", [task_service_1.TaskService,
+    __metadata("design:paramtypes", [user_service_1.UserService,
+        task_service_1.TaskService,
         router_1.ActivatedRoute,
         router_1.Router])
 ], DevelopersComponent);

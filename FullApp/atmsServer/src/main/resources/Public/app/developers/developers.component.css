@@ -107,10 +107,11 @@ html {
 
 .border2{
     position: relative;
+    min-height: 375px;
     border-radius: 10px;
-    background: #f0f0f0; /* Цвет фона */
-    padding: 15px; /* Поля вокруг текста */
-    margin: 10px 10px 10px 10px; /* Отступ снизу */
+    background: #f0f0f0; /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ */
+    padding: 15px; /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
+    margin: 10px 10px 10px 10px; /* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
 }
 @media screen and (max-width: 745px)
 {
@@ -170,126 +171,4 @@ html {
 
 .select{
     font-weight: 600;
-}
-#menu-checkbox {
-    /* чекбокс скрыт */
-    display: none;
-}
-.menu {
-    /* пункты меню скрыты */
-    display: none;
-    padding: 0;
-    margin: 0;
-    background: #292929;
-}
-.menu li a{
-    margin: 0;
-    padding: 2px;
-}
-.menu li {
-    /* пункты меню расположены вертикально */
-    /* каждый имеет ширину 100% */
-    font-size: 1em;
-    display: block;
-    width: 100%;
-    background: #292929;
-}
-.menu a {
-    /* немного стилизуем ссылки */
-
-    display: block;
-    padding: .5em;
-    text-decoration: none;
-    background: #292929;
-}
-.menu a:hover {
-    text-decoration: underline;
-
-}
-.toggle-button {
-    text-align: center;
-    display: block;
-    /* не забываем явно указать каким должен быть курсор */
-    cursor: pointer;
-    /*кнопка*/
-    background-color: #333;
-    color: #fff;
-}
-.toggle-button:after {
-    /* получаем данные из атрибута data-open в html */
-    content: attr(data-open);
-    display: block;
-    margin:  0;
-    padding: 5px 5px;
-}
-#menu-checkbox:checked + nav[role="navigation"] .\menu {
-    /* когда чекбокс активен меню становится видимым */
-    display: block;
-}
-#menu-checkbox:checked + nav[role="navigation"] .toggle-button:after {
-    content: attr(data-close);
-}
-@media screen and (min-width: 640px) {
-    .toggle-button {
-        /* label скрыт */
-        display: none;
-    }
-    .menu {
-        display: block;
-        margin: 0 auto;
-        background-color: #292929;;
-        height: 30px;
-    }
-    .menu li {
-        /* теги <li> расположены в ряд */
-        width: calc(100% / 6);
-        text-align: center;
-        display: inline-block;
-        margin-right: -4px;
-    }
-
-    .menu li{
-        position: relative;
-        float: left;  display: block;
-        z-index: 99;
-    }
-    .menu ul li{
-
-        position: relative;
-    }
-    .menu ul li a {
-        color: #fff; text-decoration: none; font-size: 13px;
-        padding: 5px 10px; display: block;
-        }
-    .menu li a{
-        overflow: hidden;
-        color: #fff; text-decoration: none; font-size: 14px; font-weight: normal;
-        padding:20px 20px; display: block;
-        margin-top: 10px;
-        border-bottom:3px solid #292929;
-    }
-    .menu li a:hover{
-        color:#58c93a; border-bottom:3px solid #58c93a;
-    }
-
-    .menudown {
-        position: absolute;
-        top:100%;
-        background:#292929 ;
-        width: 150px;
-        padding: 0;
-        margin: 0;
-        display: none;
-    }
-    .menu li:hover .menudown{
-        display: block;
-        background: #292929;
-    }
-    .menu ul li a:hover {
-        color:#58c93a;
-    }
-    .menudown li {
-        width: 100%;
-    }
-
 }

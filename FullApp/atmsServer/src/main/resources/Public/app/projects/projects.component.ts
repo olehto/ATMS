@@ -4,8 +4,12 @@
 
 import {Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import {Subscription} from "rxjs";
+import {ProjectService} from "../_services/project.service";
+import {Project} from "../_models/project";
 import {TaskService} from "../_services/task.service";
+import {Task} from "../_models/task";
+import {Subscription} from "rxjs/Subscription";
+import {UserService} from "../_services/user.service";
 
 @Component ({
     moduleId: module.id,
@@ -14,28 +18,30 @@ import {TaskService} from "../_services/task.service";
     templateUrl: 'projects.component.html',
 })
 
-export class ProjectsComponent  implements OnInit {
-    condition: boolean=true;
+export class ProjectsComponent implements OnInit{
+    jsObj: any;
+    model: any = {};
+    project: Project;
+    task: Task;
+    condition: boolean = true;
     token: boolean = true;
     token2: boolean = true;
     id: number;
     private querySubscription: Subscription;
 
     constructor(private taskService: TaskService,
+                private projectService: ProjectService,
                 private route: ActivatedRoute,
                 private router: Router ) {
+        this.project = new Project();
+        this.task = new Task();
         this.querySubscription = route.queryParams.subscribe(
             (queryParam: any) => {
                 this.id = queryParam['id'];
             }
         );
     }
-    ngOnInit() {
-        if(this.id===undefined){
-            let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-            this.router.navigate([returnUrl]);
-        }
-    }
+
     toggle(){
         this.condition=!this.condition;
     }
@@ -44,5 +50,34 @@ export class ProjectsComponent  implements OnInit {
     }
     hidden2(){
         this.token2 = !this.token2;
+    }
+
+    ngOnInit() {
+        this.fill();
+        if(this.id===undefined){
+            let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+            this.router.navigate([returnUrl]);
+        }
+    }
+
+    fill(){
+
+        this.getTask(this.id).subscribe(
+            (response)=> {
+                this.task=response;
+            }
+        );
+        this.getProject(this.id).subscribe(
+            (response)=>{
+                this.project = response;
+            }
+        );
+    }
+
+    getTask(id: number){
+        return this.taskService.getById(this.id);
+    }
+    getProject(id:number){
+        return this.projectService.getById(this.id);
     }
 }

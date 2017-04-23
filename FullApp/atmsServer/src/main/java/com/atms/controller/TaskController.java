@@ -23,17 +23,20 @@ public class TaskController {
     private final PriorityService priorityService;
     private final DescriptionSimilarity descriptionSimilarity;
     private final TypeService typeService;
+    private final DeveloperService developerService;
 
     @Autowired
     public TaskController(ProjectService projectService, StatusService statusService,
                           PriorityService priorityService, TaskService taskService,
-                          DescriptionSimilarity descriptionSimilarity, TypeService typeService) {
+                          DescriptionSimilarity descriptionSimilarity, TypeService typeService,
+                          DeveloperService developerService) {
         this.projectService = projectService;
         this.statusService = statusService;
         this.priorityService = priorityService;
         this.taskService = taskService;
         this.typeService = typeService;
         this.descriptionSimilarity = descriptionSimilarity;
+        this.developerService = developerService;
     }
 
     @RequestMapping(value = "/api/task", method = RequestMethod.GET)
@@ -191,6 +194,19 @@ public class TaskController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(similar, HttpStatus.OK);
+    }
 
+
+    @RequestMapping(value = "/api/task/developer/{developerId}", method = RequestMethod.GET)
+    public ResponseEntity<List<Task>> getByDeveloper(@PathVariable("developerId") String developerId) {
+        Developer developer = developerService.findOne(Integer.parseInt(developerId));
+        if (developer == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        List<Task> tasks = taskService.findByDeveloper(developer);
+        if (tasks == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
 }

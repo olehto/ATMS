@@ -105,4 +105,9 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.findByPriority(priority);
     }
 
+    @Override
+    public List<Task> findByDeveloper(Developer developer) {
+        return taskRepository.findByDeveloper(developer);
+    }
+
 }

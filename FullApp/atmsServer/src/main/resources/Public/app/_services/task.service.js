@@ -72,6 +72,11 @@ var TaskService = (function () {
         headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.get(this.httpAdress + '/api/task/epic/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
+    TaskService.prototype.getByDeveloper = function (id) {
+        var headers = new http_1.Headers();
+        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
+        return this.http.get(this.httpAdress + '/api/task/project/' + id, { headers: headers }).map(function (response) { return response.json(); });
+    };
     return TaskService;
 }());
 TaskService = __decorate([

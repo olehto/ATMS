@@ -5,13 +5,14 @@
  * Created by Lenovo on 15.03.2017.
  */
 import {Component, OnInit} from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-import {TaskService} from "../_services/task.service";
+import {TaskService} from '../_services/task.service';
+import { TypeService } from '../_services/type.service';
+import {ActivatedRoute, Router} from "@angular/router";
 import {Task} from "../_models/task";
-import {Priority} from "../_models/priority";
 import {Subscription} from "rxjs";
 import {isUndefined} from "util";
-
+import {User} from "../_models/user";
+import {UserService} from "../_services/user.service";
 
 
 @Component({
@@ -23,14 +24,16 @@ import {isUndefined} from "util";
 export class TasksComponent implements OnInit {
     model: any = {};
     task: Task;
-    priority: Priority;
+    tasks: Task[];
+    developers: User [] = [];
     id: number;
     private querySubscription: Subscription;
 
     constructor(private taskService: TaskService,
+                private userService: UserService,
                 private route: ActivatedRoute,
                 private router: Router ) {
-        this.task=new Task();
+        this.task = new Task();
         this.querySubscription = route.queryParams.subscribe(
             (queryParam: any) => {
                 this.id = queryParam['id'];
@@ -39,25 +42,31 @@ export class TasksComponent implements OnInit {
     }
 
     ngOnInit() {
-        if(this.id===undefined){
+        if(this.id===undefined) {
             let returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
             this.router.navigate([returnUrl]);
         }
         this.fill();
-    }
-    print(){
-        this.fill();
-        console.log(this.task);
 
     }
+
     fill(){
         this.getTask(this.id).subscribe(
             (response)=> {
                 this.task=response;
             }
         );
+        this.getAllDevelopers().subscribe(
+            (response)=> {
+                    this.developers = response;
+                }
+                );
     }
     getTask(id: number){
-        return this.taskService.getById(id);
+        return this.taskService.getById(this.id);
     }
+    getAllDevelopers(){
+        return this.userService.getAll();
+    }
+
 }

@@ -27,4 +27,6 @@ public interface TaskService {
     List<Task> findByStatus(Status status);
 
     List<Task> findByParent(Task task);
+
+    List<Task> findByDeveloper(Developer developer);
 }

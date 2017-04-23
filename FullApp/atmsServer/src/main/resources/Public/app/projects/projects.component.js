@@ -14,26 +14,27 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
+var project_service_1 = require("../_services/project.service");
+var project_1 = require("../_models/project");
 var task_service_1 = require("../_services/task.service");
+var task_1 = require("../_models/task");
 var ProjectsComponent = (function () {
-    function ProjectsComponent(taskService, route, router) {
+    function ProjectsComponent(taskService, projectService, route, router) {
         var _this = this;
         this.taskService = taskService;
+        this.projectService = projectService;
         this.route = route;
         this.router = router;
+        this.model = {};
         this.condition = true;
         this.token = true;
         this.token2 = true;
+        this.project = new project_1.Project();
+        this.task = new task_1.Task();
         this.querySubscription = route.queryParams.subscribe(function (queryParam) {
             _this.id = queryParam['id'];
         });
     }
-    ProjectsComponent.prototype.ngOnInit = function () {
-        if (this.id === undefined) {
-            var returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-            this.router.navigate([returnUrl]);
-        }
-    };
     ProjectsComponent.prototype.toggle = function () {
         this.condition = !this.condition;
     };
@@ -42,6 +43,28 @@ var ProjectsComponent = (function () {
     };
     ProjectsComponent.prototype.hidden2 = function () {
         this.token2 = !this.token2;
+    };
+    ProjectsComponent.prototype.ngOnInit = function () {
+        this.fill();
+        if (this.id === undefined) {
+            var returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+            this.router.navigate([returnUrl]);
+        }
+    };
+    ProjectsComponent.prototype.fill = function () {
+        var _this = this;
+        this.getTask(this.id).subscribe(function (response) {
+            _this.task = response;
+        });
+        this.getProject(this.id).subscribe(function (response) {
+            _this.project = response;
+        });
+    };
+    ProjectsComponent.prototype.getTask = function (id) {
+        return this.taskService.getById(this.id);
+    };
+    ProjectsComponent.prototype.getProject = function (id) {
+        return this.projectService.getById(this.id);
     };
     return ProjectsComponent;
 }());
@@ -53,6 +76,7 @@ ProjectsComponent = __decorate([
         templateUrl: 'projects.component.html',
     }),
     __metadata("design:paramtypes", [task_service_1.TaskService,
+        project_service_1.ProjectService,
         router_1.ActivatedRoute,
         router_1.Router])
 ], ProjectsComponent);

@@ -74,4 +74,10 @@ export class TaskService {
         return  this.http.get(this.httpAdress+'/api/task/epic/' + id,{headers: headers}).map((response: Response) => response.json());
     }
 
+    getByDeveloper(id: number) {
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
+        return this.http.get(this.httpAdress + '/api/task/project/' + id, {headers: headers}).map((response: Response) => response.json());
+    }
+
 }

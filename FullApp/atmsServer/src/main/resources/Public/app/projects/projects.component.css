@@ -100,7 +100,7 @@ html {
 
 .radius{
     position: relative;
-
+    min-height: 375px;
     margin: 30px 20px 30px 20px;
     padding: 1em 1em 2em 1em;
     border-radius: 10px;
@@ -114,10 +114,11 @@ html {
 
 .border2{
     position: relative;
+    min-height: 375px;
     border-radius: 10px;
-    background: #f0f0f0; /* Цвет фона */
-    padding: 15px; /* Поля вокруг текста */
-    margin: 1px 10px 10px 10px; /* Отступ снизу */
+    background: #f0f0f0; /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ */
+    padding: 15px; /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
+    margin: 1px 10px 10px 10px; /* пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ */
 }
 @media screen and (max-width: 745px)
 {
@@ -182,4 +183,30 @@ html {
 }
 .project-down p:hover{
     color:#58c93a; border-bottom:2px solid #58c93a;
+}
+
+.open-ppp ul {
+    margin: 0;
+    list-style: none;
+    padding-left: 20px;
+    display: none;
+}
+
+.open-ppp .title {
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.open-ppp .title::before {
+    content: 'в–¶ ';
+    font-size: 80%;
+    color: green;
+}
+
+.open-ppp .title::before {
+    content: 'в–ј ';
+}
+
+.open-ppp.open ul {
+    display: block;
 }
