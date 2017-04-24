@@ -33,15 +33,14 @@ public class OAuth2Configuration {
 
         private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
 
-        private final CustomBadCredentials customBadCredentials;
-
         private final AuthenticationManager authenticationManager;
 
         @Autowired
-        public ResourceServerConfiguration(CustomLogoutSuccessHandler customLogoutSuccessHandler, CustomAuthenticationEntryPoint customAuthenticationEntryPoint, CustomBadCredentials customBadCredentials, AuthenticationManager authenticationManager) {
+        public ResourceServerConfiguration(CustomLogoutSuccessHandler customLogoutSuccessHandler, 
+                                           CustomAuthenticationEntryPoint customAuthenticationEntryPoint, 
+                                           AuthenticationManager authenticationManager) {
             this.customLogoutSuccessHandler = customLogoutSuccessHandler;
             this.customAuthenticationEntryPoint = customAuthenticationEntryPoint;
-            this.customBadCredentials = customBadCredentials;
             this.authenticationManager = authenticationManager;
         }
 
@@ -62,18 +61,8 @@ public class OAuth2Configuration {
                     .frameOptions().disable()
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/**").authenticated()
-                    .and()
-                    .addFilter(usernamePasswordAuthenticationFilter())
-                    .formLogin().failureHandler(customBadCredentials);
+                    .antMatchers("/**").authenticated();
 
-        }
-
-        private UsernamePasswordAuthenticationFilter usernamePasswordAuthenticationFilter() {
-            UsernamePasswordAuthenticationFilter filter = new UsernamePasswordAuthenticationFilter();
-            filter.setAuthenticationManager(authenticationManager);
-            filter.setAuthenticationFailureHandler(customBadCredentials);
-            return filter;
         }
     }
 
