@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.util.Set;
 
 /**
@@ -47,9 +46,11 @@ public class LogController {
 
     @RequestMapping(value = "/api/log/task/{taskId}", method = RequestMethod.POST)
     public ResponseEntity<Log> add(@RequestParam("file") MultipartFile file,
-                                   @Valid Log log) {
-        Task task;
-        if ((task = taskService.findOne((log.getTask().getTaskId()))) == null)
+                                   @RequestParam("applications") String applications,
+                                   @PathVariable("taskId") Integer taskId) {
+        Log log = new Log();
+        Task task = taskService.findOne(taskId);
+        if (task == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         String link;
         try {
@@ -57,6 +58,7 @@ public class LogController {
         } catch (StorageException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        log.setApplications(applications);
         log.setLink(link);
         return new ResponseEntity<>(logService.save(log), HttpStatus.OK);
     }
