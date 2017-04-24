@@ -15,10 +15,9 @@ public class Sprint {
     private int sprintId;
     private Date dateStart;
     private Date dateEnd;
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "projectId")
     @JsonIdentityReference(alwaysAsId = true)
     private Project project;
-
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<Task> tasks;
 
     @Id

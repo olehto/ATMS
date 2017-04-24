@@ -1,7 +1,6 @@
 package com.atms.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -17,8 +16,6 @@ public class DevType {
     private String value;
 
     @JsonIgnore
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "developerId")
-    @JsonIdentityReference(alwaysAsId = true)
     private Set<Developer> developers;
 
     public DevType() {

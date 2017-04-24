@@ -12,6 +12,7 @@ public class Log implements Serializable {
     private int logId;
     private String link;
     private String applications;
+
     private Task task;
 
     @Id

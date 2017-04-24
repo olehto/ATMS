@@ -17,12 +17,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
-    private final CustomBadCredentials customBadCredentials;
 
     @Autowired
-    public SecurityConfiguration(UserDetailsService userDetailsService, CustomBadCredentials customBadCredentials) {
+    public SecurityConfiguration(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
-        this.customBadCredentials = customBadCredentials;
     }
 
     @Bean

@@ -1,6 +1,7 @@
 package com.atms.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
@@ -20,16 +21,27 @@ public class Task {
     private String version;
     private Time duration;
     private Task parent;
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<Task> subtasks;
+    @JsonIdentityReference(alwaysAsId = true)
     private Priority priority;
+    @JsonIdentityReference(alwaysAsId = true)
     private Type type;
+    @JsonIdentityReference(alwaysAsId = true)
     private Status status;
+    @JsonIdentityReference(alwaysAsId = true)
     private Sprint sprint;
+    @JsonIdentityReference(alwaysAsId = true)
     private Developer developer;
+    @JsonIdentityReference(alwaysAsId = true)
     private Developer reporter;
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<Document> documents;
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<Log> logs;
+    @JsonIdentityReference(alwaysAsId = true)
     private Requirement requirement;
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<TaskKeyword> keywords;
 
     @Id

@@ -17,7 +17,6 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
@@ -33,11 +32,12 @@ public class OAuth2Configuration {
 
         private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
 
+
         private final AuthenticationManager authenticationManager;
 
         @Autowired
-        public ResourceServerConfiguration(CustomLogoutSuccessHandler customLogoutSuccessHandler, 
-                                           CustomAuthenticationEntryPoint customAuthenticationEntryPoint, 
+        public ResourceServerConfiguration(CustomLogoutSuccessHandler customLogoutSuccessHandler,
+                                           CustomAuthenticationEntryPoint customAuthenticationEntryPoint,
                                            AuthenticationManager authenticationManager) {
             this.customLogoutSuccessHandler = customLogoutSuccessHandler;
             this.customAuthenticationEntryPoint = customAuthenticationEntryPoint;
@@ -62,7 +62,6 @@ public class OAuth2Configuration {
                     .and()
                     .authorizeRequests()
                     .antMatchers("/**").authenticated();
-
         }
     }
 
@@ -79,7 +78,9 @@ public class OAuth2Configuration {
         private RelaxedPropertyResolver propertyResolver;
 
         @Autowired
-        public AuthorizationServerConfiguration(DataSource dataSource, @Qualifier("authenticationManagerBean") AuthenticationManager authenticationManager) {
+        public AuthorizationServerConfiguration(DataSource dataSource,
+                                                @Qualifier("authenticationManagerBean")
+                                                        AuthenticationManager authenticationManager) {
             this.dataSource = dataSource;
             this.authenticationManager = authenticationManager;
         }

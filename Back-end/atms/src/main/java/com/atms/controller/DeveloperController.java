@@ -91,7 +91,6 @@ public class DeveloperController {
     }
 
     @RequestMapping(value = "/api/developer/current", method = RequestMethod.GET)
-
     public ResponseEntity<Developer> getCurrent() {
         String userName;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

@@ -24,6 +24,7 @@ public class Developer {
     private String password;
     private Double load;
     private Double rate;
+    @JsonIdentityReference(alwaysAsId = true)
     private DevType devType;
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "taskId")
     @JsonIdentityReference(alwaysAsId = true)
@@ -33,6 +34,7 @@ public class Developer {
     private Set<Task> tasksAsReporter;
     @JsonIgnore
     private Set<Authority> authorities;
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<DeveloperEffectiveness> developerEffectiveness;
 
 

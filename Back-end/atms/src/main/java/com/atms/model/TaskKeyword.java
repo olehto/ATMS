@@ -1,5 +1,7 @@
 package com.atms.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+
 import javax.persistence.*;
 
 /**
@@ -9,7 +11,9 @@ import javax.persistence.*;
 @Entity
 public class TaskKeyword {
     private Integer taskKeywordId;
+    @JsonIdentityReference(alwaysAsId = true)
     private Task task;
+    @JsonIdentityReference(alwaysAsId = true)
     private Keyword keyword;
     private Double importance;
 
