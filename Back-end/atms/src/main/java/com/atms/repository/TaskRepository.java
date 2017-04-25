@@ -7,6 +7,7 @@ import com.atms.model.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -16,6 +17,12 @@ import java.util.List;
  */
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Integer> {
+
+    List<Task> findByDateStartGreaterThanEqualAndDateStartLessThanEqual(Timestamp timestamp1, Timestamp timestamp2);
+
+    List<Task> findByDeadlineIsLessThanEqual(Timestamp timestamp);
+
+    List<Task> findByTitleContaining(String title);
 
     /**
      * Returns list of task by project and task's

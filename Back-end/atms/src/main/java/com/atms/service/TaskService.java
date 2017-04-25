@@ -5,6 +5,7 @@ import com.atms.model.Project;
 import com.atms.model.Status;
 import com.atms.model.Task;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -47,4 +48,10 @@ public interface TaskService {
      * @return List of Task
      */
     List<Task> findByProject(Project project);
+
+    List<Task> findByStartTimeInInterval(Timestamp start, Timestamp end);
+
+    List<Task> findByDeadlineLess(Timestamp timestamp);
+
+    List<Task> findByTitleContaining(String title);
 }

@@ -11,8 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
+
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.http.HttpStatus.OK;
 
 /**
  * @author Alex Kazanovskiy.
@@ -44,7 +48,7 @@ public class TaskController {
         if (tasks == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(tasks, HttpStatus.OK);
+        return new ResponseEntity<>(tasks, OK);
     }
 
     @RequestMapping(value = "/api/task/{id}", method = RequestMethod.GET)
@@ -53,7 +57,7 @@ public class TaskController {
         if (task == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(task, HttpStatus.OK);
+        return new ResponseEntity<>(task, OK);
     }
 
     @RequestMapping(value = "/api/task/project/{projectId}", method = RequestMethod.GET)
@@ -66,7 +70,7 @@ public class TaskController {
         if (tasks == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(tasks, HttpStatus.OK);
+        return new ResponseEntity<>(tasks, OK);
     }
 
     @RequestMapping(value = "/api/task/project/{projectId}/status/{statusId}", method = RequestMethod.GET)
@@ -84,7 +88,7 @@ public class TaskController {
         if (tasks == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(tasks, HttpStatus.OK);
+        return new ResponseEntity<>(tasks, OK);
     }
 
     @RequestMapping(value = "/api/task/project/{projectId}/priority/{priorityId}", method = RequestMethod.GET)
@@ -102,7 +106,7 @@ public class TaskController {
         if (tasks == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(tasks, HttpStatus.OK);
+        return new ResponseEntity<>(tasks, OK);
     }
 
     @RequestMapping(value = "/api/task", method = RequestMethod.POST)
@@ -110,7 +114,7 @@ public class TaskController {
         if (taskService.findOne(task.getTaskId()) != null) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>(taskService.save(task), HttpStatus.OK);
+        return new ResponseEntity<>(taskService.save(task), OK);
     }
 
     @RequestMapping(value = "/api/task/{taskId}", method = RequestMethod.PUT)
@@ -119,7 +123,7 @@ public class TaskController {
         if (task == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(task, HttpStatus.OK);
+        return new ResponseEntity<>(task, OK);
     }
 
 
@@ -132,8 +136,26 @@ public class TaskController {
         if (similar.size() == 0) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(similar, HttpStatus.OK);
+        return new ResponseEntity<>(similar, OK);
     }
 
+    @RequestMapping(value = "/api/task/search/start", method = RequestMethod.GET)
+    public ResponseEntity<List<Task>> getStartTimeGreater(@RequestParam("start") Timestamp start,
+                                                          @RequestParam("end") Timestamp end) {
+        List<Task> tasks = taskService.findByStartTimeInInterval(start, end);
+        if (tasks.size() == 0) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(tasks, OK);
+    }
 
+    @RequestMapping(value = "/api/task/search/title", method = RequestMethod.GET)
+    public ResponseEntity<List<Task>> getByTitleContaining(@RequestParam("title") String title) {
+        List<Task> tasks = taskService.findByTitleContaining(title);
+        if (tasks.size() == 0)
+            return new ResponseEntity<>(NO_CONTENT);
+        return new ResponseEntity<>(tasks, OK);
+    }
+
+// TODO: 4/25/2017 search task and developer
 }

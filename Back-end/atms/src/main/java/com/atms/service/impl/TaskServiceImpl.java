@@ -10,6 +10,7 @@ import com.atms.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -89,5 +90,20 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<Task> findByProject(Project project) {
         return taskRepository.findBySprintProject(project);
+    }
+
+    @Override
+    public List<Task> findByStartTimeInInterval(Timestamp start, Timestamp end) {
+        return taskRepository.findByDateStartGreaterThanEqualAndDateStartLessThanEqual(start, end);
+    }
+
+    @Override
+    public List<Task> findByDeadlineLess(Timestamp timestamp) {
+        return taskRepository.findByDeadlineIsLessThanEqual(timestamp);
+    }
+
+    @Override
+    public List<Task> findByTitleContaining(String title) {
+        return taskRepository.findByTitleContaining(title);
     }
 }
