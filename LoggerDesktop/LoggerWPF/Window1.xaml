@@ -5,13 +5,13 @@
         Title="Window1" Height="600" Width="1000">
     <Grid Background="#FF7BFF8D">
         <Canvas HorizontalAlignment="Left" Height="550" VerticalAlignment="Top" Width="121" Margin="0,10,0,0">
-            <Button Width="121" Height="90" Style="{StaticResource ForWindowsButton1}">
+            <Button Width="121" Height="90" Style="{StaticResource ForWindowsButton1}" Click="Button_Click_6">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Projects" FontSize="20" Margin="28,0,0,64"/>
                     <Image Source="/Icons/Projects.png" Margin="-68,25,0,0" Width="50" Height="50"/>
                 </StackPanel>
             </Button>
-            <Button Style="{StaticResource ForWindowsButton1}" Width="121" Height="90" Canvas.Top="95">
+            <Button Style="{StaticResource ForWindowsButton1}" Width="121" Height="90" Canvas.Top="95" Click="Button_Click">
                 <StackPanel Orientation="Horizontal" Width="108">
                     <TextBlock Text="Profile" Margin="30,0,0,62" FontSize="20"/>
                     <Image Source="/Icons/Profile.png" Margin="-56,25,0,0" Width="50" Height="50"/>
@@ -25,60 +25,79 @@
             </Button>
             <Button Style="{StaticResource ForWindowsButton2}" Content="About" Canvas.Top="326" Width="121" Height="52" Click="Button_Click_2" FontSize="20" />
         </Canvas>
-        <TreeView Name="trvFamilies" Margin="126,10,615,10" FontSize="17" Padding="2,0,0,0" SelectedItemChanged="trvFamilies_SelectedItemChanged" >
-            <TreeView.Resources>
-                <HierarchicalDataTemplate DataType="{x:Type local:ProjectModel}"  ItemsSource="{Binding list}">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/Icons/ProjectIconMINI.png" Margin="0,0,5,0" />
-                        <TextBlock Text="{Binding Title}" />
-                        <TextBlock Text=" [" Foreground="Blue" />
-                        <TextBlock Text="{Binding list.Count}" Foreground="Blue" />
-                        <TextBlock Text="]" Foreground="Blue" />
-                    </StackPanel>
-                </HierarchicalDataTemplate>
-                <DataTemplate DataType="{x:Type local:TaskModel}">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/Icons/FinishedTaskMINI.png" Margin="0,0,15,0" />
-                        <TextBlock Text="{Binding Title}" />
-                    </StackPanel>
-                </DataTemplate>
-            </TreeView.Resources>
-        </TreeView>
-        <ListView HorizontalAlignment="Left" Height="450" Margin="382,10,0,0" VerticalAlignment="Top" Width="600" ItemsSource="{Binding}" SelectionMode="Single" x:Name="TaskList">
-            <ListView.View>
-            <GridView>
-                <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}"/>
-                <GridViewColumn Header="DateStart" DisplayMemberBinding="{Binding DateStart}"/>
-                <GridViewColumn Header="Deadline" DisplayMemberBinding="{Binding DeadLine}"/>
-            </GridView>
-        </ListView.View>
-        </ListView>
-        
-        <Button Style="{StaticResource ForWindowsButton3}" HorizontalAlignment="Left" Margin="884,485,0,0" VerticalAlignment="Top" Width="70" Height="65" Click="Button_Click_5" Name="StopButton">
-            <StackPanel Orientation="Horizontal" Width="70">
-                <Image Source="/Icons/StopMINI.png" Margin="0,0,0,0" Width="70"/>
-            </StackPanel>
-        </Button>
-        <Button Style="{StaticResource ForWindowsButton3}" HorizontalAlignment="Left" Margin="382,480,0,0" VerticalAlignment="Top" Width="70" Height="65" Click="Button_Click_4" Name="PlayButton">
-            <StackPanel Orientation="Horizontal" Width="70">
-                <Image Source="/Icons/PlayMINI.png" Margin="0,0,0,0" Width="70"/>
-            </StackPanel>
-        </Button>
-        <Button Style="{StaticResource ForWindowsButton4}" HorizontalAlignment="Left" Margin="467,480,0,0" VerticalAlignment="Top" Width="109" Height="29" Name="PauseButton" Click="PauseButton_Click">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="/Icons/PauseMINI.png" Margin="6 0 0 0"/>
-                <TextBlock Text="PAUSE" Width="50" Height="20" FontSize="16" Margin="11 -2 0 0"/>
-            </StackPanel>
-        </Button>
-        <Border BorderBrush="{x:Null}" Height="70" Margin="601,480,113,10" >
-            <TextBlock TextWrapping="Wrap" Text="00:00:00" VerticalAlignment="Center" FontSize="72" Height="98" Margin="0,-14" Name="TextTimer"/>
-        </Border>
-        <Button Style="{StaticResource ForWindowsButton5}" HorizontalAlignment="Left" Margin="467,519,0,0" VerticalAlignment="Top" Width="109" Height="31" Click="Button_Click_3" Name="ChangeButton">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="/Icons/Gear.png" Margin="4 0 0 0"/>
-                <TextBlock Text="CHANGE" Width="65" Height="20" FontSize="16" Margin="3,4,0,7"/>
-            </StackPanel>
-        </Button>
-        <TextBlock HorizontalAlignment="Left" Margin="382,10,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Height="450" Width="600" Name="TaskDesk"/>
+        <!-- Name="trvFamilies" Margin="126,10,615,10" FontSize="17" Padding="2,0,0,0"  -->
+        <Grid Name="ProjectCanvas" Visibility="Visible">
+            <ListView HorizontalAlignment="Left" x:Name="trvFamilies" Margin="126,10,615,10" FontSize="22" Padding="2,0,0,0" ItemTemplate="{StaticResource ItemTemplate}" Width="250" SelectionChanged="trvFamilies_SelectedItemChanged"/>
+            <ListView HorizontalAlignment="Left" Height="347" Margin="382,113,0,0" VerticalAlignment="Top" Width="600" ItemsSource="{Binding}" SelectionMode="Single" x:Name="TaskList" FontSize="20" SelectionChanged="TaskList_SelectionChanged">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Title" DisplayMemberBinding="{Binding title}" Width="150"/>
+                        <GridViewColumn Header="Start" DisplayMemberBinding="{Binding datst}" Width="130"/>
+                        <GridViewColumn Header="Deadline" DisplayMemberBinding="{Binding deadl}" Width="130"/>
+                        <GridViewColumn Header="Duration" DisplayMemberBinding="{Binding duration}" Width="100"/>
+                        <GridViewColumn Header="Version" DisplayMemberBinding="{Binding version}" Width="75"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <Button Style="{StaticResource ForWindowsButton3}" HorizontalAlignment="Left" Margin="884,485,0,0" VerticalAlignment="Top" Width="70" Height="65" Click="Button_Click_5" Name="StopButton">
+                <StackPanel Orientation="Horizontal" Width="70">
+                    <Image Source="/Icons/StopMINI.png" Margin="0,0,0,0" Width="70"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource ForWindowsButton3}" HorizontalAlignment="Left" Margin="382,480,0,0" VerticalAlignment="Top" Width="70" Height="65" Click="Button_Click_4" Name="PlayButton">
+                <StackPanel Orientation="Horizontal" Width="70">
+                    <Image Source="/Icons/PlayMINI.png" Margin="0,0,0,0" Width="70"/>
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource ForWindowsButton4}" HorizontalAlignment="Left" Margin="467,480,0,0" VerticalAlignment="Top" Width="109" Height="29" Name="PauseButton" Click="PauseButton_Click">
+                <Canvas Width="109">
+                    <Image Source="/Icons/PauseMINI.png" Height="29" Canvas.Left="6"/>
+                    <TextBlock Text="PAUSE" Width="50" Height="20" FontSize="16" Canvas.Left="44" Canvas.Top="4"/>
+                </Canvas>
+            </Button>
+            <Border BorderBrush="{x:Null}" Height="70" Margin="601,480,113,10" >
+                <TextBlock TextWrapping="Wrap" Text="00:00:00" VerticalAlignment="Center" FontSize="72" Height="98" Margin="0,-14" Name="TextTimer"/>
+            </Border>
+            <Button Style="{StaticResource ForWindowsButton5}" HorizontalAlignment="Left" Margin="467,519,0,0" VerticalAlignment="Top" Width="109" Height="31" Click="Button_Click_3" Name="ChangeButton">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Icons/Gear.png" Margin="4 0 0 0"/>
+                    <TextBlock Text="CHANGE" Width="65" Height="20" FontSize="16" Margin="3,4,0,7"/>
+                </StackPanel>
+            </Button>
+            <Label Content="Date Start:" HorizontalAlignment="Left" Margin="376,8,0,0" VerticalAlignment="Top" FontSize="24"/>
+            <Label Content="Deadline:" HorizontalAlignment="Left" Margin="692,8,0,0" VerticalAlignment="Top" FontSize="24"/>
+            <TextBox HorizontalAlignment="Left" Height="38" Margin="497,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="158" FontSize="24" Name="ProjectStart" IsReadOnly="True"/>
+            <TextBox HorizontalAlignment="Left" Height="38" Margin="806,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="157" FontSize="24" Name="ProjectDeadline" IsReadOnly="True" RenderTransformOrigin="-0.096,0.632"/>
+            <TextBlock HorizontalAlignment="Left" Margin="382,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="18" Height="55" Width="600" Name="ProjectDescr" Padding="0,0,0,0"/>
+            <!-- <TextBlock HorizontalAlignment="Left" Margin="382,10,0,0" TextWrapping="Wrap" Text=" " VerticalAlignment="Top" Height="450" Width="600" Name="TaskDesk"/> -->
+        </Grid>
+        <Canvas Margin="138,10,10,23" Name="ProfileCanvas" Visibility="Hidden">
+            <Label Canvas.Left="10" Content="Name:" FontSize="28" Canvas.Top="10"/>
+            <Label Canvas.Left="10" Content="Lastname:" Canvas.Top="96" FontSize="28"/>
+            <Label Canvas.Left="10" Content="Date of Birth:" Canvas.Top="183" FontSize="28"/>
+            <Label Canvas.Left="10" Content="Email:" Canvas.Top="272" FontSize="28"/>
+            <Label Canvas.Left="10" Content="Phone number:" Canvas.Top="361" FontSize="28"/>
+            <Label Canvas.Left="336" Content="Nickname:" Canvas.Top="10" FontSize="28"/>
+            <Button Content="Change password   ▶" Canvas.Left="336" Canvas.Top="57" Width="268" Height="46" FontSize="28" FontFamily="Times New Roman" Name="ChangePassword" Click="ChangePassword_Click"/>
+            <Canvas Height="413" Canvas.Left="336" Canvas.Top="114" Width="498" Name="ChangePasswordCanvas">
+                <TextBox Height="45" Canvas.Left="238" TextWrapping="Wrap" Text="" Canvas.Top="10" Width="250" FontSize="28" Name="OldPassword"/>
+                <Label Content="Old Password:" Canvas.Left="10" Canvas.Top="10" FontSize="28"/>
+                <Label Content="New Password:" Canvas.Top="86" FontSize="28" Canvas.Left="10"/>
+                <TextBox Height="43" Canvas.Left="238" TextWrapping="Wrap" Text="" Canvas.Top="88" Width="250" FontSize="28" Name="NewPassword"/>
+                <Label Content="Repeat Password:" Canvas.Left="10" Canvas.Top="162" Width="285" FontSize="28"/>
+                <TextBox Height="43" Canvas.Left="238" TextWrapping="Wrap" Text="" Canvas.Top="164" Width="250" FontSize="28" Name="NewPasswordRepeat"/>
+                <Button Style="{StaticResource ChangePasswordButton}" Content="CHANGE" Canvas.Left="152" Canvas.Top="252" Width="233" Height="60" FontSize="32" Name="ChangePasswordFinish" Click="ChangePasswordFinish_Click"/>
+                <Label Content=" " Canvas.Left="152" Canvas.Top="317" FontSize="22" Height="39" Name="PasswordChangeStatus"/>
+            </Canvas>
+            <TextBlock Foreground="#FFBB0000" Canvas.Left="10" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="230" FontSize="28" Width="285" Name="DoB" Padding="4 0 0 0" FontStyle="Italic"/>
+            <TextBlock Foreground="#FFBB0000" Canvas.Left="10" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="408" FontSize="28" Width="285" Name="Phone" Padding="4 0 0 0" FontStyle="Italic"/>
+            <TextBlock Foreground="#FFBB0000" Canvas.Left="10" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="319" FontSize="28" Width="321" Name="Email" Padding="4 0 0 0" FontStyle="Italic"/>
+            <TextBlock Foreground="#FFBB0000" Canvas.Left="10" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="141" FontSize="28" Width="285" Name="Lastname" Padding="4 0 0 0" FontStyle="Italic"/>
+            <TextBlock Foreground="#FFBB0000" Canvas.Left="10" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="54" FontSize="28" Width="285" Name="Name" Padding="4 0 0 0" FontStyle="Italic"/>
+            <TextBlock Foreground="#FFBB0000" Canvas.Left="481" TextWrapping="Wrap" Text="TextBlock" Canvas.Top="15" FontSize="28" Width="285" Name="Nickname" Padding="4 0 0 0" FontStyle="Italic"/>
+            <Label Content="Technologies:" Canvas.Left="10" Canvas.Top="450" FontSize="28"/>
+            <TextBlock Foreground="#FFBB0000" Canvas.Left="10" TextWrapping="Wrap" Text=" " Canvas.Top="497" FontSize="28" Width="834" Name="Techn" Padding="4 0 0 0" FontStyle="Italic"/>
+        </Canvas>
     </Grid>
 </Window>

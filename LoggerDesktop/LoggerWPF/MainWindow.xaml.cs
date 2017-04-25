@@ -20,14 +20,28 @@ namespace LoggerWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        CallWebAPI CallAPI;
         public MainWindow()
         {
             InitializeComponent();
+            CallAPI = new CallWebAPI();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Window1 win = new Window1();
+            CallAPI.GetToken(Login.Text, Password.Password);
+            if (CallAPI.token.status == "0")
+            {
+                MessageBox.Show("Error");
+                return;
+            } 
+            CallAPI.GetProfile();
+            if (CallAPI.token.status == "0")
+            {
+                MessageBox.Show("Error");
+                return;
+            }
+            Window1 win = new Window1(CallAPI.g, CallAPI);
             win.Owner = this;
             win.Show();
         }

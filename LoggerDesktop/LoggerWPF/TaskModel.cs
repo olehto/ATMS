@@ -6,21 +6,44 @@ using System.Threading.Tasks;
 
 namespace LoggerWPF
 {
+
     public class TaskModel
     {
-        public int TaskID { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public DateTime DateStart { get; set; }
-        public DateTime Deadline { get; set; }
-        public string Version { get; set; }
-        public int priority_id { get; set; }
-        public int type_id { get; set; }
-        public int status_id { get; set; }
-        public DateTime time { get; set; }
-        public int hours { get; set; }
-        public int minutes { get; set; }
-        public int sprint_id { get; set; }
-        public int developer_id { get; set; }
+        public int taskId { get; set; }
+        public string title { get; set; }
+        public string description { get; set; }
+        public DateTimeHelper DateStartSTR;
+        public long dateStart
+        {
+            get { return 0; }
+            set
+            {
+                DateStartSTR = new DateTimeHelper(new DateTime(1970, 1, 1, 0, 0, 0, 0));
+                DateStartSTR.AddMilliseconds(value);
+                datst = DateStartSTR.ToString();
+            }
+        }
+        public DateTimeHelper DeadLineSTR;
+        public long deadLine
+        {
+            get { return 0; }
+            set
+            {
+                DeadLineSTR = new DateTimeHelper(new DateTime(1970, 1, 1, 0, 0, 0, 0));
+                DeadLineSTR.AddMilliseconds(value);
+                deadl = DeadLineSTR.ToString();
+            }
+        }
+        public string version { get; set; }
+        public string duration { get; set; }
+        public string datst { get;set; }
+        public string deadl { get; set; }
+        public int developer { get; set; }
+
+        public TaskModel()
+        {
+            
+        }
     }
+
 }

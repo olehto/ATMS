@@ -8,11 +8,24 @@ namespace LoggerWPF
 {
     public class ProjectModel
     {
-        public int projectID { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public DateTime DateStart { get; set; }
-        public DateTime DeadLine { get; set; }
+        public int projectId { get; set; }
+        public string title { get; set; }
+        public string description { get; set; }
+        public DateTimeHelper DateStartSTR;
+        public long dateStart { 
+            get { return 0; }
+            set { 
+                DateStartSTR = new DateTimeHelper(new DateTime(1970, 1, 1, 0, 0, 0, 0)); 
+                DateStartSTR.AddMilliseconds(value); 
+            }
+        }
+        public DateTimeHelper DeadLineSTR;
+        public long deadLine { get { return 0; } 
+            set { 
+                DeadLineSTR = new DateTimeHelper(new DateTime(1970, 1, 1, 0, 0, 0, 0)); 
+                DeadLineSTR.AddMilliseconds(value); 
+            } 
+        }
         public List<TaskModel> list { get; set; }
         public ProjectModel()
         {

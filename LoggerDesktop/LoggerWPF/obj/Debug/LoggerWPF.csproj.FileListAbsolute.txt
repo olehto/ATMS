@@ -14,7 +14,15 @@ C:\Users\Yuri\Documents\Visual Studio 2012\Projects\3_course_1_semester. ASW\Log
 C:\Users\Yuri\Documents\Visual Studio 2012\Projects\3_course_1_semester. ASW\LogerClient\LoggerWPF\obj\Debug\LoggerWPF.csprojResolveAssemblyReference.cache
 C:\Users\Yuri\Documents\Visual Studio 2012\Projects\3_course_1_semester. ASW\LogerClient\LoggerWPF\obj\Debug\Window1.baml
 C:\Users\Yuri\Documents\Visual Studio 2012\Projects\3_course_1_semester. ASW\LogerClient\LoggerWPF\obj\Debug\Window1.g.cs
-C:\Users\Yuri\Documents\Visual Studio 2012\Projects\3_course_1_semester. ASW\LogerClient\LoggerWPF\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\Yuri\Documents\Visual Studio 2012\Projects\3_course_1_semester. ASW\LogerClient\LoggerWPF\obj\Debug\LoggerWPF_MarkupCompile.lref
 C:\Users\Yuri\Documents\Visual Studio 2012\Projects\3_course_1_semester. ASW\LogerClient\LoggerWPF\obj\Debug\AddWindow.baml
 C:\Users\Yuri\Documents\Visual Studio 2012\Projects\3_course_1_semester. ASW\LogerClient\LoggerWPF\obj\Debug\AddWindow.g.cs
+C:\Users\Yuri\Documents\Visual Studio 2012\Projects\3_course_1_semester. ASW\LogerClient\LoggerWPF\obj\Debug\LoggerWPF.AboutBox1.resources
+C:\Users\Yuri\Documents\Visual Studio 2012\Projects\3_course_1_semester. ASW\LogerClient\LoggerWPF\bin\Debug\System.Net.Http.Formatting.dll
+C:\Users\Yuri\Documents\Visual Studio 2012\Projects\3_course_1_semester. ASW\LogerClient\LoggerWPF\bin\Debug\System.Net.Http.Formatting.xml
+C:\Users\Yuri\Documents\Visual Studio 2012\Projects\3_course_1_semester. ASW\LogerClient\LoggerWPF\bin\Debug\LoggerWPF.exe.manifest
+C:\Users\Yuri\Documents\Visual Studio 2012\Projects\3_course_1_semester. ASW\LogerClient\LoggerWPF\bin\Debug\LoggerWPF.application
+C:\Users\Yuri\Documents\Visual Studio 2012\Projects\3_course_1_semester. ASW\LogerClient\LoggerWPF\obj\Debug\LoggerWPF.exe.manifest
+C:\Users\Yuri\Documents\Visual Studio 2012\Projects\3_course_1_semester. ASW\LogerClient\LoggerWPF\obj\Debug\LoggerWPF.application
+C:\Users\Yuri\Documents\Visual Studio 2012\Projects\3_course_1_semester. ASW\LogerClient\LoggerWPF\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Yuri\Documents\Visual Studio 2012\Projects\3_course_1_semester. ASW\LogerClient\LoggerWPF\bin\Debug\Newtonsoft.Json.xml
