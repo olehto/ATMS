@@ -9,6 +9,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -24,12 +28,13 @@ public class TaskController {
     private final DescriptionSimilarity descriptionSimilarity;
     private final TypeService typeService;
     private final DeveloperService developerService;
+    private final SprintService sprintService;
 
     @Autowired
     public TaskController(ProjectService projectService, StatusService statusService,
                           PriorityService priorityService, TaskService taskService,
                           DescriptionSimilarity descriptionSimilarity, TypeService typeService,
-                          DeveloperService developerService) {
+                          DeveloperService developerService,SprintService sprintService) {
         this.projectService = projectService;
         this.statusService = statusService;
         this.priorityService = priorityService;
@@ -37,6 +42,7 @@ public class TaskController {
         this.typeService = typeService;
         this.descriptionSimilarity = descriptionSimilarity;
         this.developerService = developerService;
+        this.sprintService=sprintService;
     }
 
     @RequestMapping(value = "/api/task", method = RequestMethod.GET)
@@ -145,18 +151,90 @@ public class TaskController {
     }
 
     @RequestMapping(value = "/api/task", method = RequestMethod.POST)
+    public ResponseEntity<Task> add(@RequestParam("title") String title,
+                                    @RequestParam("description") String description,
+                                    @RequestParam("dateStart") String dateStart,
+                                    @RequestParam("deadline") String deadline,
+                                    @RequestParam("version") String version,
+                                    @RequestParam("priority") Integer priorityId,
+                                    @RequestParam("type") Integer typeId,
+                                    @RequestParam("status") Integer statusId,
+                                    @RequestParam("duration") Time duration,
+                                    @RequestParam("developer") Integer developerId,
+                                    @RequestParam("reporter") Integer reporterId,
+                                    @RequestParam("project") Integer projectId){
+        Task task = new Task();
+        task.setTitle(title);
+        task.setDescription(description);
+        task.setDateStart(new Timestamp(System.currentTimeMillis()));
+        task.setDeadline(new Timestamp(System.currentTimeMillis()+100000000));
+        task.setVersion(version);
+        task.setDuration(duration);
+        task.setPriority(priorityService.findOne(priorityId));
+        task.setType(typeService.findOne(typeId));
+        task.setStatus(statusService.findOne(statusId));
+        Sprint sprint=new Sprint();
+        sprint.setDateStart(task.getDateStart());
+        sprint.setDateEnd(task.getDeadline());
+        sprint.setProject(projectService.findOne(projectId));
+        task.setSprint(sprintService.save(sprint));
+        task.setDeveloper(developerService.findOne(developerId));
+        task.setReporter(developerService.findOne(reporterId));
+        return new ResponseEntity<>(taskService.save(task), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/api/task/{taskId}", method = RequestMethod.POST)
+    public ResponseEntity<Task> update(@PathVariable("taskId") String taskId,
+                                       @RequestParam("title") String title,
+                                    @RequestParam("description") String description,
+                                    @RequestParam("dateStart") String dateStart,
+                                    @RequestParam("deadline") String deadline,
+                                    @RequestParam("version") String version,
+                                    @RequestParam("priority") Integer priorityId,
+                                    @RequestParam("type") Integer typeId,
+                                    @RequestParam("status") Integer statusId,
+                                    @RequestParam("duration") Time duration,
+                                    @RequestParam("developer") Integer developerId,
+                                    @RequestParam("reporter") Integer reporterId,
+                                    @RequestParam("project") Integer projectId){
+        Task task = taskService.findOne(Integer.parseInt(taskId));
+        task.setTitle(title);
+        task.setDescription(description);
+        task.setDateStart(new Timestamp(System.currentTimeMillis()));
+        task.setDeadline(new Timestamp(System.currentTimeMillis()+100000000));
+        task.setVersion(version);
+        task.setDuration(duration);
+        task.setPriority(priorityService.findOne(priorityId));
+        task.setType(typeService.findOne(typeId));
+        task.setStatus(statusService.findOne(statusId));
+        Sprint sprint=new Sprint();
+        sprint.setDateStart(task.getDateStart());
+        sprint.setDateEnd(task.getDeadline());
+        sprint.setProject(projectService.findOne(projectId));
+        task.setSprint(sprintService.save(sprint));
+        task.setDeveloper(developerService.findOne(developerId));
+        task.setReporter(developerService.findOne(reporterId));
+        return new ResponseEntity<>(taskService.update(Integer.parseInt(taskId),task), HttpStatus.OK);
+    }
+
+    /*@RequestMapping(value = "/api/task/", method = RequestMethod.POST)
     public ResponseEntity<Task> add(@RequestBody String body) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             Task task = (Task) mapper.readValue(body, Task.class);
+            //task.setDeveloper(developerService.findOne(1));
+            task.setSubtasks(new HashSet<Task>());
+            task.setDocuments(new HashSet<Document>());
+            task.setLogs(new HashSet<Log>());
             task = taskService.save(task);
-            return new ResponseEntity<>(taskService.save(task), HttpStatus.OK);
+            return new ResponseEntity<>(task, HttpStatus.OK);
         } catch (Exception ex) {
+            ex.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
-    @RequestMapping(value = "/api/task/{taskId}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/api/task/{taskId}", method = RequestMethod.POST)
     public ResponseEntity<Task> update(@RequestBody String body, @PathVariable("taskId") String taskId) {
         try {
             ObjectMapper mapper = new ObjectMapper();
@@ -170,7 +248,7 @@ public class TaskController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
+*/
     @RequestMapping(value = "/api/task/epic/{taskId}", method = RequestMethod.GET)
     public ResponseEntity<List<Task>> getByParentTask(@PathVariable("taskId") String taskId) {
         Task task = taskService.findOne(Integer.parseInt(taskId));
@@ -208,5 +286,25 @@ public class TaskController {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
         return new ResponseEntity<>(tasks, HttpStatus.OK);
+    }
+
+        @RequestMapping(value = "/api/task/search/title", method = RequestMethod.POST)
+     public ResponseEntity<List<Task>> getByTitleContaining(@RequestParam("title") String title) {
+                List<Task> tasks = taskService.findByTitleContaining(title);
+                if (tasks.size() == 0)
+                        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+                return new ResponseEntity<>(tasks, HttpStatus.OK);
+           }
+
+    @RequestMapping(value = "/api/task/take", method = RequestMethod.POST)
+    public ResponseEntity<Task> getByDeveloper(@RequestParam("developerId") String devId,
+                                                     @RequestParam("taskId") String taskId) {
+        Developer developer = developerService.findOne(Integer.parseInt(devId));
+        Task task=taskService.findOne(Integer.parseInt(taskId));
+        if (developer == null||task==null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        task.setDeveloper(developer);
+        return new ResponseEntity<>(taskService.save(task), HttpStatus.OK);
     }
 }

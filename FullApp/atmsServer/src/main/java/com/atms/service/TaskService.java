@@ -29,4 +29,6 @@ public interface TaskService {
     List<Task> findByParent(Task task);
 
     List<Task> findByDeveloper(Developer developer);
+
+    List<Task> findByTitleContaining(String title);
 }

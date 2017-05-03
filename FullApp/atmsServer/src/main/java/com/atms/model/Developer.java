@@ -21,6 +21,7 @@ public class Developer {
     private String telephone;
     private String nickname;
     private String password;
+    @JsonIdentityReference(alwaysAsId = true)
     private DevType devType;
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "taskId")
     @JsonIdentityReference(alwaysAsId = true)
@@ -30,7 +31,6 @@ public class Developer {
     private Set<Task> tasksAsReporter;
     @JsonIgnore
     private Set<Authority> authorities;
-    private boolean locked;
 
     public Developer() {
     }
@@ -46,7 +46,6 @@ public class Developer {
         this.password = developer.getPassword();
         this.devType = developer.getDevType();
         this.tasksAsDeveloper = developer.getTasksAsDeveloper();
-        this.locked = developer.isLocked();
         this.authorities = developer.getAuthorities();
     }
 
@@ -95,15 +94,6 @@ public class Developer {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    @Column(name = "locked", nullable = false)
-    public boolean isLocked() {
-        return locked;
-    }
-
-    public void setLocked(boolean locked) {
-        this.locked = locked;
     }
 
     @Column(name = "telephone")

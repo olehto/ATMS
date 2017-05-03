@@ -36,9 +36,6 @@ public class DeveloperDetailsServiceImpl implements UserDetailsService {
         if (userFromDatabase == null)
             userFromDatabase = developerRepository.findByEmail(login);
 
-        if (userFromDatabase.isLocked())
-            throw new OAuth2AccessDeniedException("Account is locked");
-
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         for (GrantedAuthority authority : userFromDatabase.getAuthorities()) {
             GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(authority.getAuthority());

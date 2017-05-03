@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<div class="container-fluid karkas">
+
+    <div class="row header">
+        <div class="col-md-6 logo">
+            <a [routerLink]="['/']"><img src="resources/images/logo.png" alt=""></a>
+        </div>
+        <div class="col-md-6">
+            <input type="checkbox" id="menu-checkbox" />
+            <nav role="navigation"><!-- навигация -->
+                <label for="menu-checkbox" class="toggle-button" data-open="Menu" data-close="Close" onclick></label>
+                <ul class="menu">
+                    <li><a [routerLink]="['/']" class="now">Dashboard</a></li>
+                    <li>
+                        <a class="disabled">Projects</a>
+                        <ul class="menudown">
+                            <li><a [routerLink] = "['/my_projects']">My projects</a></li>
+                            <li><a [routerLink] = "['/projects_list']">View all projects</a></li>
+                            <li><a [routerLink] = "['/new_project']">New project</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="disabled">Tasks</a>
+                        <ul class="menudown">
+                            <li><a [routerLink]="['/my_tasks']" >My tasks</a></li>
+                            <li><a [routerLink]="['/tasks_list']">View all tasks</a></li>
+                            <li><a [routerLink]="['/new_task']">New task</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/developer']" [queryParams]="{ id: id }">Developers</a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['/statistics']">Statistics</a>
+                        <ul class="menudown">
+                            <li ><a href="#">Statistics 1</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="my-info" [routerLink]="['/developer']">{{nickname}}</a>
+                        <ul class="menudown">
+                            <li ><a class="my-info" [routerLink]="['/login']">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="container wrapper">
+        <div class="row">
+            <div class="col-md-12">
+                    <div class="radius">
+                    <div class="border2">
+                        <div class="row">
+                        <div class="col-md-9">
+                            <div>
+                                <div style="display: block">
+                                    <canvas baseChart
+                                            [datasets]="barChartData"
+                                            [labels]="barChartLabels"
+                                            [options]="barChartOptions"
+                                            [legend]="barChartLegend"
+                                            [chartType]="barChartType"
+                                            (chartHover)="chartHovered($event)"
+                                            (chartClick)="chartClicked($event)"></canvas>
+                                </div>
+                                <button (click)="randomize()">Update</button>
+                            </div>
+                        </div>
+                        <div class="col-md-3" style="margin-bottom: 10px">
+                            <label>Period</label>
+                            <input type="date" class="form-control" name="period"/>
+                            <button class="btn btn-success">Period</button>
+                            <button class="btn btn-success disabled">Keywords</button>
+                            <button class="btn btn-success disabled">Efficiency</button>
+                            </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row footer">
+        <div class="col-md-4 ">
+            <img src="resources/images/footer.png" alt="">
+        </div>
+        <div class="col-md-8">
+            <p class="copy">© 2017 ATMS.com - All Rights Reserved</p>
+            <p class="ftr-nav">
+                <a href="#">Dashboard</a> | <a href="#">Projects</a> | <a href="#">Tasks</a> | <a href="#">Developers</a> | <a href="#">Statistics</a>
+            </p>
+        </div>
+    </div>
+</div><!-- .container karkas -->
+</body>
+</html>

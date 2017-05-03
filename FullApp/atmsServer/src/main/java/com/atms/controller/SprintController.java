@@ -1,7 +1,9 @@
 package com.atms.controller;
 
+import com.atms.model.Developer;
 import com.atms.model.Sprint;
 import com.atms.service.SprintService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-/**
- * Created by alex on 3/17/2017.
- */
 
 @RestController
 @CrossOrigin
@@ -44,11 +43,14 @@ public class SprintController {
     }
 
     @RequestMapping(value = "/api/sprint", method = RequestMethod.POST)
-    public ResponseEntity<Sprint> add(@Valid Sprint sprint) {
-        if (sprintService.findOne(sprint.getSprintId()) != null) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+    public ResponseEntity<Sprint> add(@RequestBody String body) {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            Sprint sprint = (Sprint) mapper.readValue(body, Sprint.class);
+            return new ResponseEntity<>(sprintService.save(sprint), HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(sprintService.save(sprint), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/api/sprint{sprintId}", method = RequestMethod.PUT)

@@ -25,7 +25,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task save(Task task) {
         if (task.getDeveloper() != null) {
-            notifier.notifyDeveloper(task);
+            //notifier.notifyDeveloper(task);
         }
         return taskRepository.saveAndFlush(task);
     }
@@ -110,4 +110,8 @@ public class TaskServiceImpl implements TaskService {
         return taskRepository.findByDeveloper(developer);
     }
 
+    @Override
+     public List<Task> findByTitleContaining(String title) {
+                return taskRepository.findByTitleContaining(title);
+            }
 }

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Set;
 
 
@@ -13,8 +14,8 @@ import java.util.Set;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "sprintId")
 public class Sprint {
     private int sprintId;
-    private Date dateStart;
-    private Date dateEnd;
+    private Timestamp dateStart;
+    private Timestamp dateEnd;
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "projectId")
     @JsonIdentityReference(alwaysAsId = true)
     private Project project;
@@ -33,20 +34,20 @@ public class Sprint {
     }
 
     @Column(name = "date_start", nullable = false)
-    public Date getDateStart() {
+    public Timestamp getDateStart() {
         return dateStart;
     }
 
-    public void setDateStart(Date dateStart) {
+    public void setDateStart(Timestamp dateStart) {
         this.dateStart = dateStart;
     }
 
     @Column(name = "date_end", nullable = false)
-    public Date getDateEnd() {
+    public Timestamp getDateEnd() {
         return dateEnd;
     }
 
-    public void setDateEnd(Date dateEnd) {
+    public void setDateEnd(Timestamp dateEnd) {
         this.dateEnd = dateEnd;
     }
 
