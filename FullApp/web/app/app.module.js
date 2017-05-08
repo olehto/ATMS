@@ -33,6 +33,8 @@ var new_projects_component_1 = require("./new_project/new_projects.component");
 var status_service_1 = require("./_services/status.service");
 var my_tasks_component_1 = require("./my_tasks/my_tasks.component");
 var my_projects_component_1 = require("./my_projects/my_projects.component");
+var edit_task_component_1 = require("./edit_task/edit_task.component");
+var edit_project_component_1 = require("./edit_project/edit_project.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -64,7 +66,9 @@ AppModule = __decorate([
             index_12.RestoreComponent,
             index_13.NewPasswordComponent,
             my_tasks_component_1.MyTasksComponent,
-            my_projects_component_1.MyProjectsComponent
+            my_projects_component_1.MyProjectsComponent,
+            edit_task_component_1.EditTaskComponent,
+            edit_project_component_1.EditProjectComponent
         ],
         providers: [
             index_1.AuthGuard,

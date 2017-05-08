@@ -40,7 +40,9 @@ export class ProjectService {
         return  this.http.get(this.httpAdress+'/api/project/developer/' + id,{headers: headers}).map((response: Response) => response.json());
     }
     update(project: Project) {
-        let headers = new Headers();
+        const body = JSON.stringify(project);
+        console.log(body);
+        let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
         headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.put(this.httpAdress+'/api/project/' + project.projectId, project,{headers: headers}).map((response: Response) => response.json());
     }

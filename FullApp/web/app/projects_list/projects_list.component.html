@@ -65,6 +65,7 @@
                                     <th >All projects</th>
                                     <th>Date start</th>
                                     <th>Deadline</th>
+                                    <th>  </th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -73,6 +74,7 @@
                                     <td><a [routerLink]="['/project']" [queryParams]="{ id: project.projectId }">{{project.title}}</a></td>
                                     <td>{{project.dateStart | date}}</td>
                                     <td>{{project.deadline | date}}</td>
+                                    <td><a [routerLink]="['/edit_project']" [queryParams]="{ id: project.projectId }">Edit</a></td>
                                 </tr>
                                 </tbody>
                             </table>

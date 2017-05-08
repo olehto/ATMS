@@ -27,6 +27,8 @@ import {NewProjectComponent} from "./new_project/new_projects.component";
 import {StatusService} from "./_services/status.service";
 import {MyTasksComponent} from "./my_tasks/my_tasks.component";
 import {MyProjectsComponent} from "./my_projects/my_projects.component";
+import {EditTaskComponent} from "./edit_task/edit_task.component";
+import {EditProjectComponent} from "./edit_project/edit_project.component";
 
 @NgModule({
     imports: [
@@ -53,7 +55,9 @@ import {MyProjectsComponent} from "./my_projects/my_projects.component";
         RestoreComponent,
         NewPasswordComponent,
         MyTasksComponent,
-        MyProjectsComponent
+        MyProjectsComponent,
+        EditTaskComponent,
+        EditProjectComponent
     ],
     providers: [
         AuthGuard,

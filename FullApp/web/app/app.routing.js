@@ -20,6 +20,8 @@ var projects_list_component_1 = require("./projects_list/projects_list.component
 var new_projects_component_1 = require("./new_project/new_projects.component");
 var my_tasks_component_1 = require("./my_tasks/my_tasks.component");
 var my_projects_component_1 = require("./my_projects/my_projects.component");
+var edit_task_component_1 = require("./edit_task/edit_task.component");
+var edit_project_component_1 = require("./edit_project/edit_project.component");
 var appRoutes = [
     { path: 'login', component: index_1.LoginComponent },
     { path: 'register', component: index_2.RegisterComponent },
@@ -34,6 +36,8 @@ var appRoutes = [
     { path: 'new_project', component: new_projects_component_1.NewProjectComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'developer', component: developers_component_1.DevelopersComponent, canActivate: [auth_guard_1.AuthGuard] },
     { path: 'statistics', component: statistics_component_1.StatisticsComponent, canActivate: [auth_guard_1.AuthGuard] },
+    { path: 'edit_task', component: edit_task_component_1.EditTaskComponent },
+    { path: 'edit_project', component: edit_project_component_1.EditProjectComponent },
     { path: 'newpass', component: newpass_component_1.NewPasswordComponent },
     { path: 'restore', component: restore_component_1.RestoreComponent },
     { path: '**', redirectTo: '' }

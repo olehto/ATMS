@@ -19,6 +19,8 @@ import {ProjectsListComponent} from "./projects_list/projects_list.component";
 import {NewProjectComponent} from "./new_project/new_projects.component";
 import {MyTasksComponent} from "./my_tasks/my_tasks.component";
 import {MyProjectsComponent} from "./my_projects/my_projects.component";
+import {EditTaskComponent} from "./edit_task/edit_task.component";
+import {EditProjectComponent} from "./edit_project/edit_project.component";
 
 const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
@@ -34,6 +36,8 @@ const appRoutes: Routes = [
     {path: 'new_project', component: NewProjectComponent, canActivate: [AuthGuard] },
     {path: 'developer', component:DevelopersComponent, canActivate: [AuthGuard] },
     {path: 'statistics', component:StatisticsComponent, canActivate: [AuthGuard] },
+    {path: 'edit_task', component:EditTaskComponent},
+    {path: 'edit_project', component:EditProjectComponent},
     {path: 'newpass', component:NewPasswordComponent},
     {path: 'restore', component:RestoreComponent},
     {path: '**', redirectTo: '' }
