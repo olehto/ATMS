@@ -7,3 +7,4 @@ export * from './technology.service';
 export * from './task.service';
 export * from './alert.service';
 export * from './status.service';
+export * from './sprint.service';

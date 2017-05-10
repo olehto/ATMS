@@ -153,8 +153,8 @@ public class TaskController {
     @RequestMapping(value = "/api/task", method = RequestMethod.POST)
     public ResponseEntity<Task> add(@RequestParam("title") String title,
                                     @RequestParam("description") String description,
-                                    @RequestParam("dateStart") String dateStart,
-                                    @RequestParam("deadline") String deadline,
+                                    @RequestParam("dateStart") Long dateStart,
+                                    @RequestParam("deadline") Long deadline,
                                     @RequestParam("version") String version,
                                     @RequestParam("priority") Integer priorityId,
                                     @RequestParam("type") Integer typeId,
@@ -166,8 +166,10 @@ public class TaskController {
         Task task = new Task();
         task.setTitle(title);
         task.setDescription(description);
-        task.setDateStart(new Timestamp(System.currentTimeMillis()));
-        task.setDeadline(new Timestamp(System.currentTimeMillis()+100000000));
+        task.setDateStart(new Timestamp(dateStart));
+        task.setDeadline(new Timestamp(deadline));
+        //task.setDateStart(new Timestamp(System.currentTimeMillis()));
+        //task.setDeadline(new Timestamp(System.currentTimeMillis()+100000000));
         task.setVersion(version);
         task.setDuration(duration);
         task.setPriority(priorityService.findOne(priorityId));
@@ -187,8 +189,8 @@ public class TaskController {
     public ResponseEntity<Task> update(@PathVariable("taskId") String taskId,
                                        @RequestParam("title") String title,
                                     @RequestParam("description") String description,
-                                    @RequestParam("dateStart") String dateStart,
-                                    @RequestParam("deadline") String deadline,
+                                       @RequestParam("dateStart") Long dateStart,
+                                       @RequestParam("deadline") Long deadline,
                                     @RequestParam("version") String version,
                                     @RequestParam("priority") Integer priorityId,
                                     @RequestParam("type") Integer typeId,
@@ -200,10 +202,10 @@ public class TaskController {
         Task task = taskService.findOne(Integer.parseInt(taskId));
         task.setTitle(title);
         task.setDescription(description);
-        task.setDateStart(new Timestamp(System.currentTimeMillis()));
-        task.setDeadline(new Timestamp(System.currentTimeMillis()+100000000));
         task.setVersion(version);
         task.setDuration(duration);
+        task.setDateStart(new Timestamp(dateStart));
+        task.setDeadline(new Timestamp(deadline));
         task.setPriority(priorityService.findOne(priorityId));
         task.setType(typeService.findOne(typeId));
         task.setStatus(statusService.findOne(statusId));

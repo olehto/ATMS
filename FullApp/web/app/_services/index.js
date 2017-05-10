@@ -12,4 +12,5 @@ __export(require("./technology.service"));
 __export(require("./task.service"));
 __export(require("./alert.service"));
 __export(require("./status.service"));
+__export(require("./sprint.service"));
 //# sourceMappingURL=index.js.map

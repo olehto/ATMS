@@ -134,7 +134,9 @@ export class EditTaskComponent implements OnInit {
 
     update(){
         console.log(this.model);
-        this.taskService.update(this.model,parseInt(this.model.project.toLocaleString()),this.model.start,this.model.finish).subscribe(
+        this.taskService.update(this.model,parseInt(this.model.project.toLocaleString()),
+            new Date(this.model.start).getTime(),
+            new Date(this.model.finish).getTime()).subscribe(
             response=>{
                 console.log(response);
                 this.router.navigate(['/tasks_list']);

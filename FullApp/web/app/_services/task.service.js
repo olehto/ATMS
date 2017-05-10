@@ -39,8 +39,8 @@ var TaskService = (function () {
         var params = new http_1.URLSearchParams();
         params.set('title', task.title);
         params.set('description', task.description);
-        params.set('dateStart', start);
-        params.set('deadline', finish);
+        params.set('dateStart', start + "");
+        params.set('deadline', finish + "");
         params.set('duration', task.duration.toLocaleString());
         params.set('version', "1.0.0");
         params.set('type', task.type.toLocaleString());
@@ -64,8 +64,8 @@ var TaskService = (function () {
         var params = new http_1.URLSearchParams();
         params.set('title', task.title);
         params.set('description', task.description);
-        params.set('dateStart', start);
-        params.set('deadline', finish);
+        params.set('dateStart', start + "");
+        params.set('deadline', finish + "");
         params.set('duration', task.duration.toLocaleString());
         params.set('version', "1.0.0");
         params.set('type', task.type.toLocaleString());

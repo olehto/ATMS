@@ -29,6 +29,7 @@ import {MyTasksComponent} from "./my_tasks/my_tasks.component";
 import {MyProjectsComponent} from "./my_projects/my_projects.component";
 import {EditTaskComponent} from "./edit_task/edit_task.component";
 import {EditProjectComponent} from "./edit_project/edit_project.component";
+import {SprintService} from "./_services/sprint.service";
 
 @NgModule({
     imports: [
@@ -69,7 +70,8 @@ import {EditProjectComponent} from "./edit_project/edit_project.component";
         TechnologyService,
         TypeService,
         TaskService,
-        StatusService
+        StatusService,
+        SprintService
     ],
     bootstrap: [AppComponent]
 })

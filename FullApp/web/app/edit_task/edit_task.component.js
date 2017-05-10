@@ -110,7 +110,7 @@ var EditTaskComponent = (function () {
     EditTaskComponent.prototype.update = function () {
         var _this = this;
         console.log(this.model);
-        this.taskService.update(this.model, parseInt(this.model.project.toLocaleString()), this.model.start, this.model.finish).subscribe(function (response) {
+        this.taskService.update(this.model, parseInt(this.model.project.toLocaleString()), new Date(this.model.start).getTime(), new Date(this.model.finish).getTime()).subscribe(function (response) {
             console.log(response);
             _this.router.navigate(['/tasks_list']);
         });

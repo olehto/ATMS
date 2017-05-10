@@ -35,6 +35,7 @@ var my_tasks_component_1 = require("./my_tasks/my_tasks.component");
 var my_projects_component_1 = require("./my_projects/my_projects.component");
 var edit_task_component_1 = require("./edit_task/edit_task.component");
 var edit_project_component_1 = require("./edit_project/edit_project.component");
+var sprint_service_1 = require("./_services/sprint.service");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -80,7 +81,8 @@ AppModule = __decorate([
             index_2.TechnologyService,
             index_2.TypeService,
             index_2.TaskService,
-            status_service_1.StatusService
+            status_service_1.StatusService,
+            sprint_service_1.SprintService
         ],
         bootstrap: [app_component_1.AppComponent]
     })
