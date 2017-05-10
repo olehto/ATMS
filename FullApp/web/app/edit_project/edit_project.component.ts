@@ -56,9 +56,41 @@ export class EditProjectComponent implements OnInit {
         );
         this.projectService.getById(this.id).subscribe(
             response=>{
+                console.log(response);
                 this.model.projectId=response.projectId;
                 this.model.description=response.description;
                 this.model.title=response.title;
+                let temp=new Date(response.dateStart);
+                let date=temp.getFullYear()+"-";
+                if(temp.getMonth().toString().length===1){
+                    date+="0"+temp.getMonth()+"-";
+                }
+                else{
+                    date+=temp.getMonth()+"-";
+                }
+                if(temp.getDay().toString().length===1){
+                    date+="0"+temp.getDay();
+                }
+                else{
+                    date+=temp.getDay();
+                }
+                console.log(date);
+                this.model.dateStart=date;
+                temp=new Date(response.deadline);
+                date=temp.getFullYear()+"-";
+                if(temp.getMonth().toString().length===1){
+                    date+="0"+temp.getMonth()+"-";
+                }
+                else{
+                    date+=temp.getMonth()+"-";
+                }
+                if(temp.getDay().toString().length===1){
+                    date+="0"+temp.getDay();
+                }
+                else{
+                    date+=temp.getDay();
+                }
+                this.model.deadline=date;
             }
         )
     }

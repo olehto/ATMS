@@ -83,8 +83,37 @@ export class EditTaskComponent implements OnInit {
                 this.model.taskId=response.taskId;
                 this.model.title=response.title;
                 this.model.description=response.description;
-                //this.model.start=response.dateStart;
-                //this.model.finish=response.finish;
+                let temp=new Date(response.dateStart);
+                let date=temp.getFullYear()+"-";
+                if(temp.getMonth().toString().length===1){
+                    date+="0"+temp.getMonth()+"-";
+                }
+                else{
+                    date+=temp.getMonth()+"-";
+                }
+                if(temp.getDay().toString().length===1){
+                    date+="0"+temp.getDay();
+                }
+                else{
+                    date+=temp.getDay();
+                }
+                console.log(date);
+                this.model.start=date;
+                temp=new Date(response.deadline);
+                date=temp.getFullYear()+"-";
+                if(temp.getMonth().toString().length===1){
+                    date+="0"+temp.getMonth()+"-";
+                }
+                else{
+                    date+=temp.getMonth()+"-";
+                }
+                if(temp.getDay().toString().length===1){
+                    date+="0"+temp.getDay();
+                }
+                else{
+                    date+=temp.getDay();
+                }
+                this.model.finish=date;
                 this.model.duration=response.duration;
                 /*this.typeService.getById(parseInt(response.type.toLocaleString())).subscribe(
                     response=>{
@@ -98,6 +127,7 @@ export class EditTaskComponent implements OnInit {
                 this.model.priority=response.priority;
                 this.model.project="1";
                 this.model.developer=JSON.parse(localStorage.getItem('token')).developer_id;
+                console.log(this.model);
             }
         )
     }

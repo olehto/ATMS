@@ -45,9 +45,41 @@ var EditProjectComponent = (function () {
             _this.projects = response;
         });
         this.projectService.getById(this.id).subscribe(function (response) {
+            console.log(response);
             _this.model.projectId = response.projectId;
             _this.model.description = response.description;
             _this.model.title = response.title;
+            var temp = new Date(response.dateStart);
+            var date = temp.getFullYear() + "-";
+            if (temp.getMonth().toString().length === 1) {
+                date += "0" + temp.getMonth() + "-";
+            }
+            else {
+                date += temp.getMonth() + "-";
+            }
+            if (temp.getDay().toString().length === 1) {
+                date += "0" + temp.getDay();
+            }
+            else {
+                date += temp.getDay();
+            }
+            console.log(date);
+            _this.model.dateStart = date;
+            temp = new Date(response.deadline);
+            date = temp.getFullYear() + "-";
+            if (temp.getMonth().toString().length === 1) {
+                date += "0" + temp.getMonth() + "-";
+            }
+            else {
+                date += temp.getMonth() + "-";
+            }
+            if (temp.getDay().toString().length === 1) {
+                date += "0" + temp.getDay();
+            }
+            else {
+                date += temp.getDay();
+            }
+            _this.model.deadline = date;
         });
     };
     EditProjectComponent.prototype.getDeveloper = function (id) {
