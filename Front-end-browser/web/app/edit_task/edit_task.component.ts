@@ -115,12 +115,12 @@ export class EditTaskComponent implements OnInit {
                 this.model.finish=date;
                 this.model.duration=response.duration;
                 /*this.typeService.getById(parseInt(response.type.toLocaleString())).subscribe(
-                    response=>{
-                        console.log(response);
-                        this.model.type=response;
-                        console.log(this.model);
-                    }
-                )*/
+                 response=>{
+                 console.log(response);
+                 this.model.type=response;
+                 console.log(this.model);
+                 }
+                 )*/
                 this.model.type=response.type;
                 this.model.status=response.status;
                 this.model.priority=response.priority;
@@ -133,7 +133,9 @@ export class EditTaskComponent implements OnInit {
 
     update(){
         console.log(this.model);
-        this.taskService.update(this.model,parseInt(this.model.project.toLocaleString()),this.model.start,this.model.finish).subscribe(
+        this.taskService.update(this.model,parseInt(this.model.project.toLocaleString()),
+            new Date(this.model.start).getTime(),
+            new Date(this.model.finish).getTime()).subscribe(
             response=>{
                 console.log(response);
                 this.router.navigate(['/tasks_list']);

@@ -93,12 +93,12 @@ var EditTaskComponent = (function () {
             _this.model.finish = date;
             _this.model.duration = response.duration;
             /*this.typeService.getById(parseInt(response.type.toLocaleString())).subscribe(
-                response=>{
-                    console.log(response);
-                    this.model.type=response;
-                    console.log(this.model);
-                }
-            )*/
+             response=>{
+             console.log(response);
+             this.model.type=response;
+             console.log(this.model);
+             }
+             )*/
             _this.model.type = response.type;
             _this.model.status = response.status;
             _this.model.priority = response.priority;
@@ -110,7 +110,7 @@ var EditTaskComponent = (function () {
     EditTaskComponent.prototype.update = function () {
         var _this = this;
         console.log(this.model);
-        this.taskService.update(this.model, parseInt(this.model.project.toLocaleString()), this.model.start, this.model.finish).subscribe(function (response) {
+        this.taskService.update(this.model, parseInt(this.model.project.toLocaleString()), new Date(this.model.start).getTime(), new Date(this.model.finish).getTime()).subscribe(function (response) {
             console.log(response);
             _this.router.navigate(['/tasks_list']);
         });

@@ -1,6 +1,3 @@
-/**
- * Created by EvSpirit on 24.03.2017.
- */
 import { Injectable } from '@angular/core';
 import {Http, Headers, RequestOptions, Response, URLSearchParams} from '@angular/http';
 
@@ -28,7 +25,7 @@ export class TaskService {
         headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.get(this.httpAdress+'/api/task',{headers: headers}).map((response: Response) => response.json());
     }
-    create(task: Task,project:number,start:string,finish:string) {
+    create(task: Task,project:number,start:number,finish:number) {
         //const body = JSON.stringify(task);
         //console.log(body);
         let headers = new Headers();
@@ -37,8 +34,8 @@ export class TaskService {
         let params: URLSearchParams = new URLSearchParams();
         params.set('title', task.title );
         params.set('description', task.description );
-        params.set('dateStart',start);
-        params.set('deadline',finish);
+        params.set('dateStart',start+"");
+        params.set('deadline',finish+"");
         params.set('duration',task.duration.toLocaleString());
         params.set('version',"1.0.0");
         params.set('type',task.type.toLocaleString());
@@ -50,21 +47,21 @@ export class TaskService {
         return this.http.post(this.httpAdress+'/api/task', params.toString(), { headers: headers }).map((response: Response) => response.json());
     }
 
-    update(task: Task,project:number,start:string,finish:string) {
+    update(task: Task,project:number,start:number,finish:number) {
         /*const body = JSON.stringify(task);
-        console.log(body);
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
-        return this.http.post(this.httpAdress+'/api/task/' + task.taskId, body,{headers: headers}).map((response: Response) => response.json());*/
+         console.log(body);
+         let headers = new Headers();
+         headers.append('Content-Type', 'application/x-www-form-urlencoded');
+         headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
+         return this.http.post(this.httpAdress+'/api/task/' + task.taskId, body,{headers: headers}).map((response: Response) => response.json());*/
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
         let params: URLSearchParams = new URLSearchParams();
         params.set('title', task.title );
         params.set('description', task.description );
-        params.set('dateStart',start);
-        params.set('deadline',finish);
+        params.set('dateStart',start+"");
+        params.set('deadline',finish+"");
         params.set('duration',task.duration.toLocaleString());
         params.set('version',"1.0.0");
         params.set('type',task.type.toLocaleString());

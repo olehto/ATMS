@@ -9,9 +9,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * Created by EvSpirit on 24.03.2017.
- */
 var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
 var TaskService = (function () {
@@ -39,8 +36,8 @@ var TaskService = (function () {
         var params = new http_1.URLSearchParams();
         params.set('title', task.title);
         params.set('description', task.description);
-        params.set('dateStart', start);
-        params.set('deadline', finish);
+        params.set('dateStart', start + "");
+        params.set('deadline', finish + "");
         params.set('duration', task.duration.toLocaleString());
         params.set('version', "1.0.0");
         params.set('type', task.type.toLocaleString());
@@ -53,19 +50,19 @@ var TaskService = (function () {
     };
     TaskService.prototype.update = function (task, project, start, finish) {
         /*const body = JSON.stringify(task);
-        console.log(body);
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
-        return this.http.post(this.httpAdress+'/api/task/' + task.taskId, body,{headers: headers}).map((response: Response) => response.json());*/
+         console.log(body);
+         let headers = new Headers();
+         headers.append('Content-Type', 'application/x-www-form-urlencoded');
+         headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
+         return this.http.post(this.httpAdress+'/api/task/' + task.taskId, body,{headers: headers}).map((response: Response) => response.json());*/
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
         var params = new http_1.URLSearchParams();
         params.set('title', task.title);
         params.set('description', task.description);
-        params.set('dateStart', start);
-        params.set('deadline', finish);
+        params.set('dateStart', start + "");
+        params.set('deadline', finish + "");
         params.set('duration', task.duration.toLocaleString());
         params.set('version', "1.0.0");
         params.set('type', task.type.toLocaleString());
