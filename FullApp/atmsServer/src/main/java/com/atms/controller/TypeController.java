@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin
+/**
+ * @author Alex Kazanovskiy.
+ */
+
 @RestController
+@CrossOrigin
 public class TypeController {
 
     private final TypeService typeService;

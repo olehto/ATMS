@@ -21,6 +21,8 @@ public class Developer {
     private String telephone;
     private String nickname;
     private String password;
+    private Double loading;
+    private Double rate;
     @JsonIdentityReference(alwaysAsId = true)
     private DevType devType;
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "taskId")
@@ -31,6 +33,9 @@ public class Developer {
     private Set<Task> tasksAsReporter;
     @JsonIgnore
     private Set<Authority> authorities;
+    @JsonIgnore
+    private Set<DeveloperEffectiveness> developerEffectiveness;
+
 
     public Developer() {
     }
@@ -44,6 +49,8 @@ public class Developer {
         this.telephone = developer.getTelephone();
         this.nickname = developer.getNickname();
         this.password = developer.getPassword();
+        this.loading = developer.getLoading();
+        this.rate = developer.getRate();
         this.devType = developer.getDevType();
         this.tasksAsDeveloper = developer.getTasksAsDeveloper();
         this.authorities = developer.getAuthorities();
@@ -96,7 +103,8 @@ public class Developer {
         this.email = email;
     }
 
-    @Column(name = "telephone")
+
+    @Column(name = "telephone", nullable = false)
     public String getTelephone() {
         return telephone;
     }
@@ -123,6 +131,24 @@ public class Developer {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Column(name = "loading")
+    public Double getLoading() {
+        return loading;
+    }
+
+    public void setLoading(Double loading) {
+        this.loading = loading;
+    }
+
+    @Column(name = "rate")
+    public Double getRate() {
+        return rate;
+    }
+
+    public void setRate(Double rate) {
+        this.rate = rate;
     }
 
     @ManyToOne
@@ -164,5 +190,14 @@ public class Developer {
 
     public void setAuthorities(Set<Authority> authorities) {
         this.authorities = authorities;
+    }
+
+    @OneToMany(mappedBy = "developer")
+    public Set<DeveloperEffectiveness> getDeveloperEffectiveness() {
+        return developerEffectiveness;
+    }
+
+    public void setDeveloperEffectiveness(Set<DeveloperEffectiveness> developerEffectiveness) {
+        this.developerEffectiveness = developerEffectiveness;
     }
 }

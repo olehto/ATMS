@@ -16,10 +16,9 @@ public class Sprint {
     private int sprintId;
     private Timestamp dateStart;
     private Timestamp dateEnd;
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "projectId")
     @JsonIdentityReference(alwaysAsId = true)
     private Project project;
-
+    @JsonIdentityReference(alwaysAsId = true)
     private Set<Task> tasks;
 
     @Id
@@ -52,7 +51,7 @@ public class Sprint {
     }
 
     @ManyToOne
-    @JoinColumn(name = "project_id", referencedColumnName = "project_id", updatable = false, insertable = false)
+    @JoinColumn(name = "project_id", referencedColumnName = "project_id")
     public Project getProject() {
         return project;
     }

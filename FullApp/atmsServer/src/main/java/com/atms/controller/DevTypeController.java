@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@CrossOrigin
 @RestController
+@CrossOrigin
 public class DevTypeController {
 
     private final DevTypeService devTypeService;
@@ -29,7 +29,6 @@ public class DevTypeController {
         }
         return new ResponseEntity<>(devTypes, HttpStatus.OK);
     }
-
     @RequestMapping(value = "/api/devType/get/{devTypeId}", method = RequestMethod.GET)
     public ResponseEntity<DevType> getDevType(@PathVariable("devTypeId") String devTypeId) {
         DevType devType = devTypeService.findOne(Integer.parseInt(devTypeId));

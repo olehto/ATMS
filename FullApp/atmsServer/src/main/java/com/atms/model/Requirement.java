@@ -24,9 +24,7 @@ public class Requirement {
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "technologyId")
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Technology> technologies;
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "projectId")
-    @JsonIdentityReference(alwaysAsId = true)
-    private Set<Project> projects;
+
 
     @Id
     @GeneratedValue
@@ -82,14 +80,5 @@ public class Requirement {
 
     public void setTechnologies(Set<Technology> technologies) {
         this.technologies = technologies;
-    }
-
-    @ManyToMany(mappedBy = "requirements")
-    public Set<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(Set<Project> projects) {
-        this.projects = projects;
     }
 }

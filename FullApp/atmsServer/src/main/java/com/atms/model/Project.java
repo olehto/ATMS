@@ -20,9 +20,7 @@ public class Project {
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "sprintId")
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Sprint> sprints;
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "requirementId")
-    @JsonIdentityReference(alwaysAsId = true)
-    private Set<Requirement> requirements;
+
 
     @Id
     @GeneratedValue
@@ -80,13 +78,5 @@ public class Project {
         this.sprints = sprints;
     }
 
-    @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "requirement_id"), inverseJoinColumns = @JoinColumn(name = "project_id"))
-    public Set<Requirement> getRequirements() {
-        return requirements;
-    }
 
-    public void setRequirements(Set<Requirement> requirements) {
-        this.requirements = requirements;
-    }
 }

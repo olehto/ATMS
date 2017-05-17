@@ -53,7 +53,6 @@ var NewProjectComponent = (function () {
 NewProjectComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        styleUrls: ['new_project.component.css'],
         selector: 'new-project',
         templateUrl: 'new_project.component.html'
     }),

@@ -98,7 +98,6 @@ TasksComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'tasks',
-        styleUrls: ['tasks.component.css'],
         templateUrl: 'tasks.component.html'
     }),
     __metadata("design:paramtypes", [task_service_1.TaskService,

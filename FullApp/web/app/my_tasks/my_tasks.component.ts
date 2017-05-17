@@ -16,7 +16,6 @@ import {Status} from "../_models/status";
 @Component ({
     moduleId: module.id,
     selector: 'tasks-list',
-    styleUrls:['my_tasks.component.css'],
     templateUrl: 'my_tasks.component.html',
 })
 

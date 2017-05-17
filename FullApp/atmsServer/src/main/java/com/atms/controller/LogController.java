@@ -9,18 +9,16 @@ import com.atms.storage.StorageException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.util.Set;
 
 /**
  * @author Alex Kazanovskiy.
  */
+@RestController
+@CrossOrigin
 public class LogController {
     private final LogService logService;
     private final TaskService taskService;
@@ -48,9 +46,11 @@ public class LogController {
 
     @RequestMapping(value = "/api/log/task/{taskId}", method = RequestMethod.POST)
     public ResponseEntity<Log> add(@RequestParam("file") MultipartFile file,
-                                   @Valid Log log) {
-        Task task;
-        if ((task = taskService.findOne((log.getTask().getTaskId()))) == null)
+                                   @RequestParam("applications") String applications,
+                                   @PathVariable("taskId") Integer taskId) {
+        Log log = new Log();
+        Task task = taskService.findOne(taskId);
+        if (task == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         String link;
         try {
@@ -58,6 +58,7 @@ public class LogController {
         } catch (StorageException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        log.setApplications(applications);
         log.setLink(link);
         return new ResponseEntity<>(logService.save(log), HttpStatus.OK);
     }

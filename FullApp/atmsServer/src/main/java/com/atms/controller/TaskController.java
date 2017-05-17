@@ -2,23 +2,26 @@ package com.atms.controller;
 
 import com.atms.model.*;
 import com.atms.service.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-@CrossOrigin
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.http.HttpStatus.OK;
+
+/**
+ * @author Alex Kazanovskiy.
+ */
+
 @RestController
+@CrossOrigin
 public class TaskController {
 
     private final TaskService taskService;
@@ -51,7 +54,7 @@ public class TaskController {
         if (tasks == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(tasks, HttpStatus.OK);
+        return new ResponseEntity<>(tasks, OK);
     }
 
     @RequestMapping(value = "/api/task/{id}", method = RequestMethod.GET)
@@ -60,7 +63,7 @@ public class TaskController {
         if (task == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(task, HttpStatus.OK);
+        return new ResponseEntity<>(task, OK);
     }
 
     @RequestMapping(value = "/api/task/project/{projectId}", method = RequestMethod.GET)
@@ -73,11 +76,12 @@ public class TaskController {
         if (tasks == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(tasks, HttpStatus.OK);
+        return new ResponseEntity<>(tasks, OK);
     }
 
     @RequestMapping(value = "/api/task/project/{projectId}/status/{statusId}", method = RequestMethod.GET)
-    public ResponseEntity<List<Task>> getByProjectAndStatus(@PathVariable("projectId") String projectId, @PathVariable("statusId") String statusId) {
+    public ResponseEntity<List<Task>> getByProjectAndStatus(@PathVariable("projectId") String projectId,
+                                                            @PathVariable("statusId") String statusId) {
         Project project = projectService.findOne(Integer.parseInt(projectId));
         if (project == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -90,9 +94,8 @@ public class TaskController {
         if (tasks == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(tasks, HttpStatus.OK);
+        return new ResponseEntity<>(tasks, OK);
     }
-
     @RequestMapping(value = "/api/task/status/{statusId}", method = RequestMethod.GET)
     public ResponseEntity<List<Task>> getByStatus(@PathVariable("statusId") String statusId) {
         Status status = statusService.findOne(Integer.parseInt(statusId));
@@ -121,9 +124,8 @@ public class TaskController {
         if (tasks == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(tasks, HttpStatus.OK);
+        return new ResponseEntity<>(tasks, OK);
     }
-
     @RequestMapping(value = "/api/task/priority/{priorityId}", method = RequestMethod.GET)
     public ResponseEntity<List<Task>> getByPriority(@PathVariable("priorityId") String priorityId) {
         Priority priority = priorityService.findOne(Integer.parseInt(priorityId));
@@ -188,17 +190,17 @@ public class TaskController {
     @RequestMapping(value = "/api/task/{taskId}", method = RequestMethod.POST)
     public ResponseEntity<Task> update(@PathVariable("taskId") String taskId,
                                        @RequestParam("title") String title,
-                                    @RequestParam("description") String description,
+                                       @RequestParam("description") String description,
                                        @RequestParam("dateStart") Long dateStart,
                                        @RequestParam("deadline") Long deadline,
-                                    @RequestParam("version") String version,
-                                    @RequestParam("priority") Integer priorityId,
-                                    @RequestParam("type") Integer typeId,
-                                    @RequestParam("status") Integer statusId,
-                                    @RequestParam("duration") Time duration,
-                                    @RequestParam("developer") Integer developerId,
-                                    @RequestParam("reporter") Integer reporterId,
-                                    @RequestParam("project") Integer projectId){
+                                       @RequestParam("version") String version,
+                                       @RequestParam("priority") Integer priorityId,
+                                       @RequestParam("type") Integer typeId,
+                                       @RequestParam("status") Integer statusId,
+                                       @RequestParam("duration") Time duration,
+                                       @RequestParam("developer") Integer developerId,
+                                       @RequestParam("reporter") Integer reporterId,
+                                       @RequestParam("project") Integer projectId){
         Task task = taskService.findOne(Integer.parseInt(taskId));
         task.setTitle(title);
         task.setDescription(description);
@@ -219,38 +221,6 @@ public class TaskController {
         return new ResponseEntity<>(taskService.update(Integer.parseInt(taskId),task), HttpStatus.OK);
     }
 
-    /*@RequestMapping(value = "/api/task/", method = RequestMethod.POST)
-    public ResponseEntity<Task> add(@RequestBody String body) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            Task task = (Task) mapper.readValue(body, Task.class);
-            //task.setDeveloper(developerService.findOne(1));
-            task.setSubtasks(new HashSet<Task>());
-            task.setDocuments(new HashSet<Document>());
-            task.setLogs(new HashSet<Log>());
-            task = taskService.save(task);
-            return new ResponseEntity<>(task, HttpStatus.OK);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @RequestMapping(value = "/api/task/{taskId}", method = RequestMethod.POST)
-    public ResponseEntity<Task> update(@RequestBody String body, @PathVariable("taskId") String taskId) {
-        try {
-            ObjectMapper mapper = new ObjectMapper();
-            Task task = (Task) mapper.readValue(body, Task.class);
-            task = taskService.update(Integer.parseInt(taskId), task);
-            if (task == null) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-            return new ResponseEntity<>(task, HttpStatus.OK);
-        } catch (Exception ex) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-    }
-*/
     @RequestMapping(value = "/api/task/epic/{taskId}", method = RequestMethod.GET)
     public ResponseEntity<List<Task>> getByParentTask(@PathVariable("taskId") String taskId) {
         Task task = taskService.findOne(Integer.parseInt(taskId));
@@ -263,7 +233,6 @@ public class TaskController {
         }
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
-
     @RequestMapping(value = "/api/task/similar/{taskId}", method = RequestMethod.GET)
     public ResponseEntity<Map<Integer, Integer>> getSimilar(@PathVariable("taskId") String taskId) {
         Task task;
@@ -273,10 +242,30 @@ public class TaskController {
         if (similar.size() == 0) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(similar, HttpStatus.OK);
+        return new ResponseEntity<>(similar, OK);
     }
 
+    @RequestMapping(value = "/api/task/search/start", method = RequestMethod.POST)
+    public ResponseEntity<List<Task>> getStartTimeGreater(@RequestParam("start") Long start,
+                                                          @RequestParam("developer") String dev){
+        Developer developer = developerService.findOne(Integer.parseInt(dev));
+        if (developer == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        List<Task> tasks = taskService.findByStartTimeGreaterAndDeveloper(new Timestamp(start),developer);
+        if (tasks.size() == 0) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(tasks, OK);
+    }
 
+    @RequestMapping(value = "/api/task/search/title", method = RequestMethod.GET)
+    public ResponseEntity<List<Task>> getByTitleContaining(@RequestParam("title") String title) {
+        List<Task> tasks = taskService.findByTitleContaining(title);
+        if (tasks.size() == 0)
+            return new ResponseEntity<>(NO_CONTENT);
+        return new ResponseEntity<>(tasks, OK);
+    }
     @RequestMapping(value = "/api/task/developer/{developerId}", method = RequestMethod.GET)
     public ResponseEntity<List<Task>> getByDeveloper(@PathVariable("developerId") String developerId) {
         Developer developer = developerService.findOne(Integer.parseInt(developerId));
@@ -289,18 +278,9 @@ public class TaskController {
         }
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
-
-        @RequestMapping(value = "/api/task/search/title", method = RequestMethod.POST)
-     public ResponseEntity<List<Task>> getByTitleContaining(@RequestParam("title") String title) {
-                List<Task> tasks = taskService.findByTitleContaining(title);
-                if (tasks.size() == 0)
-                        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-                return new ResponseEntity<>(tasks, HttpStatus.OK);
-           }
-
     @RequestMapping(value = "/api/task/take", method = RequestMethod.POST)
     public ResponseEntity<Task> getByDeveloper(@RequestParam("developerId") String devId,
-                                                     @RequestParam("taskId") String taskId) {
+                                               @RequestParam("taskId") String taskId) {
         Developer developer = developerService.findOne(Integer.parseInt(devId));
         Task task=taskService.findOne(Integer.parseInt(taskId));
         if (developer == null||task==null) {

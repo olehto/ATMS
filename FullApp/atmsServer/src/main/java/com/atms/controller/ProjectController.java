@@ -14,11 +14,11 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * Created by alex on 3/17/2017.
+ * @author Alex Kazanovskiy.
  */
 
-@CrossOrigin
 @RestController
+@CrossOrigin
 public class ProjectController {
 
     private final ProjectService projectService;
@@ -73,7 +73,6 @@ public class ProjectController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
     @RequestMapping(value = "/api/project/{projectId}", method = RequestMethod.PUT)
     public ResponseEntity<Project> update(@RequestBody String body, @PathVariable("projectId") String projectId) {
         Project oldProject = projectService.findOne(Integer.parseInt(projectId));

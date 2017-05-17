@@ -54,13 +54,11 @@
             </nav>
         </div>
     </div>
+</div>
     <div class="container wrapper">
-        <div class="row">
-            <div class="col-md-12 ">
-                <div class="radius">
-                    <div class="border2">
-                        <div class="col-md-2">
-                            <h1 id="Tasks-id">Tasks</h1>
+        <div class="row content">
+                        <div class="col-md-3">
+                            <h1 class="tasks">{{task.title}}</h1>
                             <div class="tasks-p">
                                 <p><span class="select"> Priority: </span>{{task.priority.priorityValue}}</p>
                                 <p><span class="select"> Version:</span> {{task.version}}</p>
@@ -70,40 +68,22 @@
                                 <p><span class="select"> Deadline:</span> {{task.deadline |date}}</p>
                                 <p><span class="select"> Duration:</span>{{task.duration}}</p>
                                 </div>
-                        </div>
 
-                        <div class="col-md-10">
+                        </div>
+                        <div class="col-md-9">
                             <p class ="description">{{task.description}}</p>
                         </div>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
 
-                    </div>
-                    <div class="btn-projects">
-                    <button class="btn btn-success" (click)="inputIdDev(id)">Take</button>
-                    <button class="btn btn-success">Change</button>
-                    <button class="btn btn-success">Appoint</button>
-                    </div>
-                </div>
-            </div>
         </div>
+        <ul class="buttons">
+            <li><a class="more">Appoint</a></li>
+            <li><a [routerLink]="['/edit_task']" class="more">Change</a></li>
+            <li><a [routerLink]="['/my_tasks']" class="more" (click)="inputIdDev(id)">Take</a></li>
+        </ul>
     </div>
-    <div class="row footer">
+
+    <div class="container-fluid footer">
+    <div class="row">
         <div class="col-md-4 ">
             <img src="resources/images/footer.png" alt="">
         </div>

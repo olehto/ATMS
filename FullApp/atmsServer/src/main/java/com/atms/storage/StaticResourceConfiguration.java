@@ -17,7 +17,7 @@ public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         super.addResourceHandlers(registry);
-        registry.addResourceHandler("/task/document/**").addResourceLocations(staticDirectory);
+        registry.addResourceHandler("/api/task/document/**").addResourceLocations(staticDirectory);
     }
 
 }

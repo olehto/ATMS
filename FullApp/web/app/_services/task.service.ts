@@ -1,6 +1,3 @@
-/**
- * Created by EvSpirit on 24.03.2017.
- */
 import { Injectable } from '@angular/core';
 import {Http, Headers, RequestOptions, Response, URLSearchParams} from '@angular/http';
 
@@ -52,11 +49,11 @@ export class TaskService {
 
     update(task: Task,project:number,start:number,finish:number) {
         /*const body = JSON.stringify(task);
-        console.log(body);
-        let headers = new Headers();
-        headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
-        return this.http.post(this.httpAdress+'/api/task/' + task.taskId, body,{headers: headers}).map((response: Response) => response.json());*/
+         console.log(body);
+         let headers = new Headers();
+         headers.append('Content-Type', 'application/x-www-form-urlencoded');
+         headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
+         return this.http.post(this.httpAdress+'/api/task/' + task.taskId, body,{headers: headers}).map((response: Response) => response.json());*/
         let headers = new Headers();
         headers.append('Content-Type', 'application/x-www-form-urlencoded');
         headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
@@ -137,6 +134,15 @@ export class TaskService {
         params.set('taskId',taskId);
         return this.http.post(this.httpAdress + '/api/task/take',params.toString(), {headers: headers}).map((response: Response) => response.json());
 
+    }
+    getByDeveloperAndStart(developer:number,start:number){
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('start',start+"");
+        params.set('developer',developer+"");
+        return this.http.post(this.httpAdress+'/api/task/search/start', params.toString(), { headers: headers }).map((response: Response) => response.json());
     }
 
 }

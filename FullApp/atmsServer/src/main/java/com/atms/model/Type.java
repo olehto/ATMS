@@ -1,6 +1,7 @@
 package com.atms.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -13,8 +14,10 @@ import java.util.Set;
 public class Type {
     private Integer typeId;
     private String typeValue;
-
     @JsonIgnore
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "taskId")
+    @JsonIdentityReference(alwaysAsId = true)
+
     private Set<Task> tasks;
 
     public Type() {
@@ -43,7 +46,6 @@ public class Type {
     public void setTypeValue(String typeValue) {
         this.typeValue = typeValue;
     }
-
 
     @OneToMany(mappedBy = "type")
     public Set<Task> getTasks() {

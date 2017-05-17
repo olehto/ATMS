@@ -36,6 +36,7 @@ var my_projects_component_1 = require("./my_projects/my_projects.component");
 var edit_task_component_1 = require("./edit_task/edit_task.component");
 var edit_project_component_1 = require("./edit_project/edit_project.component");
 var sprint_service_1 = require("./_services/sprint.service");
+var new_sprint_component_1 = require("./new_sprint/new_sprint.component");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -69,7 +70,8 @@ AppModule = __decorate([
             my_tasks_component_1.MyTasksComponent,
             my_projects_component_1.MyProjectsComponent,
             edit_task_component_1.EditTaskComponent,
-            edit_project_component_1.EditProjectComponent
+            edit_project_component_1.EditProjectComponent,
+            new_sprint_component_1.NewSprintComponent
         ],
         providers: [
             index_1.AuthGuard,

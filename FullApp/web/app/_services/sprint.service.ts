@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 
 import { Type } from '../_models/index';
+import {Sprint} from "../_models/sprint";
 
 @Injectable()
 export class SprintService {
@@ -23,5 +24,21 @@ export class SprintService {
         let headers = new Headers();
         headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.get(this.httpAdress+'/api/sprint/' + id,{headers: headers}).map((response: Response) => response.json());
+    }
+
+    createSprint(sprint:Sprint){
+        const body = JSON.stringify(sprint);
+        console.log(body);
+        let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+        headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
+        return this.http.post(this.httpAdress+'/api/sprint',body, { headers: headers }).map((response: Response) => response.json());
+    }
+
+    updateSprint(sprint:Sprint){
+        const body = JSON.stringify(sprint);
+        console.log(body);
+        let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+        headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
+        return this.http.post(this.httpAdress+'/api/sprint',body, { headers: headers }).map((response: Response) => response.json());
     }
 }

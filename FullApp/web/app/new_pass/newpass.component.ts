@@ -9,7 +9,6 @@ import {AlertService} from "../_services/alert.service";
 
 @Component({
     moduleId: module.id,
-    styleUrls: ['newpass.component.css'],
     selector: 'newpass',
     templateUrl: 'newpass.component.html'
 })

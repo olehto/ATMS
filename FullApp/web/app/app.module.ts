@@ -30,6 +30,7 @@ import {MyProjectsComponent} from "./my_projects/my_projects.component";
 import {EditTaskComponent} from "./edit_task/edit_task.component";
 import {EditProjectComponent} from "./edit_project/edit_project.component";
 import {SprintService} from "./_services/sprint.service";
+import {NewSprintComponent} from "./new_sprint/new_sprint.component";
 
 @NgModule({
     imports: [
@@ -58,7 +59,8 @@ import {SprintService} from "./_services/sprint.service";
         MyTasksComponent,
         MyProjectsComponent,
         EditTaskComponent,
-        EditProjectComponent
+        EditProjectComponent,
+        NewSprintComponent
     ],
     providers: [
         AuthGuard,

@@ -93,12 +93,12 @@ var EditTaskComponent = (function () {
             _this.model.finish = date;
             _this.model.duration = response.duration;
             /*this.typeService.getById(parseInt(response.type.toLocaleString())).subscribe(
-                response=>{
-                    console.log(response);
-                    this.model.type=response;
-                    console.log(this.model);
-                }
-            )*/
+             response=>{
+             console.log(response);
+             this.model.type=response;
+             console.log(this.model);
+             }
+             )*/
             _this.model.type = response.type;
             _this.model.status = response.status;
             _this.model.priority = response.priority;
@@ -132,7 +132,6 @@ var EditTaskComponent = (function () {
 EditTaskComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        styleUrls: ['edit_task.component.css'],
         selector: 'edit-task',
         templateUrl: 'edit_task.component.html'
     }),

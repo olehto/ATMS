@@ -76,7 +76,6 @@ var DevelopersComponent = (function () {
 DevelopersComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        styleUrls: ['developers.component.css'],
         selector: 'developers',
         templateUrl: 'developers.component.html'
     }),

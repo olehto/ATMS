@@ -37,7 +37,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth
                 .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
-
     }
 
     @Override
@@ -46,7 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .ignoring()
                 .antMatchers("/")
                 .antMatchers("/login")
-                .antMatchers("/register")
+                .antMatchers("/register/")
                 .antMatchers("/api/devType/get/*")
                 .antMatchers("/api/devType/get")
                 .antMatchers("/user/resetPassword/*")

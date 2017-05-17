@@ -52,11 +52,9 @@
             </nav>
         </div>
     </div>
+</div>
     <div class="container wrapper">
-        <div class="row">
-            <div class="col-md-12">
-                    <div class="radius">
-                    <div class="border2">
+        <div class="row content">
                         <div class="row">
                         <div class="col-md-9">
                             <div>
@@ -70,22 +68,20 @@
                                             (chartHover)="chartHovered($event)"
                                             (chartClick)="chartClicked($event)"></canvas>
                                 </div>
-                                <button (click)="randomize()">Update</button>
+                                <button (click)="loadByDate()">Update</button>
                             </div>
                         </div>
                         <div class="col-md-3" style="margin-bottom: 10px">
-                            <label>Period</label>
-                            <input type="date" class="form-control" name="period"/>
+                            <label>Period from:</label>
+                            <input type="date" class="form-control" name="start" [(ngModel)]="model.start"/>
                             <button class="btn btn-success">Period</button>
                             <button class="btn btn-success disabled">Keywords</button>
                             <button class="btn btn-success disabled">Efficiency</button>
                             </div>
                     </div>
                 </div>
-                </div>
-            </div>
-        </div>
     </div>
+<div class="container-fluid">
     <div class="row footer">
         <div class="col-md-4 ">
             <img src="resources/images/footer.png" alt="">

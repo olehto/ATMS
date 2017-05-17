@@ -50,7 +50,6 @@ var NewPasswordComponent = (function () {
 NewPasswordComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        styleUrls: ['newpass.component.css'],
         selector: 'newpass',
         templateUrl: 'newpass.component.html'
     }),

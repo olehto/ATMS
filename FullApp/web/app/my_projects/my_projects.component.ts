@@ -16,7 +16,6 @@ import {ProjectService} from "../_services/project.service";
 @Component ({
     moduleId: module.id,
     selector: 'tasks-list',
-    styleUrls:['my_projects.component.css'],
     templateUrl: 'my_projects.component.html',
 })
 

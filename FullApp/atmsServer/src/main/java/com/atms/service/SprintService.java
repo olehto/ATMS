@@ -5,9 +5,12 @@ import com.atms.model.Sprint;
 import java.util.List;
 
 /**
- * Created by alex on 3/15/2017.
+ * Interface of business layer that describe work with Sprint entity
+ *
+ * @author Alex Kazanovskiy
  */
 public interface SprintService {
+
     Sprint save(Sprint sprint);
 
     Sprint update(Sprint sprint);

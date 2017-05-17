@@ -1,6 +1,5 @@
 package com.atms.controller;
 
-import com.atms.model.DevType;
 import com.atms.model.Developer;
 import com.atms.service.DevTypeService;
 import com.atms.service.DeveloperService;
@@ -8,14 +7,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-@CrossOrigin
 @RestController
 public class LoginController {
-
 
     private final DeveloperService developerService;
     private final DevTypeService devTypeService;
@@ -27,7 +27,7 @@ public class LoginController {
     }
 
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/register/", method = RequestMethod.POST)
     public ResponseEntity<Developer> addAccount(@RequestBody String body) {
         try {
             ObjectMapper mapper = new ObjectMapper();

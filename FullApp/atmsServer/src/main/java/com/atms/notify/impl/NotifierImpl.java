@@ -11,6 +11,9 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 
+/**
+ * @author Alex Kazanovskiy.
+ */
 @Service
 public class NotifierImpl implements Notifier {
     private final MailSender mailSender;

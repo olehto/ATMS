@@ -3,11 +3,14 @@ package com.atms.service;
 import com.atms.model.Developer;
 import com.atms.model.PasswordResetToken;
 import com.atms.model.Project;
-import com.atms.model.Technology;
 
 import java.util.List;
 
-
+/**
+ * Interface of business layer that describe work with Developer entity
+ *
+ * @author Alex Kazanovskiy
+ */
 public interface DeveloperService {
 
     Developer save(Developer developer);
@@ -20,16 +23,18 @@ public interface DeveloperService {
 
     boolean delete(Developer developer);
 
+    /**
+     * @param project object of entity Project
+     * @return List of Developers
+     */
     List<Developer> findByProject(Project project);
 
-    //List<Developer> findByTechnology(Technology technology);
+    Developer findByUsername(String username);
 
-    Developer findByEmail(String mail);
+    Developer findByEmail(String email);
 
     PasswordResetToken createPasswordResetTokenForDeveloper(Developer developer, String token);
 
     boolean checkPasswordResetToken(Developer developer, String token);
-
-    Developer findByUsername(String username);
 
 }

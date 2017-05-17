@@ -11,11 +11,11 @@ import javax.validation.Valid;
 import java.util.List;
 
 /**
- * Created by alex on 3/17/2017.
+ * @author Alex Kazanovskiy.
  */
 
-@CrossOrigin
 @RestController
+@CrossOrigin
 public class RequirementController {
 
     private final RequirementService requirementService;

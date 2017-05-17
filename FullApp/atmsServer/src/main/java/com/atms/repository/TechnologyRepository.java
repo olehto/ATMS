@@ -8,10 +8,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created by alex on 3/15/2017.
+ * DAO class for interaction between application and {@link com.atms.model.Technology Technology} table in DB
+ *
+ * @author Alex Kazanovskiy
  */
 
 @Repository
 public interface TechnologyRepository extends JpaRepository<Technology, Integer> {
+
     List<Technology> findByRequirementsTasksDeveloper(Developer developer);
 }

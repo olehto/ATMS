@@ -52,16 +52,21 @@
             </nav>
         </div>
     </div>
+</div>
     <div class="container wrapper">
-        <div class="row">
+        <div class="row content">
             <div class="col-md-12 ">
-                <div class="radius">
-                    <div class="search" >
-                        <img src="resources/images/arrow.png" (click)="hidden()" alt="">
-                        <input *ngIf="condition" type="text" placeholder="Task title" [(ngModel)]="model.title"  name="titleSearch"/>
-                        <button *ngIf="condition" class="btn btn-success" (click)="search()">Search</button>
+                    <div class="widget" >
+                        <span (click)="hidden()">Search  <img src="resources/images/arrow.png"  alt=""> </span>
+                        <input *ngIf="condition" type="search" class="search" placeholder="Task title" [(ngModel)]="model.title"  name="titleSearch"/>
+                        <a *ngIf="condition" class="more" (click)="search()">Search</a>
                     </div>
-                    <div class="border2">
+                <!--<div class="">
+                    <form action="" method="get">
+                        <p>Search</p>
+                        <input type="search" class="search" placeholder="What are you looking for?">
+                    </form>
+                </div>-->
                         <div class="table-responsive">
                             <table class="table table-striped ">
                                 <thead>
@@ -83,26 +88,15 @@
                                     <td>{{task.dateStart | date}}</td>
                                     <td>{{task.status.value}}</td>
                                     <td>{{task.deadline | date}}</td>
-                                    <td><a [routerLink] = "['/edit_task']" [queryParams]="{ id: task.taskId }">Edit</a></td>
+                                    <td><a [routerLink] = "['/edit_task']">Edit</a></td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-
-
-                    </div>
-                </div>
             </div>
         </div>
     </div>
+        <div class="container-fluid">
     <div class="row footer">
         <div class="col-md-4 ">
             <img src="resources/images/footer.png" alt="">

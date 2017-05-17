@@ -21,7 +21,6 @@ import {Sprint} from "../_models/sprint";
 
 @Component({
     moduleId: module.id,
-    styleUrls: ['edit_task.component.css'],
     selector: 'edit-task',
     templateUrl: 'edit_task.component.html'
 })
@@ -116,12 +115,12 @@ export class EditTaskComponent implements OnInit {
                 this.model.finish=date;
                 this.model.duration=response.duration;
                 /*this.typeService.getById(parseInt(response.type.toLocaleString())).subscribe(
-                    response=>{
-                        console.log(response);
-                        this.model.type=response;
-                        console.log(this.model);
-                    }
-                )*/
+                 response=>{
+                 console.log(response);
+                 this.model.type=response;
+                 console.log(this.model);
+                 }
+                 )*/
                 this.model.type=response.type;
                 this.model.status=response.status;
                 this.model.priority=response.priority;

@@ -5,12 +5,16 @@ import com.atms.model.PasswordResetToken;
 import com.atms.model.Project;
 import com.atms.repository.DeveloperRepository;
 import com.atms.repository.PasswordTokenRepository;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.atms.service.DeveloperService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
+/**
+ * @author Alex Kazanovskiy.
+ */
 
 @Service
 public class DeveloperServiceImpl implements DeveloperService {
@@ -20,11 +24,10 @@ public class DeveloperServiceImpl implements DeveloperService {
     private final PasswordTokenRepository passwordTokenRepository;
 
     @Autowired
-    public DeveloperServiceImpl(DeveloperRepository developerRepository, BCryptPasswordEncoder bCryptPasswordEncoder,
-                                PasswordTokenRepository passwordTokenRepository) {
+    public DeveloperServiceImpl(DeveloperRepository developerRepository, BCryptPasswordEncoder bCryptPasswordEncoder, PasswordTokenRepository passwordTokenRepository) {
         this.developerRepository = developerRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-        this.passwordTokenRepository=passwordTokenRepository;
+        this.passwordTokenRepository = passwordTokenRepository;
     }
 
 
@@ -36,8 +39,11 @@ public class DeveloperServiceImpl implements DeveloperService {
 
     @Override
     public Developer update(Developer developer) {
-        developer.setPassword(bCryptPasswordEncoder.encode(developer.getPassword()));
-        return developerRepository.saveAndFlush(developer);
+        if (developerRepository.findOne(developer.getDeveloperId()) != null) {
+            developer.setPassword(bCryptPasswordEncoder.encode(developer.getPassword()));
+            return developerRepository.saveAndFlush(developer);
+        }
+        return null;
     }
 
     @Override
@@ -64,16 +70,14 @@ public class DeveloperServiceImpl implements DeveloperService {
         return developerRepository.findByTasksAsDeveloperSprintProject(project);
     }
 
+    @Override
+    public Developer findByUsername(String username) {
+        return developerRepository.findByNickname(username);
+    }
 
     @Override
-    public Developer findByEmail(String mail){
-        Developer developer = developerRepository.findByEmail(mail);
-        if(developer!=null){
-            return developer;
-        }
-        else{
-            return null;
-        }
+    public Developer findByEmail(String email) {
+        return developerRepository.findByEmail(email);
     }
 
     @Override
@@ -83,13 +87,8 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public boolean checkPasswordResetToken(Developer developer, String token){
-        PasswordResetToken myToken=passwordTokenRepository.findByToken(token);
+    public boolean checkPasswordResetToken(Developer developer, String token) {
+        PasswordResetToken myToken = passwordTokenRepository.findByToken(token);
         return myToken.getDeveloper().getEmail().equals(developer.getEmail());
-    }
-
-    @Override
-    public Developer findByUsername(String username) {
-        return developerRepository.findByNickname(username);
     }
 }

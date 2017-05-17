@@ -11,7 +11,6 @@ import {TaskService} from "../_services/task.service";
 import {Subscription} from "rxjs/Subscription";
 @Component({
     moduleId: module.id,
-    styleUrls: ['developers.component.css'],
     selector: 'developers',
     templateUrl: 'developers.component.html'
 })

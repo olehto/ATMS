@@ -16,7 +16,6 @@ import {UserService} from "../_services/user.service";
 @Component ({
     moduleId: module.id,
     selector: 'projects-list',
-    styleUrls:['projects_list.component.css'],
     templateUrl: 'projects_list.component.html',
 })
 

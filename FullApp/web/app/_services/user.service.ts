@@ -43,7 +43,7 @@ export class UserService {
         const body = JSON.stringify(user);
         console.log(body);
         let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-        return this.http.post(this.httpAdress+'/register',body, { headers: headers }).map((response: Response) => response.json());
+        return this.http.post(this.httpAdress+'/register/',body, { headers: headers }).map((response: Response) => response.json());
     }
 
     update(user: User) {

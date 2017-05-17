@@ -55,7 +55,6 @@ ProjectsListComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'projects-list',
-        styleUrls: ['projects_list.component.css'],
         templateUrl: 'projects_list.component.html',
     }),
     __metadata("design:paramtypes", [project_service_1.ProjectService,

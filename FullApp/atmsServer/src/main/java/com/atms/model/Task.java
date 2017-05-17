@@ -20,7 +20,6 @@ public class Task {
     private Timestamp deadline;
     private String version;
     private Time duration;
-    @JsonIdentityReference(alwaysAsId = true)
     private Task parent;
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Task> subtasks;
@@ -39,10 +38,11 @@ public class Task {
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Document> documents;
     @JsonIdentityReference(alwaysAsId = true)
+    private Set<Log> logs;
+    @JsonIdentityReference(alwaysAsId = true)
     private Requirement requirement;
     @JsonIdentityReference(alwaysAsId = true)
-    private Set<Log> logs;
-
+    private Set<TaskKeyword> keywords;
 
     @Id
     @GeneratedValue
@@ -178,6 +178,15 @@ public class Task {
         this.documents = documents;
     }
 
+    @OneToMany(mappedBy = "task")
+    public Set<Log> getLogs() {
+        return logs;
+    }
+
+    public void setLogs(Set<Log> logs) {
+        this.logs = logs;
+    }
+
     @ManyToOne
     public Task getParent() {
         return parent;
@@ -205,13 +214,12 @@ public class Task {
         this.requirement = requirement;
     }
 
-    @OneToMany(mappedBy = "task")
-    public Set<Log> getLogs() {
-        return logs;
+    @OneToMany
+    public Set<TaskKeyword> getKeywords() {
+        return keywords;
     }
 
-    public void setLogs(Set<Log> logs) {
-        this.logs = logs;
+    public void setKeywords(Set<TaskKeyword> keywords) {
+        this.keywords = keywords;
     }
-
 }

@@ -15,7 +15,6 @@ import {User} from "../_models/user";
 @Component ({
     moduleId: module.id,
     selector: 'projects',
-    styleUrls:['projects.component.css'],
     templateUrl: 'projects.component.html',
 })
 

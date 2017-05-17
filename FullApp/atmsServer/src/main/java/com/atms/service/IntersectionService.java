@@ -8,6 +8,7 @@ import java.util.Set;
  * @author Alex Kazanovskiy.
  */
 public interface IntersectionService {
+
     /**
      * Returns set of task by intersection of requirement and technology of given task and finished tasks
      */

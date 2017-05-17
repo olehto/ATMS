@@ -7,7 +7,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.oauth2.client.resource.OAuth2AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,7 +21,6 @@ import java.util.Collection;
 public class DeveloperDetailsServiceImpl implements UserDetailsService {
 
     private final DeveloperRepository developerRepository;
-
     @Autowired
     public DeveloperDetailsServiceImpl(DeveloperRepository developerService) {
         this.developerRepository = developerService;
@@ -35,6 +33,7 @@ public class DeveloperDetailsServiceImpl implements UserDetailsService {
 
         if (userFromDatabase == null)
             userFromDatabase = developerRepository.findByEmail(login);
+
 
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         for (GrantedAuthority authority : userFromDatabase.getAuthorities()) {

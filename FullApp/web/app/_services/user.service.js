@@ -46,7 +46,7 @@ var UserService = (function () {
         var body = JSON.stringify(user);
         console.log(body);
         var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-        return this.http.post(this.httpAdress + '/register', body, { headers: headers }).map(function (response) { return response.json(); });
+        return this.http.post(this.httpAdress + '/register/', body, { headers: headers }).map(function (response) { return response.json(); });
     };
     UserService.prototype.update = function (user) {
         var headers = new http_1.Headers();

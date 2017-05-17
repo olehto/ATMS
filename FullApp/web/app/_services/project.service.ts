@@ -52,13 +52,5 @@ export class ProjectService {
         headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.delete(this.httpAdress+'/api/project/' + id,{headers: headers}).map((response: Response) => response.statusText/*response.json()*/);
     }
-    createSprint(sprint:Sprint){
-        const body = JSON.stringify(sprint);
-        console.log(body);
-        let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-        headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
-        return this.http.post(this.httpAdress+'/api/sprint',body, { headers: headers }).map((response: Response) => response.json());
 
-
-    }
 }

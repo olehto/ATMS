@@ -18,11 +18,13 @@ var task_1 = require("../_models/task");
 var task_service_1 = require("../_services/task.service");
 var user_service_1 = require("../_services/user.service");
 var project_service_1 = require("../_services/project.service");
+var sprint_service_1 = require("../_services/sprint.service");
 var DashboardComponent = (function () {
-    function DashboardComponent(taskService, userService, projectService, route, router) {
+    function DashboardComponent(taskService, userService, projectService, sprintService, route, router) {
         this.taskService = taskService;
         this.userService = userService;
         this.projectService = projectService;
+        this.sprintService = sprintService;
         this.route = route;
         this.router = router;
         this.model = {};
@@ -56,17 +58,41 @@ var DashboardComponent = (function () {
             _this.byDevelopers = response;
             console.log(_this.byDevelopers);
             var priorities = JSON.parse(sessionStorage.getItem('priorities'));
-            for (var j = 0; j < _this.byDevelopers.length; j++) {
-                for (var i = 0; i < priorities.length; i++) {
-                    if (priorities[i].priorityId == parseInt(_this.byDevelopers[j].priority.toLocaleString())) {
-                        _this.byDevelopers[j].priority = priorities[i];
+            //let projects: Project[] = [];
+            var sprints = [];
+            _this.sprintService.getAll().subscribe(function (response) {
+                sprints = response;
+                console.log(sprints);
+                _this.projectService.getAll().subscribe(function (response) {
+                    _this.projects = response;
+                    for (var j = 0; j < sprints.length; j++) {
+                        for (var i = 0; i < _this.projects.length; i++) {
+                            if (parseInt(sprints[j].project.toLocaleString()) == _this.projects[i].projectId) {
+                                sprints[j].project = _this.projects[i];
+                            }
+                        }
                     }
-                }
-            }
+                    console.log(sprints);
+                    for (var j = 0; j < _this.byDevelopers.length; j++) {
+                        for (var i = 0; i < priorities.length; i++) {
+                            if (priorities[i].priorityId == parseInt(_this.byDevelopers[j].priority.toLocaleString())) {
+                                _this.byDevelopers[j].priority = priorities[i];
+                            }
+                        }
+                        for (var i = 0; i < sprints.length; i++) {
+                            if (_this.byDevelopers[j].sprint.toLocaleString() == sprints[i].sprintId.toLocaleString()) {
+                                _this.byDevelopers[j].sprint = sprints[i];
+                            }
+                        }
+                    }
+                    console.log(_this.byDevelopers);
+                    //console.log(projects);
+                });
+            });
         });
     };
     DashboardComponent.prototype.getTask = function (id) {
-        return this.taskService.getById(this.id);
+        return this.taskService.getById(id);
     };
     DashboardComponent.prototype.getAllTasks = function () {
         return this.taskService.getAll();
@@ -75,10 +101,10 @@ var DashboardComponent = (function () {
         return this.projectService.getAll();
     };
     DashboardComponent.prototype.getDeveloper = function (id) {
-        return this.userService.getById(this.id);
+        return this.userService.getById(id);
     };
     DashboardComponent.prototype.getAllProjectsByDeveloper = function (id) {
-        return this.projectService.getByDeveloper(this.id);
+        return this.projectService.getByDeveloper(id);
     };
     DashboardComponent.prototype.getByDeveloper = function (id) {
         return this.taskService.getByDeveloper(this.id);
@@ -89,12 +115,12 @@ DashboardComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'dashboard',
-        styleUrls: ['dashboard.component.css'],
         templateUrl: 'dashboard.component.html',
     }),
     __metadata("design:paramtypes", [task_service_1.TaskService,
         user_service_1.UserService,
         project_service_1.ProjectService,
+        sprint_service_1.SprintService,
         router_1.ActivatedRoute,
         router_1.Router])
 ], DashboardComponent);

@@ -21,7 +21,6 @@ import {Sprint} from "../_models/sprint";
 
 @Component({
     moduleId: module.id,
-    styleUrls: ['newtask.component.css'],
     selector: 'new-task',
     templateUrl: 'newtask.component.html'
 })
@@ -84,108 +83,6 @@ export class NewTaskComponent implements OnInit {
                 this.router.navigate(['/tasks_list']);
             }
         );
-        /*let task: Task = new Task();
-        task.title = this.model.title;
-        task.description = this.model.description;
-        task.dateStart = this.model.start;
-        task.deadline = this.model.finish;
-        task.version = "1.0.0";
-        task.duration = this.model.duration;*/
-
-        /*this.taskService.create(task).subscribe(
-            response=>{
-                console.log(response);
-                let temp=response;
-                this.typeService.getById(parseInt(this.model.type.toLocaleString())).subscribe(
-                    response => {
-                        let project: Project;
-                        temp.type = response;
-                        this.statusService.getById(parseInt(this.model.status.toLocaleString())).subscribe(
-                            response => {
-                                console.log(response);
-                                temp.status = response;
-                                this.priorityService.getById(parseInt(this.model.priority.toLocaleString())).subscribe(
-                                    response => {
-                                        console.log(response);
-                                        temp.priority = response;
-                                        this.projectService.getById(parseInt(this.model.project.toLocaleString())).subscribe(
-                                            response => {
-                                                console.log(response);
-                                                let project: Project = response;
-                                                let sprint: Sprint = new Sprint();
-                                                sprint.project = project;
-                                                sprint.dateEnd = project.dateStart;
-                                                sprint.dateStart = project.deadline;
-                                                this.projectService.createSprint(sprint).subscribe(
-                                                    response => {
-                                                        console.log(response);
-                                                        temp.sprint = response;
-                                                        this.taskService.create(temp).subscribe(
-                                                            response => {
-                                                                console.log(response);
-                                                            }
-                                                        )
-                                                    }
-                                                )
-                                            }
-                                        )
-
-                                    })
-                            })
-                    })
-            }
-        );*/
-        /*this.model.status=parseInt(this.model.status);
-        task.status = this.model.status;
-        this.model.developer=parseInt(this.model.developer);
-        task.developer=this.model.developer;
-        this.model.type=parseInt(this.model.type);
-        task.type = this.model.type;
-        this.model.priority=parseInt(this.model.priority);
-        task.priority=this.model.priority;
-        this.tempTask=task;
-        console.log(this.tempTask);*/
-        /*this.typeService.getById(parseInt(this.tempTask.type.toLocaleString())).subscribe(
-            response => {
-                let project: Project;
-                this.tempTask.type = response;
-                this.statusService.getById(parseInt(this.tempTask.status.toLocaleString())).subscribe(
-                    response => {
-                        this.tempTask.status = response;
-                        this.priorityService.getById(parseInt(this.tempTask.priority.toLocaleString())).subscribe(
-                            response => {
-                                this.tempTask.priority = response;
-                                this.userService.getById(parseInt(this.tempTask.developer.toLocaleString())).subscribe(
-                                 response => {
-                                 this.tempTask.developer = response;
-                                 this.userService.getDevType(parseInt(this.tempTask.developer.devType.toLocaleString())).subscribe(
-                                 response => {
-                                 this.tempTask.developer.devType = response;*/
-                                /*this.projectService.getById(parseInt(this.model.project.toLocaleString())).subscribe(
-                                    response => {
-                                        let project:Project = response;
-                                        let sprint: Sprint = new Sprint();
-                                        sprint.project = project;
-                                        sprint.dateEnd = project.dateStart;
-                                        sprint.dateStart = project.deadline;
-                                        this.projectService.createSprint(sprint).subscribe(
-                                            response => {
-                                                this.tempTask.sprint=response;
-                                                this.taskService.create(this.tempTask).subscribe(
-                                                    response=>{
-                                                        console.log(response);
-                                                    }
-                                                )
-                                            }
-                                        )
-                                    }
-                                )*/
-
-                                /*})
-                                 })
-                            })
-                    })
-            })*/
 
     }
 

@@ -32,10 +32,16 @@ public class OAuth2Configuration {
 
         private final CustomLogoutSuccessHandler customLogoutSuccessHandler;
 
+
+        private final AuthenticationManager authenticationManager;
+
         @Autowired
-        public ResourceServerConfiguration(CustomLogoutSuccessHandler customLogoutSuccessHandler, CustomAuthenticationEntryPoint customAuthenticationEntryPoint) {
+        public ResourceServerConfiguration(CustomLogoutSuccessHandler customLogoutSuccessHandler,
+                                           CustomAuthenticationEntryPoint customAuthenticationEntryPoint,
+                                           AuthenticationManager authenticationManager) {
             this.customLogoutSuccessHandler = customLogoutSuccessHandler;
             this.customAuthenticationEntryPoint = customAuthenticationEntryPoint;
+            this.authenticationManager = authenticationManager;
         }
 
         @Override
@@ -55,13 +61,8 @@ public class OAuth2Configuration {
                     .frameOptions().disable()
                     .and()
                     .authorizeRequests()
-                    .antMatchers("/**").authenticated()
-                    .and()
-                    .formLogin()
-                    .loginPage("/login");
-
+                    .antMatchers("/**").authenticated();
         }
-
     }
 
     @Configuration
@@ -77,7 +78,9 @@ public class OAuth2Configuration {
         private RelaxedPropertyResolver propertyResolver;
 
         @Autowired
-        public AuthorizationServerConfiguration(DataSource dataSource, @Qualifier("authenticationManagerBean") AuthenticationManager authenticationManager) {
+        public AuthorizationServerConfiguration(DataSource dataSource,
+                                                @Qualifier("authenticationManagerBean")
+                                                        AuthenticationManager authenticationManager) {
             this.dataSource = dataSource;
             this.authenticationManager = authenticationManager;
         }

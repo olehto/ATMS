@@ -14,7 +14,6 @@ import {Project} from "../_models/project";
 
 @Component({
     moduleId: module.id,
-    styleUrls: ['edit_project.component.css'],
     selector: 'edit-project',
     templateUrl: 'edit_project.component.html'
 })

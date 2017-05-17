@@ -5,7 +5,13 @@ import com.atms.model.*;
 import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * Interface of business layer that describe work with Task entity
+ *
+ * @author Alex Kazanovskiy
+ */
 public interface TaskService {
+
     Task save(Task task);
 
     Task update(Integer id, Task task);
@@ -14,11 +20,37 @@ public interface TaskService {
 
     List<Task> findAll();
 
+    /**
+     * Find all task of project with concrete priority
+     *
+     * @param project  object of Project
+     * @param priority object of Priority
+     * @return List of Task
+     */
     List<Task> findByProjectAndPriority(Project project, Priority priority);
 
+    /**
+     * Find all task of project with concrete status
+     *
+     * @param project object of Project
+     * @param status  object of Status
+     * @return List of Task
+     */
     List<Task> findByProjectAndStatus(Project project, Status status);
 
+    /**
+     * Find all task of project
+     *
+     * @param project object of Project
+     * @return List of Task
+     */
     List<Task> findByProject(Project project);
+
+    List<Task> findByStartTimeGreaterAndDeveloper(Timestamp start,Developer developer);
+
+    List<Task> findByDeadlineLess(Timestamp timestamp);
+
+    List<Task> findByTitleContaining(String title);
 
     List<Task> findByPriority(Priority priority);
 
@@ -26,9 +58,6 @@ public interface TaskService {
 
     List<Task> findByStatus(Status status);
 
-    List<Task> findByParent(Task task);
-
     List<Task> findByDeveloper(Developer developer);
-
-    List<Task> findByTitleContaining(String title);
+    List<Task> findByParent(Task task);
 }

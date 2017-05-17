@@ -7,8 +7,12 @@ import com.atms.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
+/**
+ * @author Alex Kazanovskiy.
+ */
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -25,7 +29,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public Task save(Task task) {
         if (task.getDeveloper() != null) {
-            //notifier.notifyDeveloper(task);
+            notifier.notifyDeveloper(task);
         }
         return taskRepository.saveAndFlush(task);
     }
@@ -86,6 +90,26 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public List<Task> findByStartTimeGreaterAndDeveloper(Timestamp start, Developer developer) {
+        return taskRepository.findByDateStartGreaterThanEqualAndDeveloper(start, developer);
+    }
+
+    @Override
+    public List<Task> findByDeadlineLess(Timestamp timestamp) {
+        return taskRepository.findByDeadlineIsLessThanEqual(timestamp);
+    }
+
+    @Override
+    public List<Task> findByTitleContaining(String title) {
+        return taskRepository.findByTitleContaining(title);
+    }
+
+    @Override
+    public List<Task> findByDeveloper(Developer developer) {
+        return taskRepository.findByDeveloper(developer);
+    }
+
+    @Override
     public List<Task> findByType(Type type) {
         return taskRepository.findByType(type);
     }
@@ -104,14 +128,4 @@ public class TaskServiceImpl implements TaskService {
     public List<Task> findByPriority(Priority priority) {
         return taskRepository.findByPriority(priority);
     }
-
-    @Override
-    public List<Task> findByDeveloper(Developer developer) {
-        return taskRepository.findByDeveloper(developer);
-    }
-
-    @Override
-     public List<Task> findByTitleContaining(String title) {
-                return taskRepository.findByTitleContaining(title);
-            }
 }

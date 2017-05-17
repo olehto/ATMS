@@ -16,7 +16,6 @@ import {Status} from "../_models/status";
 
 @Component({
     moduleId: module.id,
-    styleUrls: ['login.component.css'],
     selector: 'login',
     templateUrl: 'login.component.html'
 })

@@ -7,4 +7,7 @@ export class Sprint {
     dateStart:number;
     dateEnd:number;
     project:Project;
+    constructor(){
+        this.project = new Project();
+    }
 }

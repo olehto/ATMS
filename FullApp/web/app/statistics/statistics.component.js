@@ -28,12 +28,12 @@ var StatisticsComponent = (function () {
             scaleShowVerticalLines: false,
             responsive: true
         };
-        this.barChartLabels = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+        this.barChartLabels = ['2006', '2007'];
         this.barChartType = 'bar';
         this.barChartLegend = true;
         this.barChartData = [
-            { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-            { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
+            { data: [65, 59], label: 'Expected time' },
+            { data: [28, 48], label: 'Real time' }
         ];
         this.nickname = JSON.parse(localStorage.getItem('token')).nickname;
         this.task = new task_1.Task();
@@ -43,6 +43,10 @@ var StatisticsComponent = (function () {
         this.fill();
     };
     StatisticsComponent.prototype.fill = function () {
+        this.model.start = "2017-05-02";
+        console.log(this.model.start);
+        this.loadByDate();
+        console.log(this.model.start);
     };
     StatisticsComponent.prototype.getDeveloper = function (id) {
         return this.userService.getById(this.id);
@@ -54,20 +58,27 @@ var StatisticsComponent = (function () {
     StatisticsComponent.prototype.chartHovered = function (e) {
         console.log(e);
     };
-    StatisticsComponent.prototype.randomize = function () {
-        // Only Change 3 values
-        var data = [
-            Math.round(Math.random() * 100),
-            59,
-            80,
-            (Math.random() * 100),
-            56,
-            (Math.random() * 100),
-            40
-        ];
-        var clone = JSON.parse(JSON.stringify(this.barChartData));
-        clone[0].data = data;
-        this.barChartData = clone;
+    StatisticsComponent.prototype.loadByDate = function () {
+        var _this = this;
+        var tasks;
+        var first = [];
+        var second = [];
+        this.barChartLabels = [];
+        this.taskService.getByDeveloperAndStart(this.id, new Date(this.model.start).getTime()).subscribe(function (response) {
+            tasks = response;
+            console.log(tasks);
+            for (var i = 0; i < tasks.length; i++) {
+                _this.barChartLabels.push(tasks[i].title);
+                first.push((tasks[i].deadline - tasks[i].dateStart) / 3600000);
+                second.push(parseInt(tasks[i].duration + ""));
+            }
+            var clone = JSON.parse(JSON.stringify(_this.barChartData));
+            clone[0].data = first;
+            clone[1].data = second;
+            _this.barChartData = clone;
+            console.log(_this.barChartLabels);
+            console.log(_this.barChartData);
+        });
     };
     return StatisticsComponent;
 }());

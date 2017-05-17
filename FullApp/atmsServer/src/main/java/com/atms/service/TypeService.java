@@ -5,9 +5,12 @@ import com.atms.model.Type;
 import java.util.List;
 
 /**
- * Created by alex on 3/15/2017.
+ * Interface of business layer that describe work with Type entity
+ *
+ * @author Alex Kazanovskiy
  */
 public interface TypeService {
+
     Type save(Type type);
 
     Type update(Type type);

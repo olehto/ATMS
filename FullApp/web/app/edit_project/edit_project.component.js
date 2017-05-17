@@ -93,7 +93,6 @@ var EditProjectComponent = (function () {
 EditProjectComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
-        styleUrls: ['edit_project.component.css'],
         selector: 'edit-project',
         templateUrl: 'edit_project.component.html'
     }),

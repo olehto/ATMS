@@ -22,7 +22,6 @@ import {Status} from "../_models/status";
 @Component({
     moduleId: module.id,
     selector: 'tasks',
-    styleUrls: ['tasks.component.css'],
     templateUrl: 'tasks.component.html'
 })
 export class TasksComponent implements OnInit {

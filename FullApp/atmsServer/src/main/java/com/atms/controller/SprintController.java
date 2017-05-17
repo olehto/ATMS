@@ -1,6 +1,6 @@
 package com.atms.controller;
 
-import com.atms.model.Developer;
+import com.atms.model.Project;
 import com.atms.model.Sprint;
 import com.atms.service.SprintService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -46,24 +46,31 @@ public class SprintController {
     public ResponseEntity<Sprint> add(@RequestBody String body) {
         try {
             ObjectMapper mapper = new ObjectMapper();
-            Sprint sprint = (Sprint) mapper.readValue(body, Sprint.class);
-            return new ResponseEntity<>(sprintService.save(sprint), HttpStatus.OK);
+            Sprint sprint= (Sprint) mapper.readValue(body, Sprint.class);
+            sprint = sprintService.save(sprint);
+            return new ResponseEntity<>(sprint, HttpStatus.OK);
         } catch (Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @RequestMapping(value = "/api/sprint{sprintId}", method = RequestMethod.PUT)
-    public ResponseEntity<Sprint> update(@Valid Sprint sprint, @PathVariable("sprintId") String sprintId) {
+    public ResponseEntity<Sprint> update(@RequestBody String body, @PathVariable("sprintId") String sprintId) {
         Sprint oldSprint = sprintService.findOne(Integer.parseInt(sprintId));
         if (oldSprint == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        oldSprint.setDateEnd(sprint.getDateEnd());
-        oldSprint.setDateStart(sprint.getDateStart());
-        oldSprint.setProject(sprint.getProject());
-        oldSprint.setTasks(sprint.getTasks());
-        return new ResponseEntity<>(sprintService.update(sprint), HttpStatus.OK);
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            Sprint sprint= (Sprint) mapper.readValue(body, Sprint.class);
+            oldSprint.setDateEnd(sprint.getDateEnd());
+            oldSprint.setDateStart(sprint.getDateStart());
+            oldSprint.setProject(sprint.getProject());
+            oldSprint.setTasks(sprint.getTasks());
+            return new ResponseEntity<>(sprintService.update(sprint), HttpStatus.OK);
+        } catch (Exception ex) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @RequestMapping(value = "/api/sprint/{sprintId}", method = RequestMethod.DELETE)
