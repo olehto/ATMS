@@ -21,7 +21,11 @@ public interface TaskService {
 
     Task findOne(Integer id);
 
+    Task close(Task task);
+
     List<Task> findAll();
+
+    List<Task> findAll(List<Integer> taskIds);
 
     /**
      * Find all task of project with concrete priority

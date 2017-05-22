@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Map;
 
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.HttpStatus.OK;
@@ -30,16 +29,26 @@ public class TaskController {
     private final StatusService statusService;
     private final PriorityService priorityService;
     private final DescriptionSimilarity descriptionSimilarity;
+    private final RequirementService requirementService;
+    private final TypeService typeService;
+    private final SprintService sprintService;
+    private final DeveloperService developerService;
 
     @Autowired
     public TaskController(ProjectService projectService, StatusService statusService,
                           PriorityService priorityService, TaskService taskService,
-                          DescriptionSimilarity descriptionSimilarity) {
+                          DescriptionSimilarity descriptionSimilarity, RequirementService requirementService,
+                          TypeService typeService, SprintService sprintService,
+                          DeveloperService developerService) {
         this.projectService = projectService;
         this.statusService = statusService;
         this.priorityService = priorityService;
         this.taskService = taskService;
         this.descriptionSimilarity = descriptionSimilarity;
+        this.requirementService = requirementService;
+        this.typeService = typeService;
+        this.sprintService = sprintService;
+        this.developerService = developerService;
     }
 
     @RequestMapping(value = "/api/task", method = RequestMethod.GET)
@@ -109,11 +118,39 @@ public class TaskController {
         return new ResponseEntity<>(tasks, OK);
     }
 
+
     @RequestMapping(value = "/api/task", method = RequestMethod.POST)
-    public ResponseEntity<Task> add(@Valid Task task) {
-        if (taskService.findOne(task.getTaskId()) != null) {
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
-        }
+    public ResponseEntity<Task> add(@RequestParam("title") String title,
+                                    @RequestParam("description") String description,
+                                    @RequestParam("date_start") Timestamp dateStart,
+                                    @RequestParam("deadline") Timestamp deadline,
+                                    @RequestParam("version") String version,
+                                    @RequestParam("priority_id") Integer priorityId,
+                                    @RequestParam("type_id") Integer typeId,
+                                    @RequestParam("status_id") Integer statusId,
+                                    @RequestParam("assignedTime") Timestamp assignedTime,
+                                    @RequestParam("closeTime") Timestamp closeTime,
+                                    @RequestParam("sprint_id") Integer sprintId,
+                                    @RequestParam("developer_id") Integer developerId,
+                                    @RequestParam("reporter_id") Integer reporterId,
+                                    @RequestParam("requirement_id") Integer requirementId,
+                                    @RequestParam("parent_id") Integer parentId) {
+        Task task = new Task();
+        task.setTitle(title);
+        task.setDescription(description);
+        task.setDateStart(dateStart);
+        task.setDeadline(deadline);
+        task.setVersion(version);
+        task.setAssignedTime(assignedTime);
+        task.setCloseTime(closeTime);
+        task.setPriority(priorityService.findOne(priorityId));
+        task.setType(typeService.findOne(typeId));
+        task.setStatus(statusService.findOne(statusId));
+        task.setSprint(sprintService.findOne(sprintId));
+        task.setDeveloper(developerService.findOne(developerId));
+        task.setReporter(developerService.findOne(reporterId));
+        task.setRequirement(requirementService.findOne(requirementId));
+        task.setParent(taskService.findOne(parentId));
         return new ResponseEntity<>(taskService.save(task), OK);
     }
 
@@ -124,19 +161,6 @@ public class TaskController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(task, OK);
-    }
-
-
-    @RequestMapping(value = "/api/task/similar/{taskId}", method = RequestMethod.GET)
-    public ResponseEntity<Map<Integer, Integer>> getSimilar(@PathVariable("taskId") String taskId) {
-        Task task;
-        if ((task = taskService.findOne(Integer.parseInt(taskId))) == null)
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        Map<Integer, Integer> similar = descriptionSimilarity.findSimilar(task);
-        if (similar.size() == 0) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(similar, OK);
     }
 
     @RequestMapping(value = "/api/task/search/start", method = RequestMethod.GET)
@@ -157,5 +181,14 @@ public class TaskController {
         return new ResponseEntity<>(tasks, OK);
     }
 
-// TODO: 4/25/2017 search task and developer
+    @RequestMapping(value = "/api/task/close/{taskId}", method = RequestMethod.POST)
+    public ResponseEntity<Task> close(@PathVariable("taskId") String taskId, @RequestParam("closeTime") Timestamp closeTime) {
+        Task task = taskService.findOne(Integer.parseInt(taskId));
+        if (task == null)
+            return new ResponseEntity<>(NO_CONTENT);
+        task.setCloseTime(closeTime);
+        return new ResponseEntity<>(taskService.close(task), OK);
+    }
+
+
 }

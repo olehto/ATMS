@@ -21,6 +21,8 @@ public interface DeveloperService {
 
     List<Developer> findAll();
 
+    List<Developer> findAll(List<Integer> developerIds);
+
     boolean delete(Developer developer);
 
     /**

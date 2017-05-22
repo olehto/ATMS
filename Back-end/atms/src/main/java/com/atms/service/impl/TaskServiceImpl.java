@@ -1,10 +1,8 @@
 package com.atms.service.impl;
 
-import com.atms.model.Priority;
-import com.atms.model.Project;
-import com.atms.model.Status;
-import com.atms.model.Task;
+import com.atms.model.*;
 import com.atms.notify.Notifier;
+import com.atms.repository.DeveloperEffectivenessRepository;
 import com.atms.repository.TaskRepository;
 import com.atms.service.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +19,13 @@ import java.util.List;
 public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
+    private final DeveloperEffectivenessRepository developerEffectivenessRepository;
     private final Notifier notifier;
 
     @Autowired
-    public TaskServiceImpl(TaskRepository taskRepository, Notifier notifier) {
+    public TaskServiceImpl(TaskRepository taskRepository, DeveloperEffectivenessRepository developerEffectivenessRepository, Notifier notifier) {
         this.taskRepository = taskRepository;
+        this.developerEffectivenessRepository = developerEffectivenessRepository;
         this.notifier = notifier;
     }
 
@@ -55,7 +55,8 @@ public class TaskServiceImpl implements TaskService {
         oldTask.setDateStart(task.getDateStart());
         oldTask.setDeadline(task.getDeadline());
         oldTask.setVersion(task.getVersion());
-        oldTask.setDuration(task.getDuration());
+        oldTask.setAssignedTime(task.getAssignedTime());
+        oldTask.setCloseTime(oldTask.getCloseTime());
         oldTask.setParent(task.getParent());
         oldTask.setSubtasks(task.getSubtasks());
         oldTask.setPriority(task.getPriority());
@@ -73,8 +74,28 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public Task close(Task task) {
+        DeveloperEffectiveness developerEffectiveness;
+        for (TaskKeyword k : task.getKeywords()) {
+            developerEffectiveness = developerEffectivenessRepository.findByKeyword(k.getKeyword());
+            if (developerEffectiveness == null)
+                developerEffectiveness = developerEffectivenessRepository.saveAndFlush(new DeveloperEffectiveness(task.getDeveloper(), k.getKeyword(), task.getActualTime() / task.getEstimationTime()));
+            else
+                developerEffectiveness.setDeviation(developerEffectiveness.getDeviation() + task.getActualTime() / task.getEstimationTime());
+            task.getDeveloper().getDeveloperEffectiveness().
+                    add(developerEffectiveness);
+        }
+        return taskRepository.saveAndFlush(task);
+    }
+
+    @Override
     public List<Task> findAll() {
         return taskRepository.findAll();
+    }
+
+    @Override
+    public List<Task> findAll(List<Integer> taskIds) {
+        return taskRepository.findAll(taskIds);
     }
 
     @Override

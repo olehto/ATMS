@@ -14,8 +14,12 @@ import java.util.List;
 @Service
 public class TaskKeywordServiceImpl implements TaskKeywordService {
 
+    private final TaskKeywordRepository taskKeywordRepository;
+
     @Autowired
-    private TaskKeywordRepository taskKeywordRepository;
+    public TaskKeywordServiceImpl(TaskKeywordRepository taskKeywordRepository) {
+        this.taskKeywordRepository = taskKeywordRepository;
+    }
 
     @Override
     public TaskKeyword findOne(Integer taskKeywordId) {
@@ -41,7 +45,6 @@ public class TaskKeywordServiceImpl implements TaskKeywordService {
     public boolean delete(Integer taskKeywordId) {
         if (taskKeywordRepository.findOne(taskKeywordId) == null)
             return false;
-
         taskKeywordRepository.delete(taskKeywordId);
         return true;
     }

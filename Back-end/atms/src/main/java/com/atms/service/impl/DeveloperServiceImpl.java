@@ -57,6 +57,11 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
+    public List<Developer> findAll(List<Integer> developerIds) {
+        return developerRepository.findAll(developerIds);
+    }
+
+    @Override
     public boolean delete(Developer developer) {
         if (developerRepository.exists(developer.getDeveloperId())) {
             developerRepository.delete(developer);
