@@ -15,7 +15,13 @@ public class DeveloperEffectiveness {
     private Integer developerEffectivenessId;
     private Developer developer;
     private Keyword keyword;
-    private Integer deviation;
+    private Double deviation;
+
+    public DeveloperEffectiveness(Developer developer, Keyword keyword, Double deviation) {
+        this.developer = developer;
+        this.keyword = keyword;
+        this.deviation = deviation;
+    }
 
     @Id
     @GeneratedValue
@@ -49,11 +55,11 @@ public class DeveloperEffectiveness {
     }
 
     @Column
-    public Integer getDeviation() {
+    public Double getDeviation() {
         return deviation;
     }
 
-    public void setDeviation(Integer deviation) {
+    public void setDeviation(Double deviation) {
         this.deviation = deviation;
     }
 }

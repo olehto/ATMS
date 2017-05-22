@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.util.Set;
 
 @Entity
@@ -13,14 +12,10 @@ import java.util.Set;
 public class Keyword {
     private int keywordId;
     private String value;
-    private Date estimation;
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "requirementId")
-    @JsonIdentityReference(alwaysAsId = true)
-    private Set<Requirement> requirements;
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "technologyId")
     @JsonIdentityReference(alwaysAsId = true)
-    private Set<Technology> technologies;
     private Set<TaskKeyword> tasks;
+    private Set<DeveloperEffectiveness> developerEffectivenesses;
 
     @Id
     @GeneratedValue
@@ -42,34 +37,6 @@ public class Keyword {
         this.value = value;
     }
 
-    @Column
-    public Date getEstimation() {
-        return estimation;
-    }
-
-    public void setEstimation(Date estimation) {
-        this.estimation = estimation;
-    }
-
-    @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "keyword_id"), inverseJoinColumns = @JoinColumn(name = "requirement_id"))
-    public Set<Requirement> getRequirements() {
-        return requirements;
-    }
-
-    public void setRequirements(Set<Requirement> requirements) {
-        this.requirements = requirements;
-    }
-
-    @ManyToMany
-    @JoinTable(joinColumns = @JoinColumn(name = "keyword_id"), inverseJoinColumns = @JoinColumn(name = "technology_id"))
-    public Set<Technology> getTechnologies() {
-        return technologies;
-    }
-
-    public void setTechnologies(Set<Technology> technologies) {
-        this.technologies = technologies;
-    }
 
     @OneToMany
     public Set<TaskKeyword> getTasks() {
@@ -78,6 +45,15 @@ public class Keyword {
 
     public void setTasks(Set<TaskKeyword> tasks) {
         this.tasks = tasks;
+    }
+
+    @OneToMany(mappedBy = "keyword")
+    public Set<DeveloperEffectiveness> getDeveloperEffectivenesses() {
+        return developerEffectivenesses;
+    }
+
+    public void setDeveloperEffectivenesses(Set<DeveloperEffectiveness> developerEffectivenesses) {
+        this.developerEffectivenesses = developerEffectivenesses;
     }
 
     @Override

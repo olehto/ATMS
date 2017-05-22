@@ -20,9 +20,8 @@ public class Developer {
     private String email;
     private String telephone;
     private String nickname;
-    @JsonIgnore
     private String password;
-    private Double load;
+    private Double developerLoad;
     private Double rate;
     @JsonIdentityReference(alwaysAsId = true)
     private DevType devType;
@@ -37,7 +36,6 @@ public class Developer {
     @JsonIdentityReference(alwaysAsId = true)
     private Set<DeveloperEffectiveness> developerEffectiveness;
 
-
     public Developer() {
     }
 
@@ -50,7 +48,7 @@ public class Developer {
         this.telephone = developer.getTelephone();
         this.nickname = developer.getNickname();
         this.password = developer.getPassword();
-        this.load = developer.getLoad();
+        this.developerLoad = developer.getDeveloperLoad();
         this.rate = developer.getRate();
         this.devType = developer.getDevType();
         this.tasksAsDeveloper = developer.getTasksAsDeveloper();
@@ -134,13 +132,13 @@ public class Developer {
         this.password = password;
     }
 
-    @Column(name = "load")
-    public Double getLoad() {
-        return load;
+    @Column(name = "developerLoad")
+    public Double getDeveloperLoad() {
+        return developerLoad;
     }
 
-    public void setLoad(Double load) {
-        this.load = load;
+    public void setDeveloperLoad(Double developerLoad) {
+        this.developerLoad = developerLoad;
     }
 
     @Column(name = "rate")
@@ -201,4 +199,6 @@ public class Developer {
     public void setDeveloperEffectiveness(Set<DeveloperEffectiveness> developerEffectiveness) {
         this.developerEffectiveness = developerEffectiveness;
     }
+
+
 }
