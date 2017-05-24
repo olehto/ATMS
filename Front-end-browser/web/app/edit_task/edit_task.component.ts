@@ -124,7 +124,7 @@ export class EditTaskComponent implements OnInit {
                 this.model.type=response.type;
                 this.model.status=response.status;
                 this.model.priority=response.priority;
-                this.model.project="1";
+                this.model.project=response.projects.title;
                 this.model.developer=JSON.parse(localStorage.getItem('token')).developer_id;
                 console.log(this.model);
             }

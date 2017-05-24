@@ -22,7 +22,7 @@ import {UserService} from "../_services/user.service";
 export class ProjectsListComponent implements OnInit{
     model: any = {};
     task: Task;
-    projects: Task [];
+    projects: Project [];
     id: number;
     nickname:string;
     condition: boolean;

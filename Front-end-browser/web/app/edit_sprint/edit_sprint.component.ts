@@ -11,20 +11,23 @@ import {Subscription} from "rxjs/Subscription";
 import {User} from "../_models/user";
 import {Task} from "../_models/task";
 import {Project} from "../_models/project";
+import {SprintService} from "../_services/sprint.service";
+import {Sprint} from "../_models/sprint";
 
 @Component({
     moduleId: module.id,
     selector: 'edit-sprint',
-    templateUrl: 'edit_project.component.html'
+    templateUrl: 'edit_sprint.component.html'
 })
 
 export class EditSprintComponent implements OnInit {
     model: any = {};
     projects: Project[];
+    sprints: Sprint [];
     nickname:string;
     id: number;
     private querySubscription: Subscription;
-    constructor(private projectService: ProjectService,
+    constructor(private sprintService: SprintService,
                 private userService: UserService,
                 private route: ActivatedRoute,
                 private router: Router){
@@ -40,7 +43,7 @@ export class EditSprintComponent implements OnInit {
 
     }
     update(){
-        this.projectService.update(this.model).subscribe(
+        this.sprintService.updateSprint(this.model).subscribe(
             response=>{
                 console.log(response);
                 this.router.navigate(['/projects_list']);
@@ -48,17 +51,16 @@ export class EditSprintComponent implements OnInit {
         )
     }
     fill(){
-        this.getAllProjects().subscribe(
+        this.getAllSprint().subscribe(
             (response)=>{
-                this.projects=response;
+                this.sprints=response;
             }
         );
-        this.projectService.getById(this.id).subscribe(
+        this.sprintService.getById(this.id).subscribe(
             response=>{
                 console.log(response);
-                this.model.projectId=response.projectId;
-                this.model.description=response.description;
-                this.model.title=response.title;
+                this.model.sprintId=response.sprintId;
+                this.model.project=response.sprint.project.title;
                 let temp=new Date(response.dateStart);
                 let date=temp.getFullYear()+"-";
                 if(temp.getMonth().toString().length===1){
@@ -75,7 +77,7 @@ export class EditSprintComponent implements OnInit {
                 }
                 console.log(date);
                 this.model.dateStart=date;
-                temp=new Date(response.deadline);
+                temp=new Date(response.dateEnd);
                 date=temp.getFullYear()+"-";
                 if(temp.getMonth().toString().length===1){
                     date+="0"+temp.getMonth()+"-";
@@ -89,7 +91,7 @@ export class EditSprintComponent implements OnInit {
                 else{
                     date+=temp.getDay();
                 }
-                this.model.deadline=date;
+                this.model.dateEnd=date;
             }
         )
     }
@@ -97,7 +99,7 @@ export class EditSprintComponent implements OnInit {
     getDeveloper(id:number){
         return this.userService.getById(this.id);
     }
-    getAllProjects(){
-        return this.projectService.getAll();
+    getAllSprint(){
+        return this.sprintService.getAll();
     }
 }

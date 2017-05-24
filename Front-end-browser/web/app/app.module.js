@@ -37,6 +37,9 @@ var edit_task_component_1 = require("./edit_task/edit_task.component");
 var edit_project_component_1 = require("./edit_project/edit_project.component");
 var sprint_service_1 = require("./_services/sprint.service");
 var new_sprint_component_1 = require("./new_sprint/new_sprint.component");
+var edit_sprint_component_1 = require("./edit_sprint/edit_sprint.component");
+var sprint_list_component_1 = require("./sprint_list/sprint_list.component");
+var angular2_highcharts_1 = require("angular2-highcharts");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -49,7 +52,8 @@ AppModule = __decorate([
             forms_1.FormsModule,
             http_1.HttpModule,
             app_routing_1.routing,
-            ng2_charts_1.ChartsModule
+            ng2_charts_1.ChartsModule,
+            angular2_highcharts_1.ChartModule.forRoot(require('highcharts'))
         ],
         declarations: [
             app_component_1.AppComponent,
@@ -71,7 +75,9 @@ AppModule = __decorate([
             my_projects_component_1.MyProjectsComponent,
             edit_task_component_1.EditTaskComponent,
             edit_project_component_1.EditProjectComponent,
-            new_sprint_component_1.NewSprintComponent
+            new_sprint_component_1.NewSprintComponent,
+            edit_sprint_component_1.EditSprintComponent,
+            sprint_list_component_1.SprintListComponent
         ],
         providers: [
             index_1.AuthGuard,

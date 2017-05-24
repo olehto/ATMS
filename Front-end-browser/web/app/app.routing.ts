@@ -22,6 +22,8 @@ import {MyProjectsComponent} from "./my_projects/my_projects.component";
 import {EditTaskComponent} from "./edit_task/edit_task.component";
 import {EditProjectComponent} from "./edit_project/edit_project.component";
 import {NewSprintComponent} from "./new_sprint/new_sprint.component";
+import {EditSprintComponent} from "./edit_sprint/edit_sprint.component";
+import {SprintListComponent} from "./sprint_list/sprint_list.component";
 
 const appRoutes: Routes = [
     {path: 'login', component: LoginComponent},
@@ -42,6 +44,8 @@ const appRoutes: Routes = [
     {path: 'newpass', component:NewPasswordComponent},
     {path: 'restore', component:RestoreComponent},
     {path: 'new_sprint', component:NewSprintComponent},
+    {path: 'edit_sprint', component:EditSprintComponent},
+    {path: 'sprint_list', component:SprintListComponent},
     {path: '**', redirectTo: '' }
 ];
 

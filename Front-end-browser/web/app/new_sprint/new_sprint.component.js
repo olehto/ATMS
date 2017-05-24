@@ -16,8 +16,10 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var user_service_1 = require("../_services/user.service");
 var project_service_1 = require("../_services/project.service");
+var sprint_service_1 = require("../_services/sprint.service");
 var NewSprintComponent = (function () {
-    function NewSprintComponent(projectService, userService, route, router) {
+    function NewSprintComponent(sprintService, projectService, userService, route, router) {
+        this.sprintService = sprintService;
         this.projectService = projectService;
         this.userService = userService;
         this.route = route;
@@ -35,11 +37,11 @@ var NewSprintComponent = (function () {
             _this.projects = response;
         });
     };
-    NewSprintComponent.prototype.newproject = function () {
+    NewSprintComponent.prototype.newsprint = function () {
         var _this = this;
-        this.projectService.create(this.model).subscribe(function (response) {
+        this.sprintService.createSprint(this.model).subscribe(function (response) {
             console.log(response);
-            _this.router.navigate(['/projects_list']);
+            _this.router.navigate(['/sprint_list']);
         });
     };
     NewSprintComponent.prototype.getDeveloper = function (id) {
@@ -56,7 +58,8 @@ NewSprintComponent = __decorate([
         selector: 'new-sprint',
         templateUrl: 'new_sprint.component.html'
     }),
-    __metadata("design:paramtypes", [project_service_1.ProjectService,
+    __metadata("design:paramtypes", [sprint_service_1.SprintService,
+        project_service_1.ProjectService,
         user_service_1.UserService,
         router_1.ActivatedRoute,
         router_1.Router])

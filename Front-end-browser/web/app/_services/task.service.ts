@@ -9,6 +9,7 @@ import {UserService} from "./user.service";
 
 @Injectable()
 export class TaskService {
+
     httpAdress: string;
     constructor(private http: Http) {
         this.httpAdress= 'http://localhost:8080';
@@ -134,6 +135,15 @@ export class TaskService {
         params.set('taskId',taskId);
         return this.http.post(this.httpAdress + '/api/task/take',params.toString(), {headers: headers}).map((response: Response) => response.json());
 
+    }
+    getByDeveloperAndStart(developer:number,start:number){
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
+        let params: URLSearchParams = new URLSearchParams();
+        params.set('start',start+"");
+        params.set('developer',developer+"");
+        return this.http.post(this.httpAdress+'/api/task/search/start', params.toString(), { headers: headers }).map((response: Response) => response.json());
     }
 
 }

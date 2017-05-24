@@ -102,7 +102,7 @@ var EditTaskComponent = (function () {
             _this.model.type = response.type;
             _this.model.status = response.status;
             _this.model.priority = response.priority;
-            _this.model.project = "1";
+            _this.model.project = response.projects.title;
             _this.model.developer = JSON.parse(localStorage.getItem('token')).developer_id;
             console.log(_this.model);
         });

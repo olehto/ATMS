@@ -53,13 +53,6 @@ var ProjectService = (function () {
         headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.delete(this.httpAdress + '/api/project/' + id, { headers: headers }).map(function (response) { return response.statusText; } /*response.json()*/);
     };
-    ProjectService.prototype.createSprint = function (sprint) {
-        var body = JSON.stringify(sprint);
-        console.log(body);
-        var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
-        return this.http.post(this.httpAdress + '/api/sprint', body, { headers: headers }).map(function (response) { return response.json(); });
-    };
     return ProjectService;
 }());
 ProjectService = __decorate([

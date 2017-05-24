@@ -125,6 +125,15 @@ var TaskService = (function () {
         params.set('taskId', taskId);
         return this.http.post(this.httpAdress + '/api/task/take', params.toString(), { headers: headers }).map(function (response) { return response.json(); });
     };
+    TaskService.prototype.getByDeveloperAndStart = function (developer, start) {
+        var headers = new http_1.Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
+        var params = new http_1.URLSearchParams();
+        params.set('start', start + "");
+        params.set('developer', developer + "");
+        return this.http.post(this.httpAdress + '/api/task/search/start', params.toString(), { headers: headers }).map(function (response) { return response.json(); });
+    };
     return TaskService;
 }());
 TaskService = __decorate([

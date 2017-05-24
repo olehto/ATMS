@@ -29,6 +29,20 @@ var SprintService = (function () {
         headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.get(this.httpAdress + '/api/sprint/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
+    SprintService.prototype.createSprint = function (sprint) {
+        var body = JSON.stringify(sprint);
+        console.log(body);
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
+        return this.http.post(this.httpAdress + '/api/sprint', body, { headers: headers }).map(function (response) { return response.json(); });
+    };
+    SprintService.prototype.updateSprint = function (sprint) {
+        var body = JSON.stringify(sprint);
+        console.log(body);
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
+        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
+        return this.http.post(this.httpAdress + '/api/sprint', body, { headers: headers }).map(function (response) { return response.json(); });
+    };
     return SprintService;
 }());
 SprintService = __decorate([

@@ -31,6 +31,9 @@ import {EditTaskComponent} from "./edit_task/edit_task.component";
 import {EditProjectComponent} from "./edit_project/edit_project.component";
 import {SprintService} from "./_services/sprint.service";
 import {NewSprintComponent} from "./new_sprint/new_sprint.component";
+import {EditSprintComponent} from "./edit_sprint/edit_sprint.component";
+import {SprintListComponent} from "./sprint_list/sprint_list.component";
+import {ChartComponent, ChartModule} from "angular2-highcharts";
 
 @NgModule({
     imports: [
@@ -38,7 +41,8 @@ import {NewSprintComponent} from "./new_sprint/new_sprint.component";
         FormsModule,
         HttpModule,
         routing,
-        ChartsModule
+        ChartsModule,
+        ChartModule.forRoot(require('highcharts'))
     ],
     declarations: [
         AppComponent,
@@ -60,7 +64,9 @@ import {NewSprintComponent} from "./new_sprint/new_sprint.component";
         MyProjectsComponent,
         EditTaskComponent,
         EditProjectComponent,
-        NewSprintComponent
+        NewSprintComponent,
+        EditSprintComponent,
+        SprintListComponent
     ],
     providers: [
         AuthGuard,
