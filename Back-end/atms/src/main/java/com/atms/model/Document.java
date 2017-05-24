@@ -17,7 +17,7 @@ public class Document {
     @GeneratedValue
     @Column(name = "document_id")
     public int getDocumentId() {
-        return documentId;
+        return +documentId;
     }
 
     public void setDocumentId(int documentId) {

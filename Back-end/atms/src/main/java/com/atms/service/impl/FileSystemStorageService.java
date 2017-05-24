@@ -27,7 +27,7 @@ public class FileSystemStorageService implements StorageService {
     @Autowired
     public FileSystemStorageService(StorageProperties properties) {
         this.rootLocation = Paths.get(properties.getLocation());
-        extensions = new String[]{"image/jpeg", "image/pjpeg", "image/png", "image/gif", "text/plain", "application/msword",
+        extensions = new String[]{"image/jpeg", "image/bmp", "image/pjpeg", "image/png", "image/gif", "text/plain", "application/msword",
                 "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
                 "application/pdf", "application/xml"};
     }
@@ -77,7 +77,6 @@ public class FileSystemStorageService implements StorageService {
                 return resource;
             } else {
                 throw new StorageFileNotFoundException("Could not read file: " + filename);
-
             }
         } catch (MalformedURLException e) {
             throw new StorageFileNotFoundException("Could not read file: " + filename, e);

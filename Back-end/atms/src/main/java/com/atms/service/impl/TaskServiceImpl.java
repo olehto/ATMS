@@ -79,7 +79,7 @@ public class TaskServiceImpl implements TaskService {
         for (TaskKeyword k : task.getKeywords()) {
             developerEffectiveness = developerEffectivenessRepository.findByKeyword(k.getKeyword());
             if (developerEffectiveness == null)
-                developerEffectiveness = developerEffectivenessRepository.saveAndFlush(new DeveloperEffectiveness(task.getDeveloper(), k.getKeyword(), task.getActualTime() / task.getEstimationTime()));
+                developerEffectiveness = developerEffectivenessRepository.saveAndFlush(new DeveloperEffectiveness(task.getDeveloper(), k.getKeyword(), ((double) task.getActualTime() / (double) task.getEstimationTime())));
             else
                 developerEffectiveness.setDeviation(developerEffectiveness.getDeviation() + task.getActualTime() / task.getEstimationTime());
             task.getDeveloper().getDeveloperEffectiveness().

@@ -28,7 +28,7 @@ public class TaskController {
     private final ProjectService projectService;
     private final StatusService statusService;
     private final PriorityService priorityService;
-    private final DescriptionSimilarity descriptionSimilarity;
+
     private final RequirementService requirementService;
     private final TypeService typeService;
     private final SprintService sprintService;
@@ -37,14 +37,13 @@ public class TaskController {
     @Autowired
     public TaskController(ProjectService projectService, StatusService statusService,
                           PriorityService priorityService, TaskService taskService,
-                          DescriptionSimilarity descriptionSimilarity, RequirementService requirementService,
+                          RequirementService requirementService,
                           TypeService typeService, SprintService sprintService,
                           DeveloperService developerService) {
         this.projectService = projectService;
         this.statusService = statusService;
         this.priorityService = priorityService;
         this.taskService = taskService;
-        this.descriptionSimilarity = descriptionSimilarity;
         this.requirementService = requirementService;
         this.typeService = typeService;
         this.sprintService = sprintService;

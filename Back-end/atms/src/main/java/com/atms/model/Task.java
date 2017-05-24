@@ -119,13 +119,13 @@ public class Task {
         this.closeTime = closeTime;
     }
 
-
+    @Transient
     public int getEstimationTime() {
         return deadline.getNanos() - dateStart.getNanos();
     }
 
-
-    public double getActualTime() {
+    @Transient
+    public int getActualTime() {
         return closeTime.getNanos() - assignedTime.getNanos();
     }
 
@@ -243,4 +243,6 @@ public class Task {
     public void setKeywords(Set<TaskKeyword> keywords) {
         this.keywords = keywords;
     }
+
+
 }

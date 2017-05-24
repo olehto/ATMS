@@ -17,9 +17,7 @@ public class Technology {
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "requirementId")
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Requirement> requirements;
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "keywordId")
-    @JsonIdentityReference(alwaysAsId = true)
-    private Set<Keyword> keywords;
+
 
     @Id
     @GeneratedValue
@@ -60,14 +58,6 @@ public class Technology {
         this.requirements = requirements;
     }
 
-    @ManyToMany(mappedBy = "technologies", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public Set<Keyword> getKeywords() {
-        return keywords;
-    }
-
-    public void setKeywords(Set<Keyword> keywords) {
-        this.keywords = keywords;
-    }
 
     @Override
     public boolean equals(Object o) {

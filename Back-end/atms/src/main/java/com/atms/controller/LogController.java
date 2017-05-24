@@ -56,8 +56,10 @@ public class LogController {
         try {
             link = storageService.store(String.valueOf(task.getTaskId()) + "/log", file);
         } catch (StorageException e) {
+            e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        log.setTask(task);
         log.setApplications(applications);
         log.setLink(link);
         return new ResponseEntity<>(logService.save(log), HttpStatus.OK);
