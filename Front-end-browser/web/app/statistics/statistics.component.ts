@@ -24,6 +24,7 @@ export class StatisticsComponent {
     nickname:string;
     condition: boolean;
     options: Object;
+    vena: Object;
     constructor(private taskService: TaskService,
                 private userService: UserService,
                 private route: ActivatedRoute,
@@ -32,6 +33,65 @@ export class StatisticsComponent {
         this.nickname=JSON.parse(localStorage.getItem('token')).nickname;
         this.task = new Task();
         this.id=JSON.parse(localStorage.getItem('token')).developer_id;
+        this.options = {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Stacked column chart'
+            },
+            xAxis: {
+                categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Total fruit consumption'
+                },
+                stackLabels: {
+                    enabled: true,
+                    style: {
+                        fontWeight: 'bold',
+                        color: 'gray'
+                    }
+                }
+            },
+            legend: {
+                align: 'right',
+                x: -30,
+                verticalAlign: 'top',
+                y: 25,
+                floating: true,
+                backgroundColor: 'white',
+                borderColor: '#CCC',
+                borderWidth: 1,
+                shadow: false
+            },
+            tooltip: {
+                headerFormat: '<b>{point.x}</b><br/>',
+                pointFormat: '{series.name}: {point.y}<br/>Total: {point.stackTotal}'
+            },
+            plotOptions: {
+                column: {
+                    stacking: 'normal',
+                    dataLabels: {
+                        enabled: true,
+                        color: 'white'
+                    }
+                }
+            },
+            series: [{
+                name: 'John',
+                data: [5, 3, 4, 7, 2]
+            }, {
+                name: 'Jane',
+                data: [2, 2, 3, 2, 1], color: 'red'
+            }, {
+                name: 'Joe',
+                data: [3, 4, 4, 2, 5]
+            }]
+        };
+
     }
 
     ngOnInit() {
@@ -49,7 +109,7 @@ export class StatisticsComponent {
         return this.userService.getById(this.id);
     }
 
-   
+
     public barChartOptions: any = {
         scaleShowVerticalLines: false,
         responsive: true

@@ -42,7 +42,7 @@ import {ChartComponent, ChartModule} from "angular2-highcharts";
         HttpModule,
         routing,
         ChartsModule,
-        ChartModule.forRoot(require('highcharts'))
+        ChartModule.forRoot(require('highcharts/highstock'))
     ],
     declarations: [
         AppComponent,

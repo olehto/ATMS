@@ -53,7 +53,7 @@ AppModule = __decorate([
             http_1.HttpModule,
             app_routing_1.routing,
             ng2_charts_1.ChartsModule,
-            angular2_highcharts_1.ChartModule.forRoot(require('highcharts'))
+            angular2_highcharts_1.ChartModule.forRoot(require('highcharts/highstock'))
         ],
         declarations: [
             app_component_1.AppComponent,
