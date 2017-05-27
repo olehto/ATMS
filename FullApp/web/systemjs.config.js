@@ -34,6 +34,8 @@
     },
     // map tells the System loader where to look for things
     map: {
+        'angular2-highcharts': 'node_modules/angular2-highcharts',
+        'highcharts': 'node_modules/highcharts',
       // our app is within the app folder
       app: 'app',
 
@@ -64,7 +66,15 @@
       rxjs: {
         defaultExtension: 'js'
       },
-      "ngx-dropdown": { "main": "index.js", "defaultExtension": "js" }
+      "ngx-dropdown": { "main": "index.js", "defaultExtension": "js" },
+        highcharts: {
+            main: './highcharts.js',
+            defaultExtension: 'js'
+        },
+        'angular2-highcharts': {
+            main: './index.js',
+            defaultExtension: 'js'
+        }
     }
   });
 

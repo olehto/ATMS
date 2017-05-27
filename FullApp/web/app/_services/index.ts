@@ -8,3 +8,4 @@ export * from './task.service';
 export * from './alert.service';
 export * from './status.service';
 export * from './sprint.service';
+export * from './keyword.service';

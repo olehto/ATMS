@@ -55,9 +55,9 @@ public interface TaskService {
     List<Task> findByPriority(Priority priority);
 
     List<Task> findByType(Type type);
-
+    List<Task> findAll(List<Integer> taskIds);
     List<Task> findByStatus(Status status);
-
+    Task close(Task task);
     List<Task> findByDeveloper(Developer developer);
     List<Task> findByParent(Task task);
 }

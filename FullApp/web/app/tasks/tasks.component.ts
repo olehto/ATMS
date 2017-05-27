@@ -17,6 +17,7 @@ import {Token} from "../_models/token";
 import {Type} from "../_models/type";
 import {Priority} from "../_models/priority";
 import {Status} from "../_models/status";
+import {KeywordService} from "../_services/keyword.service";
 
 
 @Component({
@@ -25,6 +26,7 @@ import {Status} from "../_models/status";
     templateUrl: 'tasks.component.html'
 })
 export class TasksComponent implements OnInit {
+    selectedText: string = '';
     model: any = {};
     task: Task;
     tasks: Task[];
@@ -54,12 +56,42 @@ export class TasksComponent implements OnInit {
         this.fill();
 
     }
+   lightSelection() {
+    let userSelection = window.getSelection();
+    for(let i = 0; i < userSelection.rangeCount; i++) { // получаем местоположение выделеного текста
+        this.highlight(userSelection.getRangeAt(i));
+    }
+}
 
+
+   highlight(range) {
+    let newNode = document.createElement("span");
+    newNode.setAttribute(
+        "style",
+        "background-color: yellow; display: inline;"
+    );
+    range.surroundContents(newNode);
+}
+    showSelectedText(oField) {
+        let text = this.task.description.toString();
+
+        if (window.getSelection) {
+            text = window.getSelection().toString();
+
+
+        } else if (document.selection && document.selection.type != "Control") {
+            text = document.selection.createRange().text;
+
+        }
+        this.selectedText = text;
+        console.log(text);
+    }
     fill(){
 
         this.getTask(this.id).subscribe(
             (response) =>{
                 this.task=response;
+                this.keywords();
                 console.log(response);
                 this.getDeveloper(parseInt(this.task.developer.toLocaleString())).subscribe(
                     response=>{
@@ -90,7 +122,26 @@ export class TasksComponent implements OnInit {
         );
 
     }
+    keywords(){
+        let div2 = document.getElementById("keywords");
 
+        let arr = this.task.description.split(" ");
+        div2.innerHTML = "";
+
+        for(let i = 0; i < arr.length; i++)
+        {
+            let span = document.createElement("span");
+            span.innerText = arr[i];
+            span.addEventListener("click", function() {
+                alert(this.innerText);
+                console.log(this.innerText);
+            });
+
+            div2.appendChild(span);
+            div2.appendChild(document.createTextNode(" "));
+        }
+
+    }
     getDeveloper(id:number){
         return this.userService.getById(id);
     }

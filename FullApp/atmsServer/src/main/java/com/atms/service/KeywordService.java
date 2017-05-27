@@ -16,7 +16,7 @@ public interface KeywordService {
     Keyword update(Keyword keyword);
 
     Keyword findOne(Integer id);
-
+    Keyword findByValue(String value);
     List<Keyword> findAll();
 
     boolean delete(Integer id);

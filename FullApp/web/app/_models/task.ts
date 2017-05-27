@@ -13,7 +13,8 @@ export class Task {
     description: string;
     dateStart: number;
     deadline: number;
-    duration: number;
+    assignedTime: number;
+    closeTime: number;
     version: string;
     type: Type;
     parent: Task;

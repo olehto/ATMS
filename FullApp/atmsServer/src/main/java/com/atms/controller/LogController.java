@@ -58,6 +58,7 @@ public class LogController {
         } catch (StorageException e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+        log.setTask(task);
         log.setApplications(applications);
         log.setLink(link);
         return new ResponseEntity<>(logService.save(log), HttpStatus.OK);

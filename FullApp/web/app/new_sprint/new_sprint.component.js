@@ -37,11 +37,11 @@ var NewSprintComponent = (function () {
             _this.projects = response;
         });
     };
-    NewSprintComponent.prototype.newproject = function () {
+    NewSprintComponent.prototype.newsprint = function () {
         var _this = this;
         this.sprintService.createSprint(this.model).subscribe(function (response) {
             console.log(response);
-            _this.router.navigate(['/projects_list']);
+            _this.router.navigate(['/sprint_list']);
         });
     };
     NewSprintComponent.prototype.getDeveloper = function (id) {

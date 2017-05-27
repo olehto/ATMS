@@ -76,7 +76,7 @@
         </div>
         </div>
     <ul class="buttons">
-        <li><a [routerLink]="['/edit_project']" class="more">Change</a></li>
+        <li><a [routerLink]="['/edit_project']" [queryParams]="{ id: project.projectId }" class="more">Change</a></li>
     </ul>
 </div>
 <div class="container-fluid">

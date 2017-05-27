@@ -66,18 +66,26 @@
                                 <p><span class="select"> Type:</span> {{task.type.typeValue}}</p>
                                 <p><span class="select"> Beginning:</span> {{task.dateStart |date}}</p>
                                 <p><span class="select"> Deadline:</span> {{task.deadline |date}}</p>
-                                <p><span class="select"> Duration:</span>{{task.duration}}</p>
+                                <p><span class="select"> Duration:</span>{{task}}</p>
                                 </div>
 
                         </div>
-                        <div class="col-md-9">
-                            <p class ="description">{{task.description}}</p>
+
+            <h3>Select some text </h3>
+            <div (mouseup)="lightSelection()" (mouseup)="showSelectedText()" property="selection">
+            {{task.description}}
+            </div>
+            <br/>
+            <h3>Selected Text</h3>
+            <div>{{selectedText}}</div>
+                        <div id="keywords" class="col-md-9">
+                            {{task.description}}
                         </div>
 
         </div>
         <ul class="buttons">
             <li><a class="more">Appoint</a></li>
-            <li><a [routerLink]="['/edit_task']" class="more">Change</a></li>
+            <li><a [routerLink]="['/edit_task']" [queryParams]="{ id: task.taskId }" class="more">Change</a></li>
             <li><a [routerLink]="['/my_tasks']" class="more" (click)="inputIdDev(id)">Take</a></li>
         </ul>
     </div>

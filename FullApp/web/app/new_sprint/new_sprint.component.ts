@@ -12,6 +12,7 @@ import {User} from "../_models/user";
 import {Task} from "../_models/task";
 import {Project} from "../_models/project";
 import {SprintService} from "../_services/sprint.service";
+import {Sprint} from "../_models/sprint";
 
 @Component({
     moduleId: module.id,
@@ -22,6 +23,7 @@ import {SprintService} from "../_services/sprint.service";
 export class NewSprintComponent implements OnInit {
     model: any = {};
     projects: Project[];
+    sprints: Sprint[];
     nickname:string;
     id: number;
 
@@ -45,11 +47,11 @@ export class NewSprintComponent implements OnInit {
             }
         );
     }
-    newproject(){
+    newsprint(){
         this.sprintService.createSprint(this.model).subscribe(
             response=>{
                 console.log(response);
-                this.router.navigate(['/projects_list']);
+                this.router.navigate(['/sprint_list']);
             }
         )
     }

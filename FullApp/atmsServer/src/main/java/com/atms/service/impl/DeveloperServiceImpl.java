@@ -66,6 +66,11 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
+    public List<Developer> findAll(List<Integer> developerIds) {
+        return developerRepository.findAll(developerIds);
+    }
+
+    @Override
     public List<Developer> findByProject(Project project) {
         return developerRepository.findByTasksAsDeveloperSprintProject(project);
     }

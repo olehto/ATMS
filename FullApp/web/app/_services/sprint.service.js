@@ -30,18 +30,22 @@ var SprintService = (function () {
         return this.http.get(this.httpAdress + '/api/sprint/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
     SprintService.prototype.createSprint = function (sprint) {
+        var id = sprint.project.toLocaleString();
+        sprint.project = undefined;
         var body = JSON.stringify(sprint);
         console.log(body);
         var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
         headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
-        return this.http.post(this.httpAdress + '/api/sprint', body, { headers: headers }).map(function (response) { return response.json(); });
+        return this.http.post(this.httpAdress + '/api/sprint/add/' + id, body, { headers: headers }).map(function (response) { return response.json(); });
     };
     SprintService.prototype.updateSprint = function (sprint) {
+        var id = sprint.project.toLocaleString();
+        sprint.project = undefined;
         var body = JSON.stringify(sprint);
         console.log(body);
         var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
         headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
-        return this.http.post(this.httpAdress + '/api/sprint', body, { headers: headers }).map(function (response) { return response.json(); });
+        return this.http.put(this.httpAdress + '/api/sprint/' + sprint.sprintId + '/upd/' + id, body, { headers: headers }).map(function (response) { return response.json(); });
     };
     return SprintService;
 }());

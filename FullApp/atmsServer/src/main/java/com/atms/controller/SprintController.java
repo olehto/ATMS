@@ -2,6 +2,7 @@ package com.atms.controller;
 
 import com.atms.model.Project;
 import com.atms.model.Sprint;
+import com.atms.service.ProjectService;
 import com.atms.service.SprintService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,12 @@ import java.util.List;
 public class SprintController {
 
     private final SprintService sprintService;
+    private final ProjectService projectService;
 
     @Autowired
-    public SprintController(SprintService sprintService) {
+    public SprintController(SprintService sprintService, ProjectService projectService) {
         this.sprintService = sprintService;
+        this.projectService=projectService;
     }
 
     @RequestMapping(value = "/api/sprint", method = RequestMethod.GET)
@@ -42,11 +45,12 @@ public class SprintController {
         return new ResponseEntity<>(sprint, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/api/sprint", method = RequestMethod.POST)
-    public ResponseEntity<Sprint> add(@RequestBody String body) {
+    @RequestMapping(value = "/api/sprint/add/{projectId}", method = RequestMethod.POST)
+    public ResponseEntity<Sprint> add(@RequestBody String body,@PathVariable("projectId") String projectId) {
         try {
             ObjectMapper mapper = new ObjectMapper();
             Sprint sprint= (Sprint) mapper.readValue(body, Sprint.class);
+            sprint.setProject(projectService.findOne(Integer.parseInt(projectId)));
             sprint = sprintService.save(sprint);
             return new ResponseEntity<>(sprint, HttpStatus.OK);
         } catch (Exception ex) {
@@ -54,8 +58,9 @@ public class SprintController {
         }
     }
 
-    @RequestMapping(value = "/api/sprint{sprintId}", method = RequestMethod.PUT)
-    public ResponseEntity<Sprint> update(@RequestBody String body, @PathVariable("sprintId") String sprintId) {
+    @RequestMapping(value = "/api/sprint/{sprintId}/upd/{projectId}", method = RequestMethod.PUT)
+    public ResponseEntity<Sprint> update(@RequestBody String body, @PathVariable("sprintId") String sprintId,
+                                         @PathVariable("projectId") String projectId) {
         Sprint oldSprint = sprintService.findOne(Integer.parseInt(sprintId));
         if (oldSprint == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -65,8 +70,7 @@ public class SprintController {
             Sprint sprint= (Sprint) mapper.readValue(body, Sprint.class);
             oldSprint.setDateEnd(sprint.getDateEnd());
             oldSprint.setDateStart(sprint.getDateStart());
-            oldSprint.setProject(sprint.getProject());
-            oldSprint.setTasks(sprint.getTasks());
+            sprint.setProject(projectService.findOne(Integer.parseInt(projectId)));
             return new ResponseEntity<>(sprintService.update(sprint), HttpStatus.OK);
         } catch (Exception ex) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

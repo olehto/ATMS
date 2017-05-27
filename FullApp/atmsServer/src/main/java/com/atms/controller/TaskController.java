@@ -7,18 +7,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Map;
 
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 import static org.springframework.http.HttpStatus.OK;
 
-/**
- * @author Alex Kazanovskiy.
- */
 
 @RestController
 @CrossOrigin
@@ -28,24 +22,24 @@ public class TaskController {
     private final ProjectService projectService;
     private final StatusService statusService;
     private final PriorityService priorityService;
-    private final DescriptionSimilarity descriptionSimilarity;
     private final TypeService typeService;
     private final DeveloperService developerService;
     private final SprintService sprintService;
+    private final RequirementService requirementService;
 
     @Autowired
     public TaskController(ProjectService projectService, StatusService statusService,
-                          PriorityService priorityService, TaskService taskService,
-                          DescriptionSimilarity descriptionSimilarity, TypeService typeService,
-                          DeveloperService developerService,SprintService sprintService) {
+                          PriorityService priorityService, TaskService taskService, TypeService typeService,
+                          DeveloperService developerService,SprintService sprintService,
+                          RequirementService requirementService) {
         this.projectService = projectService;
         this.statusService = statusService;
         this.priorityService = priorityService;
         this.taskService = taskService;
         this.typeService = typeService;
-        this.descriptionSimilarity = descriptionSimilarity;
         this.developerService = developerService;
         this.sprintService=sprintService;
+        this.requirementService = requirementService;
     }
 
     @RequestMapping(value = "/api/task", method = RequestMethod.GET)
@@ -155,69 +149,71 @@ public class TaskController {
     @RequestMapping(value = "/api/task", method = RequestMethod.POST)
     public ResponseEntity<Task> add(@RequestParam("title") String title,
                                     @RequestParam("description") String description,
-                                    @RequestParam("dateStart") Long dateStart,
-                                    @RequestParam("deadline") Long deadline,
+                                    @RequestParam("date_start") Timestamp dateStart,
+                                    @RequestParam("deadline") Timestamp deadline,
                                     @RequestParam("version") String version,
-                                    @RequestParam("priority") Integer priorityId,
-                                    @RequestParam("type") Integer typeId,
-                                    @RequestParam("status") Integer statusId,
-                                    @RequestParam("duration") Time duration,
-                                    @RequestParam("developer") Integer developerId,
-                                    @RequestParam("reporter") Integer reporterId,
-                                    @RequestParam("project") Integer projectId){
+                                    @RequestParam("priority_id") Integer priorityId,
+                                    @RequestParam("type_id") Integer typeId,
+                                    @RequestParam("status_id") Integer statusId,
+                                    @RequestParam("assignedTime") Timestamp assignedTime,
+                                    @RequestParam("closeTime") Timestamp closeTime,
+                                    @RequestParam("sprint_id") Integer sprintId,
+                                    @RequestParam("developer_id") Integer developerId,
+                                    @RequestParam("reporter_id") Integer reporterId,
+                                    @RequestParam("requirement_id") Integer requirementId,
+                                    @RequestParam("parent_id") Integer parentId) {
         Task task = new Task();
         task.setTitle(title);
         task.setDescription(description);
-        task.setDateStart(new Timestamp(dateStart));
-        task.setDeadline(new Timestamp(deadline));
-        //task.setDateStart(new Timestamp(System.currentTimeMillis()));
-        //task.setDeadline(new Timestamp(System.currentTimeMillis()+100000000));
+        task.setDateStart(dateStart);
+        task.setDeadline(deadline);
         task.setVersion(version);
-        task.setDuration(duration);
+        task.setAssignedTime(assignedTime);
+        task.setCloseTime(closeTime);
         task.setPriority(priorityService.findOne(priorityId));
         task.setType(typeService.findOne(typeId));
         task.setStatus(statusService.findOne(statusId));
-        Sprint sprint=new Sprint();
-        sprint.setDateStart(task.getDateStart());
-        sprint.setDateEnd(task.getDeadline());
-        sprint.setProject(projectService.findOne(projectId));
-        task.setSprint(sprintService.save(sprint));
+        task.setSprint(sprintService.findOne(sprintId));
         task.setDeveloper(developerService.findOne(developerId));
         task.setReporter(developerService.findOne(reporterId));
-        return new ResponseEntity<>(taskService.save(task), HttpStatus.OK);
+        task.setRequirement(requirementService.findOne(requirementId));
+        task.setParent(taskService.findOne(parentId));
+        return new ResponseEntity<>(taskService.save(task), OK);
     }
 
     @RequestMapping(value = "/api/task/{taskId}", method = RequestMethod.POST)
     public ResponseEntity<Task> update(@PathVariable("taskId") String taskId,
                                        @RequestParam("title") String title,
                                        @RequestParam("description") String description,
-                                       @RequestParam("dateStart") Long dateStart,
-                                       @RequestParam("deadline") Long deadline,
+                                       @RequestParam("date_start") Timestamp dateStart,
+                                       @RequestParam("deadline") Timestamp deadline,
                                        @RequestParam("version") String version,
-                                       @RequestParam("priority") Integer priorityId,
-                                       @RequestParam("type") Integer typeId,
-                                       @RequestParam("status") Integer statusId,
-                                       @RequestParam("duration") Time duration,
-                                       @RequestParam("developer") Integer developerId,
-                                       @RequestParam("reporter") Integer reporterId,
-                                       @RequestParam("project") Integer projectId){
+                                       @RequestParam("priority_id") Integer priorityId,
+                                       @RequestParam("type_id") Integer typeId,
+                                       @RequestParam("status_id") Integer statusId,
+                                       @RequestParam("assignedTime") Timestamp assignedTime,
+                                       @RequestParam("closeTime") Timestamp closeTime,
+                                       @RequestParam("sprint_id") Integer sprintId,
+                                       @RequestParam("developer_id") Integer developerId,
+                                       @RequestParam("reporter_id") Integer reporterId,
+                                       @RequestParam("requirement_id") Integer requirementId,
+                                       @RequestParam("parent_id") Integer parentId){
         Task task = taskService.findOne(Integer.parseInt(taskId));
         task.setTitle(title);
         task.setDescription(description);
+        task.setDateStart(dateStart);
+        task.setDeadline(deadline);
         task.setVersion(version);
-        task.setDuration(duration);
-        task.setDateStart(new Timestamp(dateStart));
-        task.setDeadline(new Timestamp(deadline));
+        task.setAssignedTime(assignedTime);
+        task.setCloseTime(closeTime);
         task.setPriority(priorityService.findOne(priorityId));
         task.setType(typeService.findOne(typeId));
         task.setStatus(statusService.findOne(statusId));
-        Sprint sprint=new Sprint();
-        sprint.setDateStart(task.getDateStart());
-        sprint.setDateEnd(task.getDeadline());
-        sprint.setProject(projectService.findOne(projectId));
-        task.setSprint(sprintService.save(sprint));
+        task.setSprint(sprintService.findOne(sprintId));
         task.setDeveloper(developerService.findOne(developerId));
         task.setReporter(developerService.findOne(reporterId));
+        task.setRequirement(requirementService.findOne(requirementId));
+        task.setParent(taskService.findOne(parentId));
         return new ResponseEntity<>(taskService.update(Integer.parseInt(taskId),task), HttpStatus.OK);
     }
 
@@ -233,17 +229,7 @@ public class TaskController {
         }
         return new ResponseEntity<>(tasks, HttpStatus.OK);
     }
-    @RequestMapping(value = "/api/task/similar/{taskId}", method = RequestMethod.GET)
-    public ResponseEntity<Map<Integer, Integer>> getSimilar(@PathVariable("taskId") String taskId) {
-        Task task;
-        if ((task = taskService.findOne(Integer.parseInt(taskId))) == null)
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        Map<Integer, Integer> similar = descriptionSimilarity.findSimilar(task);
-        if (similar.size() == 0) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(similar, OK);
-    }
+
 
     @RequestMapping(value = "/api/task/search/start", method = RequestMethod.POST)
     public ResponseEntity<List<Task>> getStartTimeGreater(@RequestParam("start") Long start,
@@ -288,5 +274,14 @@ public class TaskController {
         }
         task.setDeveloper(developer);
         return new ResponseEntity<>(taskService.save(task), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/api/task/close/{taskId}", method = RequestMethod.POST)
+    public ResponseEntity<Task> close(@PathVariable("taskId") String taskId, @RequestParam("closeTime") Timestamp closeTime) {
+        Task task = taskService.findOne(Integer.parseInt(taskId));
+        if (task == null)
+            return new ResponseEntity<>(NO_CONTENT);
+        task.setCloseTime(closeTime);
+        return new ResponseEntity<>(taskService.close(task), OK);
     }
 }

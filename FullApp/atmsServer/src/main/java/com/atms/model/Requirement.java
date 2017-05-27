@@ -18,9 +18,6 @@ public class Requirement {
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "taskId")
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Task> tasks;
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "keywordId")
-    @JsonIdentityReference(alwaysAsId = true)
-    private Set<Keyword> keywords;
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "technologyId")
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Technology> technologies;
@@ -62,15 +59,6 @@ public class Requirement {
 
     public void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
-    }
-
-    @ManyToMany(mappedBy = "requirements", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public Set<Keyword> getKeywords() {
-        return keywords;
-    }
-
-    public void setKeywords(Set<Keyword> keywords) {
-        this.keywords = keywords;
     }
 
     @ManyToMany(mappedBy = "requirements", fetch = FetchType.EAGER, cascade = CascadeType.ALL)

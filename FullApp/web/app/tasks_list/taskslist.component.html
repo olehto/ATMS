@@ -88,7 +88,7 @@
                                     <td>{{task.dateStart | date}}</td>
                                     <td>{{task.status.value}}</td>
                                     <td>{{task.deadline | date}}</td>
-                                    <td><a [routerLink] = "['/edit_task']">Edit</a></td>
+                                    <td><a [routerLink] = "['/edit_task']" [queryParams]="{ id: task.taskId }">Edit</a></td>
                                 </tr>
                                 </tbody>
                             </table>

@@ -16,11 +16,13 @@ var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var user_service_1 = require("../_services/user.service");
 var project_service_1 = require("../_services/project.service");
+var sprint_service_1 = require("../_services/sprint.service");
 var EditSprintComponent = (function () {
-    function EditSprintComponent(projectService, userService, route, router) {
+    function EditSprintComponent(sprintService, userService, projectService, route, router) {
         var _this = this;
-        this.projectService = projectService;
+        this.sprintService = sprintService;
         this.userService = userService;
+        this.projectService = projectService;
         this.route = route;
         this.router = router;
         this.model = {};
@@ -34,9 +36,9 @@ var EditSprintComponent = (function () {
     };
     EditSprintComponent.prototype.update = function () {
         var _this = this;
-        this.projectService.update(this.model).subscribe(function (response) {
+        this.sprintService.updateSprint(this.model).subscribe(function (response) {
             console.log(response);
-            _this.router.navigate(['/projects_list']);
+            _this.router.navigate(['/sprint_list']);
         });
     };
     EditSprintComponent.prototype.fill = function () {
@@ -44,11 +46,10 @@ var EditSprintComponent = (function () {
         this.getAllProjects().subscribe(function (response) {
             _this.projects = response;
         });
-        this.projectService.getById(this.id).subscribe(function (response) {
+        this.sprintService.getById(this.id).subscribe(function (response) {
             console.log(response);
-            _this.model.projectId = response.projectId;
-            _this.model.description = response.description;
-            _this.model.title = response.title;
+            _this.model.sprintId = response.sprintId;
+            //this.model.project=response.sprint.project;
             var temp = new Date(response.dateStart);
             var date = temp.getFullYear() + "-";
             if (temp.getMonth().toString().length === 1) {
@@ -65,7 +66,7 @@ var EditSprintComponent = (function () {
             }
             console.log(date);
             _this.model.dateStart = date;
-            temp = new Date(response.deadline);
+            temp = new Date(response.dateEnd);
             date = temp.getFullYear() + "-";
             if (temp.getMonth().toString().length === 1) {
                 date += "0" + temp.getMonth() + "-";
@@ -79,7 +80,7 @@ var EditSprintComponent = (function () {
             else {
                 date += temp.getDay();
             }
-            _this.model.deadline = date;
+            _this.model.dateEnd = date;
         });
     };
     EditSprintComponent.prototype.getDeveloper = function (id) {
@@ -94,10 +95,11 @@ EditSprintComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'edit-sprint',
-        templateUrl: 'edit_project.component.html'
+        templateUrl: 'edit_sprint.component.html'
     }),
-    __metadata("design:paramtypes", [project_service_1.ProjectService,
+    __metadata("design:paramtypes", [sprint_service_1.SprintService,
         user_service_1.UserService,
+        project_service_1.ProjectService,
         router_1.ActivatedRoute,
         router_1.Router])
 ], EditSprintComponent);
