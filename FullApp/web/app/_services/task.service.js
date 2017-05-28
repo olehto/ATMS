@@ -38,7 +38,8 @@ var TaskService = (function () {
         params.set('description', task.description);
         params.set('dateStart', start + "");
         params.set('deadline', finish + "");
-        params.set('duration', task.duration.toLocaleString());
+        params.set('assignedTime', task.assignedTime + "");
+        params.set('closeTime', task.closeTime + "");
         params.set('version', "1.0.0");
         params.set('type', task.type.toLocaleString());
         params.set('developer', task.developer.toLocaleString());
@@ -63,7 +64,8 @@ var TaskService = (function () {
         params.set('description', task.description);
         params.set('dateStart', start + "");
         params.set('deadline', finish + "");
-        params.set('duration', task.duration.toLocaleString());
+        params.set('assignedTime', task.assignedTime + "");
+        params.set('closeTime', task.closeTime + "");
         params.set('version', "1.0.0");
         params.set('type', task.type.toLocaleString());
         params.set('developer', task.developer.toLocaleString());

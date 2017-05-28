@@ -18,6 +18,7 @@ import {TypeService} from "../_services/type.service";
 import {StatusService} from "../_services/status.service";
 import {PriorityService} from "../_services/priority.service";
 import {Sprint} from "../_models/sprint";
+import {KeywordService} from "../_services/keyword.service";
 
 @Component({
     moduleId: module.id,
@@ -41,6 +42,7 @@ export class EditTaskComponent implements OnInit {
     constructor(private taskService: TaskService,
                 private userService: UserService,
                 private projectService: ProjectService,
+                private keywordService: KeywordService,
                 private typeService: TypeService,
                 private statusService: StatusService, private priorityService: PriorityService,
                 private route: ActivatedRoute,
@@ -124,13 +126,19 @@ export class EditTaskComponent implements OnInit {
                 this.model.type=response.type;
                 this.model.status=response.status;
                 this.model.priority=response.priority;
-                this.model.project="1";
+                this.model.project=response.projects.title;
                 this.model.developer=JSON.parse(localStorage.getItem('token')).developer_id;
                 console.log(this.model);
             }
         )
     }
-
+    test(){
+        this.keywordService.add("test",this.id,0.5).subscribe(
+            response=>{
+                console.log(response);
+            }
+        )
+    }
     update(){
         console.log(this.model);
         this.taskService.update(this.model,parseInt(this.model.project.toLocaleString()),

@@ -20,12 +20,14 @@ var project_service_1 = require("../_services/project.service");
 var type_service_1 = require("../_services/type.service");
 var status_service_1 = require("../_services/status.service");
 var priority_service_1 = require("../_services/priority.service");
+var keyword_service_1 = require("../_services/keyword.service");
 var EditTaskComponent = (function () {
-    function EditTaskComponent(taskService, userService, projectService, typeService, statusService, priorityService, route, router) {
+    function EditTaskComponent(taskService, userService, projectService, keywordService, typeService, statusService, priorityService, route, router) {
         var _this = this;
         this.taskService = taskService;
         this.userService = userService;
         this.projectService = projectService;
+        this.keywordService = keywordService;
         this.typeService = typeService;
         this.statusService = statusService;
         this.priorityService = priorityService;
@@ -102,9 +104,14 @@ var EditTaskComponent = (function () {
             _this.model.type = response.type;
             _this.model.status = response.status;
             _this.model.priority = response.priority;
-            _this.model.project = "1";
+            _this.model.project = response.projects.title;
             _this.model.developer = JSON.parse(localStorage.getItem('token')).developer_id;
             console.log(_this.model);
+        });
+    };
+    EditTaskComponent.prototype.test = function () {
+        this.keywordService.add("test", this.id, 0.5).subscribe(function (response) {
+            console.log(response);
         });
     };
     EditTaskComponent.prototype.update = function () {
@@ -138,6 +145,7 @@ EditTaskComponent = __decorate([
     __metadata("design:paramtypes", [task_service_1.TaskService,
         user_service_1.UserService,
         project_service_1.ProjectService,
+        keyword_service_1.KeywordService,
         type_service_1.TypeService,
         status_service_1.StatusService, priority_service_1.PriorityService,
         router_1.ActivatedRoute,

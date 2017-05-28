@@ -29,6 +29,10 @@ public class KeywordServiceImpl implements KeywordService {
     }
 
     @Override
+    public Keyword findByValue(String value){
+        return keywordRepository.findByValue(value);
+    }
+    @Override
     public Keyword update(Keyword keyword) {
         return keywordRepository.saveAndFlush(keyword);
     }

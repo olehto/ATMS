@@ -23,6 +23,8 @@ var my_projects_component_1 = require("./my_projects/my_projects.component");
 var edit_task_component_1 = require("./edit_task/edit_task.component");
 var edit_project_component_1 = require("./edit_project/edit_project.component");
 var new_sprint_component_1 = require("./new_sprint/new_sprint.component");
+var edit_sprint_component_1 = require("./edit_sprint/edit_sprint.component");
+var sprint_list_component_1 = require("./sprint_list/sprint_list.component");
 var appRoutes = [
     { path: 'login', component: index_1.LoginComponent },
     { path: 'register', component: index_2.RegisterComponent },
@@ -42,6 +44,8 @@ var appRoutes = [
     { path: 'newpass', component: newpass_component_1.NewPasswordComponent },
     { path: 'restore', component: restore_component_1.RestoreComponent },
     { path: 'new_sprint', component: new_sprint_component_1.NewSprintComponent },
+    { path: 'edit_sprint', component: edit_sprint_component_1.EditSprintComponent },
+    { path: 'sprint_list', component: sprint_list_component_1.SprintListComponent },
     { path: '**', redirectTo: '' }
 ];
 exports.routing = router_1.RouterModule.forRoot(appRoutes);

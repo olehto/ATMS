@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Set;
 
@@ -18,8 +17,9 @@ public class Task {
     private String description;
     private Timestamp dateStart;
     private Timestamp deadline;
+    private Timestamp assignedTime;
+    private Timestamp closeTime;
     private String version;
-    private Time duration;
     private Task parent;
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Task> subtasks;
@@ -43,6 +43,7 @@ public class Task {
     private Requirement requirement;
     @JsonIdentityReference(alwaysAsId = true)
     private Set<TaskKeyword> keywords;
+
 
     @Id
     @GeneratedValue
@@ -100,14 +101,34 @@ public class Task {
         this.version = version;
     }
 
-    @Column(name = "duration")
-    public Time getDuration() {
-        return duration;
+    @Column
+    public Timestamp getAssignedTime() {
+        return assignedTime;
     }
 
-    public void setDuration(Time duration) {
-        this.duration = duration;
+    public void setAssignedTime(Timestamp assignedTime) {
+        this.assignedTime = assignedTime;
     }
+
+    @Column
+    public Timestamp getCloseTime() {
+        return closeTime;
+    }
+
+    public void setCloseTime(Timestamp closeTime) {
+        this.closeTime = closeTime;
+    }
+
+    @Transient
+    public int getEstimationTime() {
+        return deadline.getNanos() - dateStart.getNanos();
+    }
+
+    @Transient
+    public double getActualTime() {
+        return closeTime.getNanos() - assignedTime.getNanos();
+    }
+
 
     @ManyToOne
     @JoinColumn(name = "priority_id", referencedColumnName = "priority_id")

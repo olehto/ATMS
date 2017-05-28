@@ -23,14 +23,16 @@ export class StatisticsComponent {
     id: number;
     nickname:string;
     condition: boolean;
-
+    options: Object;
     constructor(private taskService: TaskService,
                 private userService: UserService,
                 private route: ActivatedRoute,
                 private router: Router ) {
+
         this.nickname=JSON.parse(localStorage.getItem('token')).nickname;
         this.task = new Task();
         this.id=JSON.parse(localStorage.getItem('token')).developer_id;
+        
     }
 
     ngOnInit() {
@@ -47,6 +49,7 @@ export class StatisticsComponent {
     getDeveloper(id:number){
         return this.userService.getById(this.id);
     }
+
 
     public barChartOptions: any = {
         scaleShowVerticalLines: false,
@@ -93,4 +96,5 @@ export class StatisticsComponent {
             }
         )
     }
+
 }

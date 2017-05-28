@@ -21,7 +21,7 @@ public class Developer {
     private String telephone;
     private String nickname;
     private String password;
-    private Double loading;
+    private Double developerLoad;
     private Double rate;
     @JsonIdentityReference(alwaysAsId = true)
     private DevType devType;
@@ -49,7 +49,7 @@ public class Developer {
         this.telephone = developer.getTelephone();
         this.nickname = developer.getNickname();
         this.password = developer.getPassword();
-        this.loading = developer.getLoading();
+        this.developerLoad = developer.getDeveloperLoad();
         this.rate = developer.getRate();
         this.devType = developer.getDevType();
         this.tasksAsDeveloper = developer.getTasksAsDeveloper();
@@ -133,13 +133,13 @@ public class Developer {
         this.password = password;
     }
 
-    @Column(name = "loading")
-    public Double getLoading() {
-        return loading;
+    @Column(name = "developerLoad")
+    public Double getDeveloperLoad() {
+        return developerLoad;
     }
 
-    public void setLoading(Double loading) {
-        this.loading = loading;
+    public void setDeveloperLoad(Double developerLoad) {
+        this.developerLoad = developerLoad;
     }
 
     @Column(name = "rate")

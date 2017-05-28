@@ -55,25 +55,30 @@
 </div>
 <div class="container wrapper">
     <div class="row content">
-        <form name="form" <!--(ngSubmit)="update()"-->>
-            <div class="col-md-3">
+        <form name="form" (ngSubmit)="update()">
+            <div class="col-md-12">
                 <div class="form-group">
                     <label>Date start</label>
                     <form>
-                        <input type="date" class="form-control" name="calendar" [(ngModel)]="model.dateStart" />
+                        <input type="date" class="form-control" name="calendar"
+                               [(ngModel)]="model.dateStart"/>
                     </form>
                 </div>
                 <div class="form-group">
                     <label>Deadline</label>
                     <form>
-                        <input type="date" class="form-control" name="calendar1" [(ngModel)]="model.deadline" />
+                        <input type="date" class="form-control" name="calendar"
+                               [(ngModel)]="model.dateEnd"/>
                     </form>
                 </div>
-                <button class="btn bnt-success">Save</button>
-            </div>
-            <div class="col-md-9">
-                <label>Description</label>
-                <textarea class="form-control" rows="12" [(ngModel)]="model.description" name="description"></textarea>
+                <div class="form-group">
+                    <label>Project</label>
+                    <select class="form-control" [(ngModel)]="model.project" name="project">
+                        <option *ngFor="let project of projects" value={{project.projectId}}>{{project.title}}</option>
+                    </select>
+                </div>
+                <button class="btn bnt-success">Create</button>
+                <!--<a class="more" (click)="newsprint()">Create</a>-->
             </div>
         </form>
     </div>

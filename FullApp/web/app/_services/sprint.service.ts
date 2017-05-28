@@ -27,18 +27,22 @@ export class SprintService {
     }
 
     createSprint(sprint:Sprint){
+        let id=sprint.project.toLocaleString();
+        sprint.project=undefined;
         const body = JSON.stringify(sprint);
         console.log(body);
         let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
         headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
-        return this.http.post(this.httpAdress+'/api/sprint',body, { headers: headers }).map((response: Response) => response.json());
+        return this.http.post(this.httpAdress+'/api/sprint/add/'+id,body, { headers: headers }).map((response: Response) => response.json());
     }
 
     updateSprint(sprint:Sprint){
+        let id=sprint.project.toLocaleString();
+        sprint.project=undefined;
         const body = JSON.stringify(sprint);
         console.log(body);
         let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
         headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
-        return this.http.post(this.httpAdress+'/api/sprint',body, { headers: headers }).map((response: Response) => response.json());
+        return this.http.put(this.httpAdress+'/api/sprint/'+sprint.sprintId+'/upd/'+id,body, { headers: headers }).map((response: Response) => response.json());
     }
 }

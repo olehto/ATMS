@@ -27,6 +27,7 @@ var TasksComponent = (function () {
         this.userService = userService;
         this.route = route;
         this.router = router;
+        this.selectedText = '';
         this.model = {};
         this.developers = [];
         this.nickname = JSON.parse(localStorage.getItem('token')).nickname;
@@ -42,10 +43,33 @@ var TasksComponent = (function () {
         }
         this.fill();
     };
+    TasksComponent.prototype.lightSelection = function () {
+        var userSelection = window.getSelection();
+        for (var i = 0; i < userSelection.rangeCount; i++) {
+            this.highlight(userSelection.getRangeAt(i));
+        }
+    };
+    TasksComponent.prototype.highlight = function (range) {
+        var newNode = document.createElement("span");
+        newNode.setAttribute("style", "background-color: yellow; display: inline;");
+        range.surroundContents(newNode);
+    };
+    TasksComponent.prototype.showSelectedText = function (oField) {
+        var text = this.task.description.toString();
+        if (window.getSelection) {
+            text = window.getSelection().toString();
+        }
+        else if (document.selection && document.selection.type != "Control") {
+            text = document.selection.createRange().text;
+        }
+        this.selectedText = text;
+        console.log(text);
+    };
     TasksComponent.prototype.fill = function () {
         var _this = this;
         this.getTask(this.id).subscribe(function (response) {
             _this.task = response;
+            _this.keywords();
             console.log(response);
             _this.getDeveloper(parseInt(_this.task.developer.toLocaleString())).subscribe(function (response) {
                 console.log(response);
@@ -70,6 +94,21 @@ var TasksComponent = (function () {
                 }
             }
         });
+    };
+    TasksComponent.prototype.keywords = function () {
+        var div2 = document.getElementById("keywords");
+        var arr = this.task.description.split(" ");
+        div2.innerHTML = "";
+        for (var i = 0; i < arr.length; i++) {
+            var span = document.createElement("span");
+            span.innerText = arr[i];
+            span.addEventListener("click", function () {
+                alert(this.innerText);
+                console.log(this.innerText);
+            });
+            div2.appendChild(span);
+            div2.appendChild(document.createTextNode(" "));
+        }
     };
     TasksComponent.prototype.getDeveloper = function (id) {
         return this.userService.getById(id);
