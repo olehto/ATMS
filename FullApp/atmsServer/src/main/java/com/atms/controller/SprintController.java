@@ -36,6 +36,19 @@ public class SprintController {
         return new ResponseEntity<>(sprints, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/api/sprints/project/{projectId}", method = RequestMethod.GET)
+    public ResponseEntity<List<Sprint>> getByProject(@PathVariable("projectId") int projectId) {
+        Project project=projectService.findOne(projectId);
+        if(project==null){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        List<Sprint> sprints = sprintService.findByProject(project);
+        if (sprints == null) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(sprints, HttpStatus.OK);
+    }
+
     @RequestMapping(value = "/api/sprint/{sprintId}", method = RequestMethod.GET)
     public ResponseEntity<Sprint> get(@PathVariable("sprintId") String sprintId) {
         Sprint sprint = sprintService.findOne(Integer.parseInt(sprintId));

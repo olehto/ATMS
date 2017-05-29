@@ -1,5 +1,6 @@
 package com.atms.service;
 
+import com.atms.model.Project;
 import com.atms.model.Sprint;
 
 import java.util.List;
@@ -7,7 +8,6 @@ import java.util.List;
 /**
  * Interface of business layer that describe work with Sprint entity
  *
- * @author Alex Kazanovskiy
  */
 public interface SprintService {
 
@@ -18,6 +18,8 @@ public interface SprintService {
     Sprint findOne(Integer id);
 
     List<Sprint> findAll();
+
+    List<Sprint> findByProject(Project project);
 
     boolean delete(Integer id);
 }

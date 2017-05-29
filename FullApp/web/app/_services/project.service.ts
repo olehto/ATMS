@@ -27,6 +27,8 @@ export class ProjectService {
     }
 
     create(project: Project) {
+        project.dateStart=Date.parse(project.dateStart+"");
+        project.deadline=Date.parse(project.deadline+"");
         const body = JSON.stringify(project);
         console.log(body);
         let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
@@ -40,6 +42,8 @@ export class ProjectService {
         return  this.http.get(this.httpAdress+'/api/project/developer/' + id,{headers: headers}).map((response: Response) => response.json());
     }
     update(project: Project) {
+        project.dateStart=Date.parse(project.dateStart+"");
+        project.deadline=Date.parse(project.deadline+"");
         const body = JSON.stringify(project);
         console.log(body);
         let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });

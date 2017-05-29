@@ -30,6 +30,8 @@ var ProjectService = (function () {
         return this.http.get(this.httpAdress + '/api/project/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
     ProjectService.prototype.create = function (project) {
+        project.dateStart = Date.parse(project.dateStart + "");
+        project.deadline = Date.parse(project.deadline + "");
         var body = JSON.stringify(project);
         console.log(body);
         var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
@@ -42,6 +44,8 @@ var ProjectService = (function () {
         return this.http.get(this.httpAdress + '/api/project/developer/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
     ProjectService.prototype.update = function (project) {
+        project.dateStart = Date.parse(project.dateStart + "");
+        project.deadline = Date.parse(project.deadline + "");
         var body = JSON.stringify(project);
         console.log(body);
         var headers = new http_1.Headers({ 'Content-Type': 'application/json;charset=utf-8' });

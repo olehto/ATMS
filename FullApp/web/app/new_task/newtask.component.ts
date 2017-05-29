@@ -18,6 +18,7 @@ import {TypeService} from "../_services/type.service";
 import {StatusService} from "../_services/status.service";
 import {PriorityService} from "../_services/priority.service";
 import {Sprint} from "../_models/sprint";
+import {SprintService} from "../_services/sprint.service";
 
 @Component({
     moduleId: module.id,
@@ -40,7 +41,7 @@ export class NewTaskComponent implements OnInit {
     constructor(private taskService: TaskService,
                 private userService: UserService,
                 private projectService: ProjectService,
-                private typeService: TypeService,
+                private typeService: TypeService, private sprintService: SprintService,
                 private statusService: StatusService, private priorityService: PriorityService,
                 private route: ActivatedRoute,
                 private router: Router) {
@@ -72,7 +73,14 @@ export class NewTaskComponent implements OnInit {
         this.priorities = JSON.parse(sessionStorage.getItem('priorities'));
         this.types = JSON.parse(sessionStorage.getItem('types'));
     }
-
+    sprintLoading(newValue){
+        console.log(newValue);
+        this.sprintService.getByProject(this.model.project).subscribe(
+            response=>{
+                /////загрузка спринтов
+            }
+        )
+    }
     newtask() {
         console.log(this.model);
         this.taskService.create(this.model,parseInt(this.model.project.toLocaleString()),
