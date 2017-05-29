@@ -235,7 +235,7 @@ public class Task {
         this.requirement = requirement;
     }
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     public Set<TaskKeyword> getKeywords() {
         return keywords;
     }

@@ -191,7 +191,7 @@ public class Developer {
         this.authorities = authorities;
     }
 
-    @OneToMany(mappedBy = "developer")
+    @OneToMany(mappedBy = "developer", fetch = FetchType.EAGER)
     public Set<DeveloperEffectiveness> getDeveloperEffectiveness() {
         return developerEffectiveness;
     }
@@ -200,5 +200,10 @@ public class Developer {
         this.developerEffectiveness = developerEffectiveness;
     }
 
-
+    @Override
+    public String toString() {
+        return "Developer{" +
+                "developerId=" + developerId +
+                '}';
+    }
 }

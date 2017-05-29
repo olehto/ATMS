@@ -17,6 +17,9 @@ public class DeveloperEffectiveness {
     private Keyword keyword;
     private Double deviation;
 
+    public DeveloperEffectiveness() {
+    }
+
     public DeveloperEffectiveness(Developer developer, Keyword keyword, Double deviation) {
         this.developer = developer;
         this.keyword = keyword;

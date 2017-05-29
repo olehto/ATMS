@@ -14,4 +14,6 @@ public interface StatisticsService {
     Developer getSuitableDeveloper(Task task);
 
     Map<Integer, Integer> getSuitableMap(List<Developer> developers, List<Task> tasks);
+
+    double avgDeviation(Developer developer, Task task);
 }
