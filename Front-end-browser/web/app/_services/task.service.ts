@@ -9,7 +9,6 @@ import {UserService} from "./user.service";
 
 @Injectable()
 export class TaskService {
-
     httpAdress: string;
     constructor(private http: Http) {
         this.httpAdress= 'http://localhost:8080';
@@ -37,7 +36,8 @@ export class TaskService {
         params.set('description', task.description );
         params.set('dateStart',start+"");
         params.set('deadline',finish+"");
-        params.set('duration',task.duration.toLocaleString());
+        params.set('assignedTime',task.assignedTime+"");
+        params.set('closeTime',task.closeTime+"");
         params.set('version',"1.0.0");
         params.set('type',task.type.toLocaleString());
         params.set('developer',task.developer.toLocaleString());
@@ -63,7 +63,8 @@ export class TaskService {
         params.set('description', task.description );
         params.set('dateStart',start+"");
         params.set('deadline',finish+"");
-        params.set('duration',task.duration.toLocaleString());
+        params.set('assignedTime',task.assignedTime+"");
+        params.set('closeTime',task.closeTime+"");
         params.set('version',"1.0.0");
         params.set('type',task.type.toLocaleString());
         params.set('developer',task.developer.toLocaleString());

@@ -78,8 +78,8 @@
                 <tbody>
                 <tr *ngFor="let sprint of sprints; let i = index" class="table">
                     <td><a [routerLink]="['/project']" [queryParams]="{ id: sprint.sprintId }">{{sprintId}}</a></td>
-                    <td>{{project.dateStart | date}}</td>
-                    <td>{{project.dateEnd | date}}</td>
+                    <td>{{sprint.dateStart | date}}</td>
+                    <td>{{sprint.dateEnd | date}}</td>
                     <td><a [routerLink]="['/edit_sprint']" [queryParams]="{ id: sprint.sprintId }">Edit</a></td>
                     <td><a [routerLink]="['/new_sprint']">New</a></td>
                 </tr>

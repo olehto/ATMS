@@ -20,11 +20,13 @@ var task_service_1 = require("../_services/task.service");
 var router_1 = require("@angular/router");
 var task_1 = require("../_models/task");
 var user_service_1 = require("../_services/user.service");
+var keyword_service_1 = require("../_services/keyword.service");
 var TasksComponent = (function () {
-    function TasksComponent(taskService, userService, route, router) {
+    function TasksComponent(taskService, userService, keywordService, route, router) {
         var _this = this;
         this.taskService = taskService;
         this.userService = userService;
+        this.keywordService = keywordService;
         this.route = route;
         this.router = router;
         this.selectedText = '';
@@ -69,7 +71,6 @@ var TasksComponent = (function () {
         var _this = this;
         this.getTask(this.id).subscribe(function (response) {
             _this.task = response;
-            _this.keywords();
             console.log(response);
             _this.getDeveloper(parseInt(_this.task.developer.toLocaleString())).subscribe(function (response) {
                 console.log(response);
@@ -96,19 +97,9 @@ var TasksComponent = (function () {
         });
     };
     TasksComponent.prototype.keywords = function () {
-        var div2 = document.getElementById("keywords");
-        var arr = this.task.description.split(" ");
-        div2.innerHTML = "";
-        for (var i = 0; i < arr.length; i++) {
-            var span = document.createElement("span");
-            span.innerText = arr[i];
-            span.addEventListener("click", function () {
-                alert(this.innerText);
-                console.log(this.innerText);
-            });
-            div2.appendChild(span);
-            div2.appendChild(document.createTextNode(" "));
-        }
+        this.keywordService.add(this.selectedText, this.id, 0.5).subscribe(function (response) {
+            console.log(response);
+        });
     };
     TasksComponent.prototype.getDeveloper = function (id) {
         return this.userService.getById(id);
@@ -141,6 +132,7 @@ TasksComponent = __decorate([
     }),
     __metadata("design:paramtypes", [task_service_1.TaskService,
         user_service_1.UserService,
+        keyword_service_1.KeywordService,
         router_1.ActivatedRoute,
         router_1.Router])
 ], TasksComponent);

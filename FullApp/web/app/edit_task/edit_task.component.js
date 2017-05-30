@@ -21,20 +21,26 @@ var type_service_1 = require("../_services/type.service");
 var status_service_1 = require("../_services/status.service");
 var priority_service_1 = require("../_services/priority.service");
 var keyword_service_1 = require("../_services/keyword.service");
+var sprint_service_1 = require("../_services/sprint.service");
 var EditTaskComponent = (function () {
-    function EditTaskComponent(taskService, userService, projectService, keywordService, typeService, statusService, priorityService, route, router) {
+    function EditTaskComponent(taskService, userService, projectService, keywordService, typeService, sprintService, statusService, priorityService, route, router) {
         var _this = this;
         this.taskService = taskService;
         this.userService = userService;
         this.projectService = projectService;
         this.keywordService = keywordService;
         this.typeService = typeService;
+        this.sprintService = sprintService;
         this.statusService = statusService;
         this.priorityService = priorityService;
         this.route = route;
         this.router = router;
         this.model = {};
         this.developers = [];
+        this.test = 5;
+        this.minValue = 1;
+        this.maxValue = 10;
+        this.selectedText = '';
         this.nickname = JSON.parse(localStorage.getItem('token')).nickname;
         this.querySubscription = route.queryParams.subscribe(function (queryParam) {
             _this.id = queryParam['id'];
@@ -43,6 +49,20 @@ var EditTaskComponent = (function () {
     EditTaskComponent.prototype.ngOnInit = function () {
         this.fill();
     };
+    EditTaskComponent.prototype.lightSelection = function () {
+        var userSelection = window.getSelection();
+        for (var i = 0; i < userSelection.rangeCount; i++) {
+            this.highlight(userSelection.getRangeAt(i));
+        }
+    };
+    EditTaskComponent.prototype.highlight = function (range) {
+        var newNode = document.createElement("span");
+        newNode.setAttribute("style", "background-color: yellow; display: inline;");
+        range.surroundContents(newNode);
+    };
+    EditTaskComponent.prototype.onSelect = function (e) {
+        this.selectedText = e;
+    };
     EditTaskComponent.prototype.fill = function () {
         var _this = this;
         this.getAllDevelopers().subscribe(function (response) {
@@ -50,6 +70,9 @@ var EditTaskComponent = (function () {
         });
         this.getAllTasks().subscribe(function (response) {
             _this.tasks = response;
+        });
+        this.getAllSprint().subscribe(function (response) {
+            _this.sprints = response;
         });
         this.getAllProjects().subscribe(function (response) {
             _this.projects = response;
@@ -109,10 +132,12 @@ var EditTaskComponent = (function () {
             console.log(_this.model);
         });
     };
-    EditTaskComponent.prototype.test = function () {
-        this.keywordService.add("test", this.id, 0.5).subscribe(function (response) {
+    EditTaskComponent.prototype.keywords = function () {
+        this.keywordService.add(this.selectedText, this.id, 0.5).subscribe(function (response) {
             console.log(response);
         });
+    };
+    EditTaskComponent.prototype.sprint_load = function () {
     };
     EditTaskComponent.prototype.update = function () {
         var _this = this;
@@ -131,6 +156,9 @@ var EditTaskComponent = (function () {
     EditTaskComponent.prototype.getAllTasks = function () {
         return this.taskService.getAll();
     };
+    EditTaskComponent.prototype.getAllSprint = function () {
+        return this.sprintService.getAll();
+    };
     EditTaskComponent.prototype.getAllProjects = function () {
         return this.projectService.getAll();
     };
@@ -147,6 +175,7 @@ EditTaskComponent = __decorate([
         project_service_1.ProjectService,
         keyword_service_1.KeywordService,
         type_service_1.TypeService,
+        sprint_service_1.SprintService,
         status_service_1.StatusService, priority_service_1.PriorityService,
         router_1.ActivatedRoute,
         router_1.Router])

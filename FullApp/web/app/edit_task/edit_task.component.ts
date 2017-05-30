@@ -19,6 +19,7 @@ import {StatusService} from "../_services/status.service";
 import {PriorityService} from "../_services/priority.service";
 import {Sprint} from "../_models/sprint";
 import {KeywordService} from "../_services/keyword.service";
+import {SprintService} from "../_services/sprint.service";
 
 @Component({
     moduleId: module.id,
@@ -33,10 +34,16 @@ export class EditTaskComponent implements OnInit {
     projects: Project[];
     priorities: Priority[];
     types: Type[];
+    sprints: Sprint[];
     statuses: Status[];
     nickname:string;
+    task: Task;
     tempTask:Task;
     id: number;
+    test: number = 5;
+    minValue: number = 1;
+    maxValue: number = 10;
+    selectedText: string = '';
     private querySubscription: Subscription;
 
     constructor(private taskService: TaskService,
@@ -44,6 +51,7 @@ export class EditTaskComponent implements OnInit {
                 private projectService: ProjectService,
                 private keywordService: KeywordService,
                 private typeService: TypeService,
+                private sprintService: SprintService,
                 private statusService: StatusService, private priorityService: PriorityService,
                 private route: ActivatedRoute,
                 private router: Router) {
@@ -53,11 +61,32 @@ export class EditTaskComponent implements OnInit {
                 this.id = queryParam['id'];
             }
         );
+
     }
 
     ngOnInit() {
         this.fill();
+
     }
+    lightSelection() {
+        let userSelection = window.getSelection();
+        for(let i = 0; i < userSelection.rangeCount; i++) { // получаем местоположение выделеного текста
+            this.highlight(userSelection.getRangeAt(i));
+        }
+    }
+
+
+    highlight(range) {
+        let newNode = document.createElement("span");
+        newNode.setAttribute(
+            "style",
+            "background-color: yellow; display: inline;"
+        );
+        range.surroundContents(newNode);
+    }
+        onSelect(e) {
+            this.selectedText = e;
+        }
 
     fill() {
         this.getAllDevelopers().subscribe(
@@ -68,6 +97,11 @@ export class EditTaskComponent implements OnInit {
         this.getAllTasks().subscribe(
             (response) => {
                 this.tasks = response;
+            }
+        );
+        this.getAllSprint().subscribe(
+            (response) => {
+                this.sprints = response;
             }
         );
         this.getAllProjects().subscribe(
@@ -132,13 +166,17 @@ export class EditTaskComponent implements OnInit {
             }
         )
     }
-    test(){
-        this.keywordService.add("test",this.id,0.5).subscribe(
+    keywords(){
+        this.keywordService.add(this.selectedText,this.id,0.5).subscribe(
             response=>{
                 console.log(response);
             }
         )
     }
+    sprint_load(){
+
+    }
+
     update(){
         console.log(this.model);
         this.taskService.update(this.model,parseInt(this.model.project.toLocaleString()),
@@ -161,6 +199,9 @@ export class EditTaskComponent implements OnInit {
 
     getAllTasks() {
         return this.taskService.getAll();
+    }
+    getAllSprint() {
+        return this.sprintService.getAll();
     }
 
     getAllProjects() {

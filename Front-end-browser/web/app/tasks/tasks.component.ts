@@ -17,6 +17,7 @@ import {Token} from "../_models/token";
 import {Type} from "../_models/type";
 import {Priority} from "../_models/priority";
 import {Status} from "../_models/status";
+import {KeywordService} from "../_services/keyword.service";
 
 
 @Component({
@@ -36,6 +37,7 @@ export class TasksComponent implements OnInit {
 
     constructor(private taskService: TaskService,
                 private userService: UserService,
+                private keywordService: KeywordService,
                 private route: ActivatedRoute,
                 private router: Router ) {
         this.nickname=JSON.parse(localStorage.getItem('token')).nickname;
@@ -61,6 +63,7 @@ export class TasksComponent implements OnInit {
         this.highlight(userSelection.getRangeAt(i));
     }
 }
+
 
    highlight(range) {
     let newNode = document.createElement("span");
@@ -89,7 +92,8 @@ export class TasksComponent implements OnInit {
         this.getTask(this.id).subscribe(
             (response) =>{
                 this.task=response;
-                this.keywords();
+
+
                 console.log(response);
                 this.getDeveloper(parseInt(this.task.developer.toLocaleString())).subscribe(
                     response=>{
@@ -120,25 +124,13 @@ export class TasksComponent implements OnInit {
         );
 
     }
+
     keywords(){
-        let div2 = document.getElementById("keywords");
-
-        let arr = this.task.description.split(" ");
-        div2.innerHTML = "";
-
-        for(let i = 0; i < arr.length; i++)
-        {
-            let span = document.createElement("span");
-            span.innerText = arr[i];
-            span.addEventListener("click", function() {
-                alert(this.innerText);
-                console.log(this.innerText);
-            });
-
-            div2.appendChild(span);
-            div2.appendChild(document.createTextNode(" "));
-            console.log("llll")
-        }
+        this.keywordService.add(this.selectedText,this.id,0.5).subscribe(
+            response=>{
+                console.log(response);
+            }
+        )
 
     }
     getDeveloper(id:number){
