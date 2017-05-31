@@ -81,6 +81,12 @@
                                         <option *ngFor="let project of projects" value={{project.projectId}}>{{project.title}}</option>
                                     </select>
                                 </div>
+                            <div class="form-group">
+                                <label>Sprint</label>
+                                <select class="form-control" [(ngModel)]="model.sprint" name="project">
+                                    <option *ngFor="let sprint of sprints" value={{sprint.sprintId}}>{{sprint.sprintId}}</option>
+                                </select>
+                            </div>
                                 <div class="form-group" >
                                     <label >Priority</label>
                                     <select class="form-control" [(ngModel)]="model.priority" name="priority">
@@ -105,12 +111,12 @@
                                         <option *ngFor="let status of statuses" value={{status.statusId}}>{{status.value}}</option>
                                     </select>
                                 </div>
-                                <div class="form-group">
+                               <!-- <div class="form-group">
                                     <label>Requirements</label>
                                     <form>
                                         <input type="text" class="form-control" />
                                     </form>
-                                </div>
+                                </div>-->
 
                                 <button class="btn bnt-success">Create</button>
 

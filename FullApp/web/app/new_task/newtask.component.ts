@@ -18,6 +18,7 @@ import {TypeService} from "../_services/type.service";
 import {StatusService} from "../_services/status.service";
 import {PriorityService} from "../_services/priority.service";
 import {Sprint} from "../_models/sprint";
+import {SprintService} from "../_services/sprint.service";
 
 @Component({
     moduleId: module.id,
@@ -32,6 +33,7 @@ export class NewTaskComponent implements OnInit {
     projects: Project[];
     priorities: Priority[];
     types: Type[];
+    sprints: Sprint[];
     statuses: Status[];
     nickname:string;
     tempTask:Task;
@@ -39,6 +41,7 @@ export class NewTaskComponent implements OnInit {
 
     constructor(private taskService: TaskService,
                 private userService: UserService,
+                private sprintService: SprintService,
                 private projectService: ProjectService,
                 private typeService: TypeService,
                 private statusService: StatusService, private priorityService: PriorityService,
@@ -56,6 +59,11 @@ export class NewTaskComponent implements OnInit {
         this.getAllDevelopers().subscribe(
             (response) => {
                 this.developers = response;
+            }
+        );
+        this.getAllSprint().subscribe(
+            (response) => {
+                this.sprints = response;
             }
         );
         this.getAllTasks().subscribe(
@@ -100,5 +108,8 @@ export class NewTaskComponent implements OnInit {
 
     getAllProjects() {
         return this.projectService.getAll();
+    }
+    getAllSprint() {
+        return this.sprintService.getAll();
     }
 }

@@ -70,6 +70,14 @@
                                 </div>
                                 <button (click)="loadByDate()">Update</button>
                             </div>
+                            <div style="display: block">
+                                <canvas baseChart
+                                        [datasets]="radarChartData"
+                                        [labels]="radarChartLabels"
+                                        [chartType]="radarChartType"
+                                        (chartHover)="chartHovered($event)"
+                                        (chartClick)="chartClicked($event)"></canvas>
+                            </div>
                         </div>
                         <div class="col-md-3" style="margin-bottom: 10px">
                             <label>Period from:</label>
@@ -80,6 +88,7 @@
                             </div>
                     </div>
             <chart [options]="options"></chart>
+
         </div>
     </div>
 <div class="container-fluid">

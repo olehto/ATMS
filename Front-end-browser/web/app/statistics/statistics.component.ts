@@ -35,13 +35,15 @@ export class StatisticsComponent {
         this.id=JSON.parse(localStorage.getItem('token')).developer_id;
         this.options = {
             chart: {
-                type: 'column'
+                type: 'column',
+                plotBorderWidth: 1,
+                zoomType: 'xy'
             },
             title: {
                 text: 'Stacked column chart'
             },
             xAxis: {
-                categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+                categories: ['Harin', 'Kazanovkiy', 'Vasilenko', 'Shmelev', 'Serpent']
             },
             yAxis: {
                 min: 0,
@@ -81,15 +83,35 @@ export class StatisticsComponent {
                 }
             },
             series: [{
-                name: 'John',
-                data: [5, 3, 4, 7, 2]
-            }, {
-                name: 'Jane',
-                data: [2, 2, 3, 2, 1], color: 'red'
-            }, {
-                name: 'Joe',
-                data: [3, 4, 4, 2, 5]
-            }]
+                name: 'Suisselle',
+                data: [0.2, 0.4, 0.32, 0.7, 0.22], color: 'red'
+            },
+                {
+                name: 'ATMS',
+                data: [0.2, 0.5, 0.36, 0.72, 0.1], color: 'yellow'
+            },
+                {
+                    name: 'horario',
+                    data: [0.2, 0.4, 0.7, 0.21, 0.31]
+                },
+                {
+                    name: 'devun',
+                    data: [0.2, 0.7, 0.3, 0.12, 0.55], color: 'green'
+                },
+                {
+                name: 'java',
+                data: [0.2, 0.2, 0.3, 0.7, 0.1]
+            },
+                {
+                    name: 'angular2',
+                    data: [0.2, 0.1, 0.32, 0.77, 0.55]
+                },
+
+                {
+                    name: 'android',
+                    data: [0.2, 0.4, 0.3, 0.7, 0.9]
+                }
+                ]
         };
 
     }
@@ -108,6 +130,18 @@ export class StatisticsComponent {
     getDeveloper(id:number){
         return this.userService.getById(this.id);
     }
+    public radarChartLabels:string[] = ['Horarrio', 'Atms', 'java', 'andriod', 'angular2', 'devun', 'php'];
+
+    public radarChartData:any = [
+        {data: [18, 88, 20, 29, 10, 27, 20], color: 'red', label: 'ATMS'},
+        {data: [28, 48, 40, 19, 96, 27, 100], color: 'blue', label: 'Horarrio'},
+        {data: [78, 28, 40, 29, 16, 27, 20], color: 'green', label: 'Suisselle'},
+        {data: [38, 28, 60, 49, 36,37, 60], color: 'green', label: 'devun'}
+    ];
+
+    public radarChartType:string = 'radar';
+
+    // events
 
 
     public barChartOptions: any = {
@@ -120,7 +154,8 @@ export class StatisticsComponent {
 
     public barChartData: any[] = [
         {data: [65, 59], label: 'Expected time'},
-        {data: [28, 48], label: 'Real time'}
+        {data: [28, 48], label: 'Real time'},
+
     ];
 
     // events

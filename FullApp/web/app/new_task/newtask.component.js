@@ -20,10 +20,12 @@ var project_service_1 = require("../_services/project.service");
 var type_service_1 = require("../_services/type.service");
 var status_service_1 = require("../_services/status.service");
 var priority_service_1 = require("../_services/priority.service");
+var sprint_service_1 = require("../_services/sprint.service");
 var NewTaskComponent = (function () {
-    function NewTaskComponent(taskService, userService, projectService, typeService, statusService, priorityService, route, router) {
+    function NewTaskComponent(taskService, userService, sprintService, projectService, typeService, statusService, priorityService, route, router) {
         this.taskService = taskService;
         this.userService = userService;
+        this.sprintService = sprintService;
         this.projectService = projectService;
         this.typeService = typeService;
         this.statusService = statusService;
@@ -42,6 +44,9 @@ var NewTaskComponent = (function () {
         var _this = this;
         this.getAllDevelopers().subscribe(function (response) {
             _this.developers = response;
+        });
+        this.getAllSprint().subscribe(function (response) {
+            _this.sprints = response;
         });
         this.getAllTasks().subscribe(function (response) {
             _this.tasks = response;
@@ -73,6 +78,9 @@ var NewTaskComponent = (function () {
     NewTaskComponent.prototype.getAllProjects = function () {
         return this.projectService.getAll();
     };
+    NewTaskComponent.prototype.getAllSprint = function () {
+        return this.sprintService.getAll();
+    };
     return NewTaskComponent;
 }());
 NewTaskComponent = __decorate([
@@ -83,6 +91,7 @@ NewTaskComponent = __decorate([
     }),
     __metadata("design:paramtypes", [task_service_1.TaskService,
         user_service_1.UserService,
+        sprint_service_1.SprintService,
         project_service_1.ProjectService,
         type_service_1.TypeService,
         status_service_1.StatusService, priority_service_1.PriorityService,
