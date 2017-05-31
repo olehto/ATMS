@@ -22,12 +22,17 @@ var status_service_1 = require("../_services/status.service");
 var priority_service_1 = require("../_services/priority.service");
 var sprint_service_1 = require("../_services/sprint.service");
 var NewTaskComponent = (function () {
+<<<<<<< HEAD
     function NewTaskComponent(taskService, userService, sprintService, projectService, typeService, statusService, priorityService, route, router) {
+=======
+    function NewTaskComponent(taskService, userService, projectService, typeService, sprintService, statusService, priorityService, route, router) {
+>>>>>>> b58fac81087b42738eb56d76cb1ae73990f23d55
         this.taskService = taskService;
         this.userService = userService;
         this.sprintService = sprintService;
         this.projectService = projectService;
         this.typeService = typeService;
+        this.sprintService = sprintService;
         this.statusService = statusService;
         this.priorityService = priorityService;
         this.route = route;
@@ -57,6 +62,12 @@ var NewTaskComponent = (function () {
         this.statuses = JSON.parse(sessionStorage.getItem('statuses'));
         this.priorities = JSON.parse(sessionStorage.getItem('priorities'));
         this.types = JSON.parse(sessionStorage.getItem('types'));
+    };
+    NewTaskComponent.prototype.sprintLoading = function (newValue) {
+        console.log(newValue);
+        this.sprintService.getByProject(this.model.project).subscribe(function (response) {
+            /////загрузка спринтов
+        });
     };
     NewTaskComponent.prototype.newtask = function () {
         var _this = this;
@@ -93,7 +104,7 @@ NewTaskComponent = __decorate([
         user_service_1.UserService,
         sprint_service_1.SprintService,
         project_service_1.ProjectService,
-        type_service_1.TypeService,
+        type_service_1.TypeService, sprint_service_1.SprintService,
         status_service_1.StatusService, priority_service_1.PriorityService,
         router_1.ActivatedRoute,
         router_1.Router])

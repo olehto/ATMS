@@ -1,5 +1,6 @@
 package com.atms.service.impl;
 
+import com.atms.model.Project;
 import com.atms.model.Sprint;
 import com.atms.repository.SprintRepository;
 import com.atms.service.SprintService;
@@ -40,6 +41,11 @@ public class SprintServiceImpl implements SprintService {
     @Override
     public List<Sprint> findAll() {
         return sprintRepository.findAll();
+    }
+
+    @Override
+    public List<Sprint> findByProject(Project project) {
+        return sprintRepository.findByProject(project);
     }
 
     @Override

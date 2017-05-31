@@ -19,7 +19,11 @@ export class SprintService {
         headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.get(this.httpAdress+'/api/sprint',{headers: headers}).map((response: Response) => response.json());
     }
-
+    getByProject(id:number){
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
+        return this.http.get(this.httpAdress+'/api/sprints/project/' + id,{headers: headers}).map((response: Response) => response.json());
+    }
     getById(id: number) {
         let headers = new Headers();
         headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
@@ -29,6 +33,8 @@ export class SprintService {
     createSprint(sprint:Sprint){
         let id=sprint.project.toLocaleString();
         sprint.project=undefined;
+        sprint.dateStart=Date.parse(sprint.dateStart+"");
+        sprint.dateEnd=Date.parse(sprint.dateEnd+"");
         const body = JSON.stringify(sprint);
         console.log(body);
         let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
@@ -39,6 +45,8 @@ export class SprintService {
     updateSprint(sprint:Sprint){
         let id=sprint.project.toLocaleString();
         sprint.project=undefined;
+        sprint.dateStart=Date.parse(sprint.dateStart+"");
+        sprint.dateEnd=Date.parse(sprint.dateEnd+"");
         const body = JSON.stringify(sprint);
         console.log(body);
         let headers = new Headers({ 'Content-Type': 'application/json;charset=utf-8' });
