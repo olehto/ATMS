@@ -1,0 +1,12 @@
+INSERT INTO atms.developer_effectiveness (deviation, developer_id, keyword_id) VALUES (500, 1, 1);
+INSERT INTO atms.developer_effectiveness (deviation, developer_id, keyword_id) VALUES (100, 1, 6);
+INSERT INTO atms.developer_effectiveness (deviation, developer_id, keyword_id) VALUES (50, 1, 7);
+INSERT INTO atms.developer_effectiveness (deviation, developer_id, keyword_id) VALUES (500, 1, 9);
+INSERT INTO atms.developer_effectiveness (deviation, developer_id, keyword_id) VALUES (320, 1, 10);
+INSERT INTO atms.developer_effectiveness (deviation, developer_id, keyword_id) VALUES (625, 2, 11);
+INSERT INTO atms.developer_effectiveness (deviation, developer_id, keyword_id) VALUES (125, 2, 12);
+INSERT INTO atms.developer_effectiveness (deviation, developer_id, keyword_id) VALUES (150, 2, 13);
+INSERT INTO atms.developer_effectiveness (deviation, developer_id, keyword_id) VALUES (180, 2, 14);
+INSERT INTO atms.developer_effectiveness (deviation, developer_id, keyword_id) VALUES (200, 2, 15);
+INSERT INTO atms.developer_effectiveness (deviation, developer_id, keyword_id) VALUES (140, 2, 16);
+INSERT INTO atms.developer_effectiveness (deviation, developer_id, keyword_id) VALUES (50, 2, 17);
