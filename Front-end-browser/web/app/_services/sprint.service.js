@@ -29,6 +29,11 @@ var SprintService = (function () {
         headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.get(this.httpAdress + '/api/sprint/' + id, { headers: headers }).map(function (response) { return response.json(); });
     };
+    SprintService.prototype.getByProject = function (id) {
+        var headers = new http_1.Headers();
+        headers.append('Authorization', 'Bearer ' + JSON.parse(localStorage.getItem('token')).access_token);
+        return this.http.get(this.httpAdress + '/api/sprints/project/' + id, { headers: headers }).map(function (response) { return response.json(); });
+    };
     SprintService.prototype.createSprint = function (sprint) {
         var id = sprint.project.toLocaleString();
         sprint.project = undefined;

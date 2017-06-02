@@ -115,6 +115,10 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
+                                        <label>Keywords</label>
+                                        <p *ngFor="let keyword of keywords"><span class="select"> Keywords: </span>{{keyword.value}}</p>
+                                    </div>
+                                    <div class="form-group">
                                         <label>Requirements</label>
                                         <form>
                                             <input type="text" class="form-control" />
@@ -122,7 +126,7 @@
                                     </div>
 
                                     <button class="btn bnt-success">Save</button>
-                                    <a (click)="keywords()">Test keyword</a>
+                                    <a (click)="keywords_method()">Add keyword</a>
                                 </div>
                                 <div class="col-md-9">
                                     <label>Description</label>

@@ -68,6 +68,11 @@ var EditTaskComponent = (function () {
         this.getAllDevelopers().subscribe(function (response) {
             _this.developers = response;
         });
+        this.getAllKeywords().subscribe(function (response) {
+            _this.keywords = response;
+            console.log(response);
+            console.log(_this.keywords);
+        });
         this.getAllTasks().subscribe(function (response) {
             _this.tasks = response;
         });
@@ -132,8 +137,8 @@ var EditTaskComponent = (function () {
             console.log(_this.model);
         });
     };
-    EditTaskComponent.prototype.keywords = function () {
-        this.keywordService.add(this.selectedText, this.id, 0.5).subscribe(function (response) {
+    EditTaskComponent.prototype.keywords_method = function () {
+        this.keywordService.add(this.selectedText, this.id, this.test).subscribe(function (response) {
             console.log(response);
         });
     };
@@ -161,6 +166,9 @@ var EditTaskComponent = (function () {
     };
     EditTaskComponent.prototype.getAllProjects = function () {
         return this.projectService.getAll();
+    };
+    EditTaskComponent.prototype.getAllKeywords = function () {
+        return this.keywordService.getAll();
     };
     return EditTaskComponent;
 }());

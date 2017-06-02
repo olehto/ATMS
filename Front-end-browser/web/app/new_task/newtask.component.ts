@@ -35,6 +35,7 @@ export class NewTaskComponent implements OnInit {
     types: Type[];
     sprints: Sprint[];
     statuses: Status[];
+    sprintByProjects: [];
     nickname:string;
     tempTask:Task;
     id: number;
@@ -80,7 +81,14 @@ export class NewTaskComponent implements OnInit {
         this.priorities = JSON.parse(sessionStorage.getItem('priorities'));
         this.types = JSON.parse(sessionStorage.getItem('types'));
     }
-
+    sprintLoading(newValue){
+        console.log(newValue);
+        this.sprintService.getByProject(this.model.project).subscribe(
+            response=>{
+                this.sprintByProjects = response;
+            }
+        )
+    }
     newtask() {
         console.log(this.model);
         this.taskService.create(this.model,parseInt(this.model.project.toLocaleString()),

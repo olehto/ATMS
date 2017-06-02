@@ -20,6 +20,8 @@ import {PriorityService} from "../_services/priority.service";
 import {Sprint} from "../_models/sprint";
 import {KeywordService} from "../_services/keyword.service";
 import {SprintService} from "../_services/sprint.service";
+import {Keyword} from "../_models/keyword";
+import {TaskKeyword} from "../_models/taskKeyword";
 
 @Component({
     moduleId: module.id,
@@ -33,6 +35,7 @@ export class EditTaskComponent implements OnInit {
     developers: User [] = [];
     projects: Project[];
     priorities: Priority[];
+    keywords: TaskKeyword[];
     types: Type[];
     sprints: Sprint[];
     statuses: Status[];
@@ -92,6 +95,13 @@ export class EditTaskComponent implements OnInit {
         this.getAllDevelopers().subscribe(
             (response) => {
                 this.developers = response;
+            }
+        );
+        this.getAllKeywords().subscribe(
+            (response) => {
+                this.keywords = response;
+                console.log(response);
+                console.log(this.keywords);
             }
         );
         this.getAllTasks().subscribe(
@@ -166,8 +176,8 @@ export class EditTaskComponent implements OnInit {
             }
         )
     }
-    keywords(){
-        this.keywordService.add(this.selectedText,this.id,0.5).subscribe(
+    keywords_method(){
+        this.keywordService.add(this.selectedText,this.id,this.test).subscribe(
             response=>{
                 console.log(response);
             }
@@ -206,5 +216,8 @@ export class EditTaskComponent implements OnInit {
 
     getAllProjects() {
         return this.projectService.getAll();
+    }
+    getAllKeywords() {
+        return this.keywordService.getAll();
     }
 }

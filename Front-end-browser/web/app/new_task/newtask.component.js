@@ -58,6 +58,13 @@ var NewTaskComponent = (function () {
         this.priorities = JSON.parse(sessionStorage.getItem('priorities'));
         this.types = JSON.parse(sessionStorage.getItem('types'));
     };
+    NewTaskComponent.prototype.sprintLoading = function (newValue) {
+        var _this = this;
+        console.log(newValue);
+        this.sprintService.getByProject(this.model.project).subscribe(function (response) {
+            _this.sprintByProjects = response;
+        });
+    };
     NewTaskComponent.prototype.newtask = function () {
         var _this = this;
         console.log(this.model);

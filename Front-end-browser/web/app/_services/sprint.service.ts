@@ -25,7 +25,11 @@ export class SprintService {
         headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
         return this.http.get(this.httpAdress+'/api/sprint/' + id,{headers: headers}).map((response: Response) => response.json());
     }
-
+    getByProject(id:number){
+        let headers = new Headers();
+        headers.append('Authorization', 'Bearer '+ JSON.parse(localStorage.getItem('token')).access_token);
+        return this.http.get(this.httpAdress+'/api/sprints/project/' + id,{headers: headers}).map((response: Response) => response.json());
+    }
     createSprint(sprint:Sprint){
         let id=sprint.project.toLocaleString();
         sprint.project=undefined;
