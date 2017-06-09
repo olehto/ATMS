@@ -17,7 +17,6 @@ public class Project {
     private String description;
     private Timestamp dateStart;
     private Timestamp deadline;
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "sprintId")
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Sprint> sprints;
 

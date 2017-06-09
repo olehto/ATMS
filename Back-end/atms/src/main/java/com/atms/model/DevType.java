@@ -14,7 +14,6 @@ public class DevType {
 
     private int devTypeId;
     private String value;
-
     @JsonIgnore
     private Set<Developer> developers;
 

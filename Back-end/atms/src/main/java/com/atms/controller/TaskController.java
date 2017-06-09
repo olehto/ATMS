@@ -1,9 +1,6 @@
 package com.atms.controller;
 
-import com.atms.model.Priority;
-import com.atms.model.Project;
-import com.atms.model.Status;
-import com.atms.model.Task;
+import com.atms.model.*;
 import com.atms.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,13 +30,14 @@ public class TaskController {
     private final TypeService typeService;
     private final SprintService sprintService;
     private final DeveloperService developerService;
+    private final DeveloperEffectivenessService developerEffectivenessService;
 
     @Autowired
     public TaskController(ProjectService projectService, StatusService statusService,
                           PriorityService priorityService, TaskService taskService,
                           RequirementService requirementService,
                           TypeService typeService, SprintService sprintService,
-                          DeveloperService developerService) {
+                          DeveloperService developerService, DeveloperEffectivenessService developerEffectivenessService) {
         this.projectService = projectService;
         this.statusService = statusService;
         this.priorityService = priorityService;
@@ -48,6 +46,7 @@ public class TaskController {
         this.typeService = typeService;
         this.sprintService = sprintService;
         this.developerService = developerService;
+        this.developerEffectivenessService = developerEffectivenessService;
     }
 
     @RequestMapping(value = "/api/task", method = RequestMethod.GET)
@@ -185,7 +184,11 @@ public class TaskController {
         Task task = taskService.findOne(Integer.parseInt(taskId));
         if (task == null)
             return new ResponseEntity<>(NO_CONTENT);
+
         task.setCloseTime(closeTime);
+        for (TaskKeyword keyword : task.getKeywords()) {
+            developerEffectivenessService.save(new DeveloperEffectiveness(task.getDeveloper(), keyword.getKeyword(), (double) (task.getActualTime()) / task.getEstimationTime()));
+        }
         return new ResponseEntity<>(taskService.close(task), OK);
     }
 

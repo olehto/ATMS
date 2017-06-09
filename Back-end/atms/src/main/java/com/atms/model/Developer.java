@@ -25,10 +25,8 @@ public class Developer {
     private Double rate;
     @JsonIdentityReference(alwaysAsId = true)
     private DevType devType;
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "taskId")
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Task> tasksAsDeveloper;
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "taskId")
     @JsonIdentityReference(alwaysAsId = true)
     private Set<Task> tasksAsReporter;
     @JsonIgnore

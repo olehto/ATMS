@@ -126,7 +126,7 @@ public class Task {
 
     @Transient
     public int getActualTime() {
-        return closeTime.getNanos() - assignedTime.getNanos();
+        return closeTime != null && assignedTime != null ? closeTime.getNanos() - assignedTime.getNanos() : -1;
     }
 
 
@@ -243,6 +243,5 @@ public class Task {
     public void setKeywords(Set<TaskKeyword> keywords) {
         this.keywords = keywords;
     }
-
 
 }
