@@ -1,0 +1,1 @@
+INSERT INTO atms.sprint (date_end, date_start, project_id) VALUES ('2017-05-09', '2017-05-23', 2);
