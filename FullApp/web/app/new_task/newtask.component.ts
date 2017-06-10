@@ -35,6 +35,7 @@ export class NewTaskComponent implements OnInit {
     types: Type[];
     sprints: Sprint[];
     statuses: Status[];
+    sprintByProjects: [];
     nickname:string;
     tempTask:Task;
     id: number;
@@ -43,7 +44,7 @@ export class NewTaskComponent implements OnInit {
                 private userService: UserService,
                 private sprintService: SprintService,
                 private projectService: ProjectService,
-                private typeService: TypeService, private sprintService: SprintService,
+                private typeService: TypeService,
                 private statusService: StatusService, private priorityService: PriorityService,
                 private route: ActivatedRoute,
                 private router: Router) {
@@ -84,7 +85,7 @@ export class NewTaskComponent implements OnInit {
         console.log(newValue);
         this.sprintService.getByProject(this.model.project).subscribe(
             response=>{
-                /////загрузка спринтов
+                this.sprintByProjects = response;
             }
         )
     }

@@ -10,9 +10,9 @@ import javax.persistence.*;
  */
 
 @Entity
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "developerId")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "developerEffectivenessId")
 public class DeveloperEffectiveness {
-    private Integer developerEffectivenessId;
+    private Double developerEffectivenessId;
     private Developer developer;
     private Keyword keyword;
     private Double deviation;
@@ -22,15 +22,15 @@ public class DeveloperEffectiveness {
         this.keyword = keyword;
         this.deviation = deviation;
     }
-
+    public DeveloperEffectiveness() {}
     @Id
     @GeneratedValue
     @Column
-    public Integer getDeveloperEffectivenessId() {
+    public Double getDeveloperEffectivenessId() {
         return developerEffectivenessId;
     }
 
-    public void setDeveloperEffectivenessId(Integer developerEffectivenessId) {
+    public void setDeveloperEffectivenessId(Double developerEffectivenessId) {
         this.developerEffectivenessId = developerEffectivenessId;
     }
 

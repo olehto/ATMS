@@ -125,8 +125,8 @@ public class Task {
     }
 
     @Transient
-    public double getActualTime() {
-        return closeTime.getNanos() - assignedTime.getNanos();
+    public int getActualTime() {
+        return closeTime != null && assignedTime != null ? closeTime.getNanos() - assignedTime.getNanos() : -1;
     }
 
 
@@ -235,7 +235,7 @@ public class Task {
         this.requirement = requirement;
     }
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     public Set<TaskKeyword> getKeywords() {
         return keywords;
     }

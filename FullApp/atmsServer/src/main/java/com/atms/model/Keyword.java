@@ -12,7 +12,6 @@ import java.util.Set;
 public class Keyword {
     private int keywordId;
     private String value;
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "technologyId")
     @JsonIdentityReference(alwaysAsId = true)
     private Set<TaskKeyword> tasks;
     private Set<DeveloperEffectiveness> developerEffectivenesses;

@@ -34,7 +34,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         developerList = developerList.stream().filter(developer -> developer.getDeveloperEffectiveness().size() > 0).collect(Collectors.toList());
         int[][] a = new int[2][developerList.size() + 1];
         for (int i = 1; i <= developerList.size(); i++)
-            a[1][i] = getCoefficient(developerList.get(i), task);
+            a[1][i] = getCoefficient(developerList.get(i-1), task);
         return developerList.get(hungurian(a, 1, developerList.size())[0]);
     }
 
@@ -105,8 +105,8 @@ public class StatisticsServiceImpl implements StatisticsService {
         coefficient *= task.getEstimationTime() * avgDeviation(developer, task);
         return coefficient;
     }
-
-    private double avgDeviation(Developer developer, Task task) {
+    @Override
+    public double avgDeviation(Developer developer, Task task) {
         double avgDeviation = 0;
         for (TaskKeyword keyword : task.getKeywords()) {
             List<DeveloperEffectiveness> developerEffectiveness = developer.getDeveloperEffectiveness().stream().filter(developerEffectiveness1 -> developerEffectiveness1.getKeyword().equals(keyword)).collect(Collectors.toList());

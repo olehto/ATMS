@@ -26,12 +26,13 @@ public class TaskController {
     private final DeveloperService developerService;
     private final SprintService sprintService;
     private final RequirementService requirementService;
+    private final DeveloperEffectivenessService developerEffectivenessService;
 
     @Autowired
     public TaskController(ProjectService projectService, StatusService statusService,
                           PriorityService priorityService, TaskService taskService, TypeService typeService,
                           DeveloperService developerService,SprintService sprintService,
-                          RequirementService requirementService) {
+                          RequirementService requirementService, DeveloperEffectivenessService developerEffectivenessService) {
         this.projectService = projectService;
         this.statusService = statusService;
         this.priorityService = priorityService;
@@ -40,6 +41,7 @@ public class TaskController {
         this.developerService = developerService;
         this.sprintService=sprintService;
         this.requirementService = requirementService;
+        this.developerEffectivenessService = developerEffectivenessService;
     }
 
     @RequestMapping(value = "/api/task", method = RequestMethod.GET)
@@ -282,6 +284,9 @@ public class TaskController {
         if (task == null)
             return new ResponseEntity<>(NO_CONTENT);
         task.setCloseTime(closeTime);
+        for (TaskKeyword keyword : task.getKeywords()) {
+            developerEffectivenessService.save(new DeveloperEffectiveness(task.getDeveloper(), keyword.getKeyword(), (double) (task.getActualTime()) / task.getEstimationTime()));
+        }
         return new ResponseEntity<>(taskService.close(task), OK);
     }
 }

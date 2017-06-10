@@ -36,7 +36,6 @@ import {SprintListComponent} from "./sprint_list/sprint_list.component";
 import {ChartComponent, ChartModule} from "angular2-highcharts";
 import {KeywordService} from "./_services/keyword.service";
 
-
 @NgModule({
     imports: [
         BrowserModule,

@@ -71,13 +71,16 @@
 
                         </div>
 
-            <h3>Descriptions </h3>
+            <h3>Select some text </h3>
             <div (mouseup)="lightSelection()" (mouseup)="showSelectedText()" property="selection">
             {{task.description}}
-
-                <a (click)="keywords()">Test keyword</a>
             </div>
             <br/>
+            <h3>Selected Text</h3>
+            <div>{{selectedText}}</div>
+                        <div id="keywords" class="col-md-9">
+                            {{task.description}}
+                        </div>
 
         </div>
         <ul class="buttons">
